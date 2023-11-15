@@ -1,0 +1,32 @@
+@import "../src/fonts/fonts.scss";
+@import "../src/styles/variables.scss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: $--color-black;
+
+  .container {
+    max-width: 1304px;
+  }
+}
+
+h1,
+ul,
+p {
+  margin: 0;
+}

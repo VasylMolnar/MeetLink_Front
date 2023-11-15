@@ -1,0 +1,105 @@
+/* variables */
+
+/* Colors */
+$--color-black: #000000;
+$--color-white: #ffffff;
+
+$--color-black-60: mix($--color-black, $--color-white, 60%); // #666666
+$--color-black-40: mix($--color-black, $--color-white, 40%); // #999999
+$--color-black-10: mix($--color-black, $--color-white, 10%);
+$--color-black-05: mix($--color-black, $--color-white, 5%);
+
+$--color-primary: #feea00;
+$--color-primary-60: mix($--color-primary, $--color-white, 60%);
+$--color-primary-40: mix($--color-primary, $--color-white, 40%);
+$--color-primary-10: mix($--color-black, $--color-primary, 10%);
+
+$--color-secondary: #ef97e3;
+$--color-secondary-60: mix($--color-secondary, $--color-white, 60%);
+$--color-secondary-40: mix($--color-secondary, $--color-white, 40%);
+$--color-secondary-10: mix($--color-black, $--color-secondary, 10%);
+
+$--green: #63c7b2;
+$--red: #ed6767;
+$--blue: #0126e5;
+$--color-light-blue: #5d5fef;
+$--purple: #94a9e8;
+$--additional-red: #f56969;
+$--color-steel-gray: #737791;
+$--color-light-gray: #fafbfc;
+$--color-royal-blue: #4079ed;
+$--color-soft-purple: #f3e8ff;
+$--color-bright-purple: #bf83ff;
+$--color-pastel-green: #dcfce7;
+$--color-fresh-green: #3cd856;
+$--color-cream: #fff4de;
+$--color-coral: #ff947a;
+$--color-pale-pink: #ffe2e5;
+$--color-candy-pink: #fa5a7d;
+
+/* Spaces */
+$--space-4: 4px;
+$--space-8: 8px;
+$--space-12: 12px;
+$--space-16: 16px;
+$--space-24: 24px;
+$--space-32: 32px;
+$--space-48: 48px;
+$--space-64: 64px;
+
+/* Typography */
+$--font-size-small: 12px;
+$--font-size-base: 16px;
+$--font-size-medium: 20px;
+$--font-size-large: 24px;
+$--font-size-32: 32px;
+
+/* Size */
+$--size-base: $--font-size-base;
+
+/* Icon */
+$--icon-size-20: 20px;
+$--icon-size-24: 24px;
+
+/* Input */
+$--input-font-size: $--font-size-base;
+$--input-font-color: $--color-black;
+$--input-height: 40px;
+$--input-padding: 16px;
+$--input-max-width: 300px;
+
+/* Break-point */
+$--sm: 576px;
+$--md: 768px;
+$--lg: 992px;
+$--xl: 1200px;
+$--xxl: 1400px;
+
+/* Elements */
+$--footer-bg: $--color-black;
+$--footer-color: $--color-white;
+
+/* Border */
+$--border-width: 2px;
+$--border-color: $--color-black;
+$--border-radius: 6px;
+
+$--base-border: $--border-width solid $--border-color;
+
+/* Shadow */
+$--base-shadow: $--space-4 $--space-4 $--color-black;
+
+/* Btns */
+$--btn-border: $--base-border;
+$--btn-primary-color: $--color-white;
+$--btn-primary-bg: $--color-black;
+
+$--btn-outline-color: $--color-black;
+$--btn-outline-bg: $--color-white;
+$--btn-outline-active-color: $--color-white;
+$--btn-outline-active-bg: $--color-black;
+
+/* Alert danger */
+$--bs-alert-color: $--red;
+$--bs-alert-bg: rgba(237, 103, 103, 0.1);
+$--bs-alert-border-color: $--red;
