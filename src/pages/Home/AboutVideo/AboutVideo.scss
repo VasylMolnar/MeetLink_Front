@@ -1,7 +1,125 @@
 @import "../../../styles/variables";
 
 .about_video {
-  width: 100%;
-  height: 300px;
-  background-color: red;
+  position: relative;
+  padding: 250px 0 50px 0;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 200px;
+  }
+
+  .large_meetings {
+    width: 517px;
+    height: 399px;
+    border-radius: 15px;
+  }
+
+  .small_meetings {
+    width: 235px;
+    height: 154px;
+    border-radius: 10px;
+  }
+
+  .frame {
+    width: 271px;
+    height: 50px;
+  }
+
+  .first_block_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .background {
+      position: relative;
+      width: 635px;
+      height: 363px;
+
+      border-radius: 10px;
+      background: #f7dbcb;
+    }
+  }
+
+  .second_block_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 150px;
+
+    .background {
+      position: relative;
+      width: 635px;
+      height: 363px;
+
+      border-radius: 10px;
+      background: $--color-pastel-green;
+    }
+  }
+
+  .tex_content {
+    max-width: 500px;
+
+    &_header {
+      font-family: Oxanium;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    &_titele {
+      font-family: Oxanium;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    &_footer {
+      font-family: Oxanium;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  .img_content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
+  }
+
+  .large_meetings {
+    position: relative;
+  }
+
+  .small_meetings {
+    position: absolute;
+    top: -17%;
+    right: -17%;
+  }
+
+  .frame {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 150%);
+  }
+
+  .vector {
+    width: 538px;
+    height: 491px;
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+
+    z-index: -1;
+  }
 }
