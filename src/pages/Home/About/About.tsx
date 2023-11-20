@@ -1,12 +1,36 @@
 import { Button } from "react-bootstrap";
 import "./About.scss";
 import video from "../../../assets/background.mp4";
+import mobileVideo from "../../../assets/background1.2.mp4";
+import { useEffect, useState } from "react";
 
 const About = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const isMobile = windowWidth <= 430;
+
   return (
     <section className="section about">
       <div className="video_content">
-        <video src={video} className="video" loop autoPlay muted></video>
+        <video
+          src={isMobile ? mobileVideo : video}
+          className="video"
+          loop
+          autoPlay
+          muted
+        ></video>
       </div>
 
       <div className="tex_content">

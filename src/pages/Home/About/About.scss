@@ -24,10 +24,16 @@
     flex-direction: column;
     text-align: center;
 
+    min-width: 360px;
+
     .title {
       font-weight: 500;
       text-transform: uppercase;
-      font-size: 15px;
+      font-size: 25px;
+
+      @media (min-width: 431px) {
+        font-size: 15px;
+      }
 
       @media screen and (min-width: $--sm) {
         font-size: 20px;
@@ -44,8 +50,13 @@
 
     .footer_text {
       font-weight: 400;
-      font-size: 10px;
-      margin: 0 0 5px 0;
+      font-size: 15px;
+      margin: 0 0 25px 0;
+
+      @media (min-width: 431px) {
+        font-size: 10px;
+        margin: 0 0 5px 0;
+      }
 
       @media screen and (min-width: $--sm) {
         font-size: 15px;
@@ -55,6 +66,10 @@
         margin: 50px 0 70px 0;
         font-size: 20px;
       }
+    }
+
+    @media (min-width: 431px) {
+      min-width: none;
     }
   }
 

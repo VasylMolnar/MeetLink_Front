@@ -6,8 +6,39 @@ import small_meetings1 from "../../../assets/small_meetings1.png";
 import small_meetings2 from "../../../assets/small_meetings2.png";
 import frame from "../../../assets/Frame.png";
 import vector from "../../../assets/Vector.png";
+import { useEffect, useRef, useState } from "react";
 
 const AboutVideo = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const aboutChatRef = useRef(null);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    if (aboutChatRef.current) {
+      observer.observe(aboutChatRef.current);
+    }
+
+    return () => {
+      if (aboutChatRef.current) {
+        observer.unobserve(aboutChatRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="section about_video">
       <Container>
@@ -26,7 +57,12 @@ const AboutVideo = () => {
             </div>
           </div>
 
-          <div className="tex_content">
+          <div
+            ref={aboutChatRef}
+            className={`tex_content ${
+              isVisible ? "animate__animated animate__backInRight" : "hidden"
+            }`}
+          >
             <span className="tex_content_header">
               Безкоштовні відеозустрічі
             </span>
@@ -45,7 +81,11 @@ const AboutVideo = () => {
         <img src={vector} alt="vector" className="vector" />
 
         <div className="second_block_content">
-          <div className="tex_content">
+          <div
+            className={`tex_content ${
+              isVisible ? "animate__animated animate__backInLeft" : "hidden"
+            }`}
+          >
             <span className="tex_content_header">Особливості</span>
             <h1 className="tex_content_title">Обговорюйте ідеї</h1>
             <span className="tex_content_footer">

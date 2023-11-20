@@ -1,3 +1,4 @@
+import "./Home.scss";
 import Footer from "../../components/Footer/Footer";
 import About from "./About/About";
 import AboutChat from "./AboutChat/AboutChat";
