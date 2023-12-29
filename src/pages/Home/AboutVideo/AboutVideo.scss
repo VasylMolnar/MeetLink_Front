@@ -96,16 +96,6 @@
     max-width: 500px;
     text-align: center;
 
-    &.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    &.animate__animated animate__zoomInRight {
-      opacity: 0;
-      visibility: visible;
-    }
-
     &_header {
       font-family: Oxanium;
       font-size: 20px;

@@ -1,39 +1,8 @@
 import "./AboutChat.scss";
 import { Container } from "react-bootstrap";
-import chatVideo from "../../../assets/chatVideo.mp4";
-import { useEffect, useRef, useState } from "react";
+import chatVideo from "../../../assets/chatVideo2.mp4";
 
 const AboutChat = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const aboutChatRef = useRef(null);
-
-  useEffect(() => {
-    const options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, options);
-
-    if (aboutChatRef.current) {
-      observer.observe(aboutChatRef.current);
-    }
-
-    return () => {
-      if (aboutChatRef.current) {
-        observer.unobserve(aboutChatRef.current);
-      }
-    };
-  }, []);
-
   return (
     <section className="about_chat">
       <Container>
@@ -52,12 +21,7 @@ const AboutChat = () => {
           </span>
         </div>
 
-        <div
-          ref={aboutChatRef}
-          className={`about_chat_video_content ${
-            isVisible ? "animate__animated animate__zoomInRight" : "hidden"
-          }`}
-        >
+        <div className="about_chat_video_content">
           <video
             src={chatVideo}
             className="chatVideo"
@@ -72,4 +36,3 @@ const AboutChat = () => {
 };
 
 export default AboutChat;
-//animate__backInRight

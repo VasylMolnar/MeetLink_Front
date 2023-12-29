@@ -1,0 +1,60 @@
+@import "../../styles//variables";
+
+.footer {
+  padding: $--space-16 0;
+  background-color: $--footer-bg;
+  color: $--footer-color;
+  font-size: $--font-size-small;
+  line-height: 18px;
+  font-weight: 400;
+
+  a {
+    color: $--footer-color;
+    text-decoration: none;
+  }
+
+  &-links {
+    margin-top: $--space-8;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &-link {
+    display: inline-flex;
+    font-weight: 700;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    & + .footer-link {
+      margin-top: $--space-4;
+    }
+  }
+}
+
+@media (min-width: $--md) {
+  .footer {
+    &-links {
+      margin-top: 0;
+      justify-content: flex-end;
+      flex-direction: row;
+    }
+
+    &-link {
+      padding: 0 $--space-12;
+      border-right: 1px solid #666;
+
+      &:last-child {
+        padding-right: 0;
+        border: none;
+      }
+
+      & + .sniff-footer-link {
+        margin-top: 0;
+      }
+    }
+  }
+}

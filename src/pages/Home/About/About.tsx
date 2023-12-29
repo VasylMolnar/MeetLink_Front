@@ -3,6 +3,7 @@ import "./About.scss";
 import video from "../../../assets/background.mp4";
 import mobileVideo from "../../../assets/background1.2.mp4";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -42,7 +43,9 @@ const About = () => {
           якість зображення та безпека на першому місці.
         </span>
 
-        <Button className="btn">Спробуйте безкоштовно</Button>
+        <Link to="/auth-form">
+          <Button className="btn">Спробуйте безкоштовно</Button>
+        </Link>
       </div>
     </section>
   );
