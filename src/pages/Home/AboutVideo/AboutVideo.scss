@@ -2,11 +2,9 @@
 
 .about_video {
   position: relative;
-  margin: 150px 0 50px 0;
-  background-color: $--color-light-gray;
 
   @media (min-width: $--md) {
-    margin: 270px 0 50px 0;
+    margin: 150px 0 50px 0;
   }
 
   .container {
@@ -31,8 +29,9 @@
       height: 210px;
 
       border-radius: 10px;
-      background-color: #f7dbcb;
+      background-color: rgba(255, 255, 255, 0.563);
       box-shadow: 5px 5px 17px 5px rgba(0, 0, 0, 0.27);
+      z-index: 0;
     }
 
     @media (min-width: $--md) {
@@ -68,7 +67,7 @@
       height: 210px;
 
       border-radius: 10px;
-      background-color: $--color-pastel-green;
+      background-color: rgba(255, 255, 255, 0.472);
       box-shadow: 5px 5px 17px 5px rgba(0, 0, 0, 0.27);
     }
 
@@ -156,10 +155,6 @@
     border-radius: 15px;
 
     @media (min-width: $--md) {
-      box-shadow: 1px 1px 0px 0px $--color-light-gray,
-        2px 2px 0px 0px $--color-light-gray, 5px 5px 0px 0px $--color-light-gray,
-        7px 7px 0px 0px $--color-cream, -20px 42px 9px 5px rgba(0, 0, 0, 0.06);
-
       width: 377px;
       height: 299px;
     }

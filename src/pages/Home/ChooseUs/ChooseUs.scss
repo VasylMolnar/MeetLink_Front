@@ -1,0 +1,22 @@
+@import "../../../styles/variables";
+
+.choose_us {
+  margin: 150px 0 0 0;
+
+  @media (min-width: $--lg) {
+    margin: 0;
+  }
+
+  .container {
+    padding: 50px 20px;
+    min-height: 600px;
+
+    @media (min-width: $--md) {
+      padding: 0;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0px;
+      padding: 50px 20px;
+    }
+  }
+}

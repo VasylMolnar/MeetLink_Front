@@ -1,6 +1,6 @@
 import "./AboutChat.scss";
 import { Container } from "react-bootstrap";
-import chatVideo from "../../../assets/chatVideo2.mp4";
+import chat from "../../../assets/chat.png";
 
 const AboutChat = () => {
   return (
@@ -21,14 +21,8 @@ const AboutChat = () => {
           </span>
         </div>
 
-        <div className="about_chat_video_content">
-          <video
-            src={chatVideo}
-            className="chatVideo"
-            loop
-            autoPlay
-            muted
-          ></video>
+        <div className="about_chat_img">
+          <img src={chat} alt="chat" className="chat_img" />
         </div>
       </Container>
     </section>
