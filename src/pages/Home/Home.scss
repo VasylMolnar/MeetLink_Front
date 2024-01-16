@@ -2,4 +2,38 @@
 
 .home {
   background-color: $--color-light-gray;
+
+  .sun {
+    animation-name: rotate;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  .balloon {
+    animation-name: balloon;
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes balloon {
+    0% {
+      transform: translateY(0px);
+    }
+
+    100% {
+      transform: translateY(-250px);
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 }

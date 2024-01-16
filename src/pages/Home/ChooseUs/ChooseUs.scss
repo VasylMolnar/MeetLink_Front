@@ -1,9 +1,21 @@
 @import "../../../styles/variables";
 
 .choose_us {
-  margin: 150px 0 0 0;
+  margin: 450px 0 0 0;
 
-  @media (min-width: $--lg) {
+  @media (min-width: 360px) {
+    margin: 250px 0 0 0;
+  }
+
+  @media (min-width: 375px) {
+    margin: 0;
+  }
+
+  @media (min-width: 414px) {
+    margin: 85px 0 0 0;
+  }
+
+  @media (min-width: $--xl) {
     margin: 0;
   }
 
@@ -17,6 +29,39 @@
       flex-wrap: nowrap;
       gap: 0px;
       padding: 50px 20px;
+    }
+  }
+
+  li {
+    // font-family: Oxanium;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 10px;
+  }
+
+  &_title {
+    // font-family: Oxanium;
+    font-size: 25px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: normal;
+    margin-bottom: 25px;
+  }
+
+  &_footer {
+    // font-family: Oxanium;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: $--md) {
+    .title {
+      font-size: 25px;
     }
   }
 }

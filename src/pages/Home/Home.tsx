@@ -6,9 +6,11 @@ import About from "./About/About";
 import AboutChat from "./AboutChat/AboutChat";
 import AboutVideo from "./AboutVideo/AboutVideo";
 import ChooseUs from "./ChooseUs/ChooseUs";
-import meteor from "../../assets/meteor.png";
-import astronaut from "../../assets/astronaut.png";
-import sputnik1 from "../../assets/sputnik1.png";
+import sun from "../../assets/sun1.png";
+import balloon from "../../assets/balloon3.png";
+import balloon1 from "../../assets/balloon1.png";
+import balloon2 from "../../assets/balloon2.png";
+import earth from "../../assets/earth1.png";
 
 const Home = () => {
   const parallax = useRef<IParallax>(null!);
@@ -48,7 +50,11 @@ const Home = () => {
             pointerEvents: "none",
           }}
         >
-          <img src={url("earth")} style={{ width: "50%" }} />
+          <img
+            src={earth}
+            style={{ width: "40%", marginBottom: "350px" }}
+            className="earth"
+          />
         </ParallaxLayer>
 
         <ParallaxLayer offset={4} speed={-0.06} style={{ zIndex: 1 }}>
@@ -67,24 +73,24 @@ const Home = () => {
           }}
         />
 
-        {/* meteor */}
+        {/* cloud */}
         <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
           <img
-            src={meteor}
+            src={url("cloud")}
             style={{ display: "block", width: "10%", marginLeft: "80%" }}
           />
           <img
-            src={meteor}
+            src={url("cloud")}
             style={{ display: "block", width: "15%", marginLeft: "15%" }}
           />
           <img
-            src={meteor}
+            src={url("cloud")}
             style={{ display: "block", width: "7%", marginLeft: "1%" }}
           />
         </ParallaxLayer>
 
         {/* cloud */}
-        <ParallaxLayer offset={3} speed={0.8} style={{ opacity: 0.1 }}>
+        <ParallaxLayer offset={3} speed={0.8} style={{ opacity: 0.2 }}>
           <img
             src={url("cloud")}
             style={{ display: "block", width: "20%", marginLeft: "55%" }}
@@ -109,31 +115,42 @@ const Home = () => {
           />
         </ParallaxLayer>
 
-        {/* satellite4 */}
-        <ParallaxLayer
-          offset={1.3}
-          speed={-0.3}
-          style={{ pointerEvents: "none" }}
-        >
+        {/* sun */}
+        <ParallaxLayer offset={3.4} speed={-0.3} style={{ opacity: 0.7 }}>
           <img
-            src={url("satellite4")}
-            style={{ width: "15%", marginLeft: "70%", opacity: "0.5" }}
+            src={sun}
+            style={{ display: "block", width: "10%", marginLeft: "73%" }}
+            className="sun"
           />
         </ParallaxLayer>
 
-        {/* astronaut */}
-        <ParallaxLayer offset={2.6} speed={-0.1} style={{ opacity: 0.7 }}>
+        {/* balloon */}
+        <ParallaxLayer offset={3.5} speed={-0.1} style={{ opacity: 0.7 }}>
           <img
-            src={astronaut}
-            style={{ display: "block", width: "10%", marginLeft: "43%" }}
+            src={balloon}
+            style={{ display: "block", width: "5%", marginLeft: "13%" }}
+            className="balloon"
           />
         </ParallaxLayer>
 
-        {/* sputnik1 */}
-        <ParallaxLayer offset={2.7} speed={-0.1} style={{ opacity: 0.7 }}>
+        {/* balloon */}
+        <ParallaxLayer offset={2.2} speed={+0.3} style={{ opacity: 0.7 }}>
           <img
-            src={sputnik1}
-            style={{ display: "block", width: "10%", marginLeft: "13%" }}
+            src={balloon2}
+            style={{ display: "block", width: "7%", marginLeft: "10%" }}
+            className="balloon"
+          />
+
+          <img
+            src={balloon1}
+            style={{ display: "block", width: "5%", marginLeft: "25%" }}
+            className="balloon"
+          />
+
+          <img
+            src={balloon}
+            style={{ display: "block", width: "10%", marginLeft: "80%" }}
+            className="balloon"
           />
         </ParallaxLayer>
       </Parallax>

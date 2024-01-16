@@ -1,0 +1,33 @@
+i[class^="icon-"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+}
+
+.icon {
+  &-vaccination {
+    width: 20px;
+    height: 20px;
+    background-image: url("../assets/icons/vaccination.svg");
+  }
+
+  &-steralization {
+    width: 20px;
+    height: 20px;
+    background-image: url("../assets/icons/steralization.svg");
+  }
+
+  &-arrow-left {
+    width: 16px;
+    height: 16px;
+    background-image: url("../assets/icons/arrow-left.svg");
+  }
+
+  &-arrow-right {
+    @extend .icon-arrow-left;
+    transform: rotate(180deg);
+  }
+}

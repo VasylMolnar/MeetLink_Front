@@ -1,7 +1,14 @@
 @import "../../../styles/variables";
 
 .about_chat {
-  margin: 250px 0 0 0;
+  margin: 450px 0 0 0;
+
+  @media (min-width: 375px) {
+    margin: 250px 0 0 0;
+  }
+  @media (min-width: 414px) {
+    margin: 275px 0 0 0;
+  }
 
   @media (min-width: $--lg) {
     margin: 350px 0 0 0;
@@ -40,7 +47,7 @@
     color: $--color-white;
 
     &_header {
-      font-family: Oxanium;
+      // font-family: Oxanium;
       font-size: 20px;
       font-style: normal;
       font-weight: 400;
@@ -50,7 +57,7 @@
     }
 
     &_title {
-      font-family: Oxanium;
+      // font-family: Oxanium;
       font-size: 25px;
       font-weight: 800;
       text-transform: uppercase;
@@ -59,7 +66,7 @@
     }
 
     &_footer {
-      font-family: Oxanium;
+      // font-family: Oxanium;
       font-size: 20px;
       font-style: normal;
       font-weight: 400;

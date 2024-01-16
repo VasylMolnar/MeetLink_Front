@@ -5,7 +5,7 @@ const ChooseUs = () => {
   return (
     <section className="section choose_us">
       <Container>
-        <h1 className="title">Чому Meet Link такий популярний?</h1>
+        <h1 className="choose_us_title">Чому Meet Link такий популярний</h1>
 
         <ul>
           <li>
@@ -29,7 +29,7 @@ const ChooseUs = () => {
           </li>
         </ul>
 
-        <p>
+        <p className="choose_us_footer">
           Приєднуйтеся до Meet Link сьогодні та долучайтесь до спільноти
           задоволених користувачів, які обрали найкраще рішення для своїх
           онлайн-зустрічей. Створюйте зв'язки, працюйте ефективно та залишайтеся
