@@ -1,0 +1,107 @@
+@import "../../styles/variables";
+
+.meet-link-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-block: 2rem;
+  background-color: $--color-white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  .logout-btn {
+    width: 140px;
+    height: 45px;
+    color: #5d7285;
+    background-color: $--color-white;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: $--color-steel-gray;
+      box-shadow: 0px 15px 20px $--color-steel-gray;
+      color: #fff;
+      transform: translateY(-7px);
+    }
+  }
+
+  .nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    display: grid;
+    gap: 1rem;
+  }
+
+  .nav-list a {
+    color: #5d7285;
+    display: block;
+    text-decoration: none;
+    transition: all 250ms linear;
+
+    &:hover {
+      border-left: 1.5px solid $--body-bg;
+      border-top: 1.5px solid $--body-bg;
+      border-bottom: 1.5px solid $--body-bg;
+
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+
+      transition: all 250ms linear;
+    }
+  }
+
+  .nav-list .li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding-block: 1rem;
+    padding-inline: 3rem;
+    margin-inline: 2rem 0;
+    /* prevent animation glitch on right side */
+    box-shadow: 2px 0 0 $--body-bg;
+  }
+
+  .nav-list .li.active {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: $--body-bg;
+    position: relative;
+    z-index: -1;
+    border-radius: 100vw 0 0 100vw;
+  }
+
+  .nav-list .li.active::before,
+  .nav-list .li.active::after {
+    content: "";
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    right: 0rem;
+    background: $--color-white;
+  }
+
+  .nav-list .li.active::before {
+    border-radius: 0 0 1rem;
+    top: calc(1rem * -1);
+    box-shadow: 5px 5px 0 5px $--body-bg;
+  }
+
+  .nav-list .li.active::after {
+    border-radius: 0 1rem 0 0;
+    bottom: calc(1rem * -1);
+    box-shadow: 5px -5px 0 5px $--body-bg;
+  }
+}

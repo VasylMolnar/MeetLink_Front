@@ -1,0 +1,13 @@
+@import "../../styles/variables";
+
+.meet-link-meetings {
+  height: 100cvh;
+  padding: 50px 50px 50px 0px;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}

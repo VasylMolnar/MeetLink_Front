@@ -1,8 +1,6 @@
 @import "../src/styles/variables.scss";
 
 .home {
-  background-color: $--color-light-gray;
-
   .sun {
     animation-name: rotate;
     animation-duration: 10s;

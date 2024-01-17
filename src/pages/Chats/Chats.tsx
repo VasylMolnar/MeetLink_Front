@@ -1,5 +1,49 @@
+import "./Chat.scss";
+
 const Chats = () => {
-  return <div>List of all individual Chats</div>;
+  return (
+    <main className="meet-link-chats">
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p> <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p> <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+      <p>ahsjdhajs</p>
+    </main>
+  );
 };
 
 export default Chats;

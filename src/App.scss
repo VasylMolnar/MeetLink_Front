@@ -28,6 +28,13 @@ body {
   color: $--color-white;
 }
 
+.privateRoute {
+  margin: 0;
+  background: $--body-bg;
+  padding-inline-start: 20rem;
+  color: $--color-black;
+}
+
 body {
   font-family: "Inter", sans-serif;
   font-weight: 500;

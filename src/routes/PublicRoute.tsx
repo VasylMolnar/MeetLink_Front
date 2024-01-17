@@ -6,12 +6,14 @@ import AuthForm from "../pages/MyAccount/AuthForm/AuthForm";
 
 const PublicRoute = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/reg-form" element={<RegistrationForm />} />
-      <Route path="/auth-form" element={<AuthForm />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div className="publicRoute">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reg-form" element={<RegistrationForm />} />
+        <Route path="/auth-form" element={<AuthForm />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   );
 };
 
