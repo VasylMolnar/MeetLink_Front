@@ -13,6 +13,16 @@
   align-items: center;
   justify-content: space-between;
 
+  .logo {
+    .img {
+      width: 35px;
+      height: 35px;
+    }
+    span {
+      font-size: 1.5rem;
+    }
+  }
+
   .logout-btn {
     width: 140px;
     height: 45px;
@@ -43,30 +53,44 @@
   }
 
   .nav-list a {
+    position: relative;
     color: #5d7285;
     display: block;
     text-decoration: none;
-    transition: all 250ms linear;
 
-    &:hover {
-      border-left: 1.5px solid $--body-bg;
-      border-top: 1.5px solid $--body-bg;
-      border-bottom: 1.5px solid $--body-bg;
+    &::before {
+      content: "";
+      width: 0;
+      height: 3px;
 
-      border-top-left-radius: 30px;
-      border-bottom-left-radius: 30px;
+      border-radius: 20px;
+      position: absolute;
+      bottom: 0;
 
-      transition: all 250ms linear;
+      transition: position 350ms linear;
+    }
+
+    &:hover::before {
+      content: "";
+      width: 100%;
+      height: 3px;
+
+      border-radius: 20px;
+      position: absolute;
+      bottom: 0;
+
+      background-color: $--body-bg;
+      transition: all 450ms linear;
     }
   }
 
   .nav-list .li {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 
     padding-block: 1rem;
-    padding-inline: 3rem;
+    padding-inline: 2rem;
     margin-inline: 2rem 0;
     /* prevent animation glitch on right side */
     box-shadow: 2px 0 0 $--body-bg;
@@ -75,7 +99,7 @@
   .nav-list .li.active {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 
     background: $--body-bg;
     position: relative;

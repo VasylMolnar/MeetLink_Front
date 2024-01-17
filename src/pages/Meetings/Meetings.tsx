@@ -1,5 +1,5 @@
-import MeetCard from "../../components/MeetCard/MeetCard";
 import "./Meetings.scss";
+import MeetCard from "../../components/MeetCard/MeetCard";
 import { Container } from "react-bootstrap";
 
 const Meetings = () => {
