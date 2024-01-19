@@ -1,10 +1,15 @@
 import "./MeetCard.scss";
-import logo from "../../assets/picture.png";
+import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 
-const MeetCard = ({ item }: any) => {
+type MeetCardProps = {
+  item: any;
+  isMenuOpen: boolean;
+};
+
+const MeetCard = ({ item, isMenuOpen }: MeetCardProps) => {
   return (
-    <div className="meetCard">
+    <div className={isMenuOpen ? `meetCard` : `meetCard menu-close`}>
       <Link to={item.id}>
         <div className="header">
           <img src={logo} alt="" className="logo" />

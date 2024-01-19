@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../pages/NotFound/NotFound";
 import PersonalInformation from "../pages/MyAccount/PersonalInformation/PersonalInformation";
@@ -11,13 +12,20 @@ import Calls from "../pages/Calls/Calls";
 import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
 
 const PrivateRoute = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+
   return (
     <div className="privateRoute">
       <Routes>
-        <Route path="/" element={<Navigation />}>
+        <Route
+          path="/"
+          element={
+            <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+          }
+        >
           {/* meetings */}
           <Route path="/">
-            <Route index element={<Meetings />} />
+            <Route index element={<Meetings isMenuOpen={isMenuOpen} />} />
             <Route path=":id">
               <Route index element={<CurrentMeet />} />
               <Route path=":id" element={<Meet />} />

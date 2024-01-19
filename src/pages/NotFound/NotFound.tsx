@@ -13,7 +13,7 @@ const NotFound = () => {
 
     return () => {
       // @ts-expect-error: Unreachable code error
-      if (privateRoute) privateRoute.style.paddingInlineStart = "20rem";
+      if (privateRoute) privateRoute.style.paddingInlineStart = "17rem";
     };
   }, []);
 

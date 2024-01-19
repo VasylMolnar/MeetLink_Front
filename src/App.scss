@@ -31,8 +31,11 @@ body {
 .privateRoute {
   margin: 0;
   background: $--body-bg;
-  padding-inline-start: 20rem;
   color: $--color-black;
+
+  @media (min-width: $--sm) {
+    padding-inline-start: 17rem;
+  }
 }
 
 body {

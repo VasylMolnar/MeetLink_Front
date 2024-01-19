@@ -2,7 +2,11 @@ import "./Meetings.scss";
 import MeetCard from "../../components/MeetCard/MeetCard";
 import { Container } from "react-bootstrap";
 
-const Meetings = () => {
+type MeetingsProps = {
+  isMenuOpen: boolean;
+};
+
+const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const data = [
     {
       id: "1",
@@ -80,7 +84,7 @@ const Meetings = () => {
     <main className="meet-link-meetings">
       <Container>
         {data.map((item) => (
-          <MeetCard item={item} key={item.id} />
+          <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
         ))}
       </Container>
     </main>

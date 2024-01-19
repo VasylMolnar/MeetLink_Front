@@ -8,8 +8,13 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 12px;
   padding: 24px;
+  transition: all 350ms linear;
 
-  transition: all 250ms linear;
+  &.menu-close {
+    width: 380px;
+    height: 250px;
+    transition: all 350ms linear;
+  }
 
   &:hover {
     transform: scale(1.03);
@@ -101,5 +106,10 @@
 
       transition: all 250ms linear;
     }
+  }
+
+  @media (min-width: $--xxl) {
+    width: 325px;
+    height: 230px;
   }
 }
