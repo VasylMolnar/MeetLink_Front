@@ -1,13 +1,17 @@
 @import "../../styles/variables";
 
 .meet-link-meetings {
-  height: 100cvh;
-  padding: 50px 50px 50px 0px;
+  // height: 100cvh;
+  padding: 70px 10px 50px 10px;
 
   .container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 30px;
+  }
+
+  @media (min-width: $--sm) {
+    padding: 50px 50px 50px 0px;
   }
 }

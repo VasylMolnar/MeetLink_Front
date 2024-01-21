@@ -1,12 +1,18 @@
+import { useState } from "react";
 import "./Navigation.scss";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
+  const [mobileMenu, setMobileMenu] = useState(false);
+
   const toggleMenu = () => {
+    const isMobile = window.innerWidth;
+
+    if (isMobile < 577) return;
+
     setIsMenuOpen(!isMenuOpen);
 
     const privateRoute = document.querySelector(".privateRoute");
-    // const meetCards = document.querySelectorAll(".meetCard");
 
     if (privateRoute && isMenuOpen) {
       // @ts-expect-error: Unreachable code error
@@ -14,36 +20,34 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
         paddingInlineStart: "10rem",
         transition: "all 250ms linear",
       });
-
-      // for (const card of meetCards) {
-      //   // @ts-expect-error: Unreachable code error
-      //   Object.assign(card.style, {
-      //     width: "380px",
-      //     height: "250px",
-      //     transition: "all 350ms linear",
-      //   });
-      // }
     } else {
       // @ts-expect-error: Unreachable code error
       Object.assign(privateRoute.style, {
         paddingInlineStart: "17rem",
         transition: "all 250ms linear",
       });
-
-      // for (const card of meetCards) {
-      //   // @ts-expect-error: Unreachable code error
-      //   Object.assign(card.style, {
-      //     width: "325px",
-      //     height: "230px",
-      //     transition: "all 350ms linear",
-      //   });
-      // }
     }
   };
 
   return (
-    <>
-      <nav className="meet-link-nav">
+    <div className="meet-link-nav-container">
+      <svg
+        stroke="currentColor"
+        fill="currentColor"
+        strokeWidth="0"
+        version="1.1"
+        viewBox="0 0 22 16"
+        height="1em"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+        className={mobileMenu ? "mobile-menu-btn open" : "mobile-menu-btn"}
+        onClick={() => setMobileMenu(!mobileMenu)}
+      >
+        <path d="M0 3h14v3h-14v-3zM0 7h14v3h-14v-3zM0 11h14v3h-14v-3z"></path>
+        <path d="M15.5 10l3-3 3 3z"></path>
+      </svg>
+
+      <nav className={mobileMenu ? "meet-link-nav open" : "meet-link-nav"}>
         <div className="nav-list">
           <div className="li logo-navbar-toggler" onClick={toggleMenu}>
             <svg
@@ -197,7 +201,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
         </button>
       </nav>
       <Outlet />
-    </>
+    </div>
   );
 };
 

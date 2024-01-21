@@ -8,8 +8,6 @@ body {
 
 #root {
   min-height: 100%;
-  display: flex;
-  flex-direction: column;
   background-image: linear-gradient(
     to right top,
     #d3d8df,
@@ -29,6 +27,7 @@ body {
 }
 
 .privateRoute {
+  padding-inline-start: 0;
   margin: 0;
   background: $--body-bg;
   color: $--color-black;

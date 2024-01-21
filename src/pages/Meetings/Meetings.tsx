@@ -10,31 +10,31 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const data = [
     {
       id: "1",
-      name: "meet name",
+      name: "Sniff",
       totalUser: 50,
       logo: "",
-      description: "test description",
+      description: "Test Description Hello World",
     },
     {
       id: "2",
-      name: "meet name",
+      name: "Фізика",
       totalUser: 50,
       logo: "",
-      description: "test description",
+      description: "Урок Фізики",
     },
     {
       id: "3",
-      name: "meet name",
+      name: "Математика",
       totalUser: 50,
       logo: "",
-      description: "test description",
+      description: "Урок Математики",
     },
     {
       id: "4",
       name: "meet name",
       totalUser: 50,
       logo: "",
-      description: "test description",
+      description: "Minim dolor in amet nulla laboris",
     },
     {
       id: "5",

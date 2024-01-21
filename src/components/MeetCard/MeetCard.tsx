@@ -1,5 +1,5 @@
 import "./MeetCard.scss";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/ charity.png";
 import { Link } from "react-router-dom";
 
 type MeetCardProps = {
