@@ -8,21 +8,21 @@ body {
 
 #root {
   min-height: 100%;
-  background-image: linear-gradient(
-    to right top,
-    #d3d8df,
-    #bbc8dc,
-    #a4b9d9,
-    #8ea9d6,
-    #7899d3,
-    #698ac6,
-    #597bb8,
-    #4a6cab,
-    #3e5b91,
-    #324b78,
-    #273b60,
-    #1c2c49
-  );
+  // background-image: linear-gradient(
+  //   to right top,
+  //   #d3d8df,
+  //   #bbc8dc,
+  //   #a4b9d9,
+  //   #8ea9d6,
+  //   #7899d3,
+  //   #698ac6,
+  //   #597bb8,
+  //   #4a6cab,
+  //   #3e5b91,
+  //   #324b78,
+  //   #273b60,
+  //   #1c2c49
+  // );
   color: $--color-white;
 }
 

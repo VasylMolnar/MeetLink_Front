@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.meet-link-call-action-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 7px;
+  background-color: $--color-light-gray;
+
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+  //   rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+
+  .meet-name {
+    color: #17171f9f;
+    font-size: 17px;
+    font-style: bold;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .btn-list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    .start-meet {
+      width: 90px;
+      height: 40px;
+      border-radius: 13px;
+      border: 1px solid $--color-white;
+      background-color: $--registration-wrapper;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      transition: all 250ms linear;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+      &:hover {
+        color: $--color-white;
+        background-color: $--green;
+        transition: all 250ms linear;
+      }
+    }
+
+    .meet-setting {
+      width: 90px;
+      height: 40px;
+      border-radius: 13px;
+      border: 1px solid $--color-white;
+      background-color: $--registration-wrapper;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      transition: all 250ms linear;
+      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+      &:hover {
+        color: $--color-white;
+        background-color: $--green;
+        transition: all 250ms linear;
+      }
+    }
+  }
+
+  @media (max-width: $--sm) {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.meet-bar {
+  width: 270px;
+  height: 100vh;
+  flex-shrink: 0;
+
+  background-color: $--color-white;
+}

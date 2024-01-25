@@ -1,6 +1,7 @@
 import "./Meetings.scss";
 import MeetCard from "../../components/MeetCard/MeetCard";
 import { Container } from "react-bootstrap";
+import ActionsBar from "../../components/ActionsBar/ActionsBar";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
@@ -83,9 +84,13 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   return (
     <main className="meet-link-meetings">
       <Container>
-        {data.map((item) => (
-          <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
-        ))}
+        <ActionsBar />
+
+        <div className="meetings">
+          {data.map((item) => (
+            <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
+          ))}
+        </div>
       </Container>
     </main>
   );

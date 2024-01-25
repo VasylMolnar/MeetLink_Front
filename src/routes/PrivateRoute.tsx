@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../pages/NotFound/NotFound";
 import PersonalInformation from "../pages/MyAccount/PersonalInformation/PersonalInformation";
@@ -13,6 +13,14 @@ import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
 
 const PrivateRoute = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+
+  useEffect(() => {
+    window.document.body.style.backgroundColor = "#e8ebef";
+
+    return () => {
+      window.document.body.style.backgroundColor = "";
+    };
+  }, []);
 
   return (
     <div className="privateRoute">
