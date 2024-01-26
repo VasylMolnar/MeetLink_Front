@@ -1,26 +1,37 @@
 import "./Meet.scss";
 import MeetBar from "../../../../components/MeetBar/MeetBar";
-import { Container } from "react-bootstrap";
-import Slider from "../../../../components/Slider/Slider";
-import miting1 from "../../../../assets/meetings1.jpg";
+import VideoMeet from "../../../../components/VideoMeet/VideoMeet";
+import { useEffect } from "react";
 
 const Meet = () => {
+  useEffect(() => {
+    const navigation = document.querySelector(".meet-link-nav");
+    const privateRoute = document.querySelector(".privateRoute");
+
+    if (navigation && privateRoute) {
+      // @ts-expect-error: Unreachable code error
+      navigation.style.display = "none";
+
+      // @ts-expect-error: Unreachable code error
+      privateRoute.style.paddingInlineStart = "0px";
+    }
+
+    return () => {
+      // @ts-expect-error: Unreachable code error
+      navigation.style.display = "flex";
+
+      // @ts-expect-error: Unreachable code error
+      privateRoute.style.paddingInlineStart = "17rem";
+    };
+  }, []);
+
   return (
     <main className="meet-link-meet">
-      <Container>
-        <div className="video-meet">
-          <h1 className="title">Test meet Name</h1>
+      {/* Component with Slider and Video */}
+      <VideoMeet />
 
-          {/* Slider whit all user */}
-          <Slider />
-
-          <div className="video-screen">
-            <img src={miting1} alt="meet" />
-          </div>
-        </div>
-
-        <MeetBar />
-      </Container>
+      {/*Bar with All users and Chat */}
+      <MeetBar />
     </main>
   );
 };
