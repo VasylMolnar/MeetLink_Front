@@ -114,6 +114,108 @@ const Chat = ({ chatId }: ChatProps) => {
             and if-else statements.
           </div>
         </div>
+
+        <div className="user-message">
+          {/*mabe in here will be Link to user profile */}
+          <img className="user-avatar" src={meetings2} alt="user-avatar" />
+
+          <div className="content">
+            <div className="about-user">
+              <span>Elina</span>
+              <time className="time">09:32</time>
+            </div>
+            Meet Chat all Users "Once upon a time in a pixelated universe, a
+            quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
+
+        {/*Its your message */}
+        <div className="your-message">
+          <div className="content you">
+            <div className="about-user">
+              <span>You</span>
+              <time className="time">09:32</time>
+            </div>
+            Meet Chat all Users "Once upon a time in a pixelated universe, a
+            quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
+
+        <div className="user-message">
+          {/*mabe in here will be Link to user profile */}
+          <img className="user-avatar" src={meetings2} alt="user-avatar" />
+
+          <div className="content">
+            <div className="about-user">
+              <span>Elina</span>
+              <time className="time">09:32</time>
+            </div>
+            Meet Chat all Users "Once upon a time in a pixelated universe, a
+            quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
+
+        <div className="user-message">
+          {/*mabe in here will be Link to user profile */}
+          <img className="user-avatar" src={meetings2} alt="user-avatar" />
+
+          <div className="content">
+            <div className="about-user">
+              <span>Elina</span>
+              <time className="time">09:32</time>
+            </div>
+            Meet Chat all Users "Once upon a time in a pixelated universe, a
+            quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
+
+        {/*Its your message */}
+        <div className="your-message">
+          <div className="content you">
+            <div className="about-user">
+              <span>You</span>
+              <time className="time">09:32</time>
+            </div>
+            Meet Chat all Users "Once upon a time in a pixelated universe, a
+            quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
+
+        {/*Its your message */}
+        <div className="your-message">
+          <div className="content you">
+            <div className="about-user">
+              <span>You</span>
+              <time className="time">09:32</time>
+            </div>
+            last Meet Chat all Users "Once upon a time in a pixelated universe,
+            a quirky robot named Zara discovered a magical portal hidden behind
+            the binary stars. With a zap and a whirl of gears, Zara tumbled into
+            a world of floating code and neon dreams. As pixelated butterflies
+            danced around, Zara met Byte, the wise coding owl who spoke in loops
+            and if-else statements.
+          </div>
+        </div>
       </div>
 
       <div className="custom_input">
