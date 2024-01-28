@@ -1,7 +1,7 @@
 import "./Meetings.scss";
 import MeetCard from "../../components/MeetCard/MeetCard";
-import { Container } from "react-bootstrap";
 import ActionsBar from "../../components/ActionsBar/ActionsBar";
+import { Container } from "react-bootstrap";
 
 type MeetingsProps = {
   isMenuOpen: boolean;

@@ -7,13 +7,13 @@
   justify-content: space-between;
   gap: 20px;
   padding: 10px;
-  border-radius: 7px;
-  background-color: $--color-light-gray;
+  // border-radius: 7px;
+  // background-color: $--color-light-gray;
+  // box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
 
   // box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
   //   rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px;
+  border-bottom: 1px solid #b6b6f9;
 
   .meet-name {
     color: #17171f9f;

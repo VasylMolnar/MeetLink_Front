@@ -69,6 +69,22 @@
       justify-content: center;
       transition: all 250ms linear;
 
+      &.toggle-menu {
+        fill: white;
+
+        &.active {
+          fill: white;
+          background-color: $--red;
+          transition: all 250ms linear;
+        }
+
+        &:hover {
+          fill: white;
+          background-color: $--color-login-btn;
+          transition: all 250ms linear;
+        }
+      }
+
       &.closed {
         width: 144px;
         height: 44px;
@@ -147,6 +163,12 @@
 
       &.setting {
         fill: #8a8a8a;
+
+        &.active {
+          fill: white;
+          background-color: $--red;
+          transition: all 250ms linear;
+        }
 
         &:hover {
           fill: white;

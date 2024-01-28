@@ -1,13 +1,13 @@
 import { useState } from "react";
-import "./MeetBar.scss";
+import "./ChatAndParticipants.scss";
 import mitings1 from "../../assets/meetings2.jpg";
 
-const MeetBar = () => {
+const ChatAndParticipants = () => {
   // const [openBar, setOpenBar] = useState(false);
   const [chatView, setChatView] = useState(true);
 
   return (
-    <div className="meet-bar">
+    <div className="chat-participants">
       <div className="control">
         <button
           className={chatView ? "btn choose" : "btn"}
@@ -667,4 +667,4 @@ const MeetBar = () => {
   );
 };
 
-export default MeetBar;
+export default ChatAndParticipants;

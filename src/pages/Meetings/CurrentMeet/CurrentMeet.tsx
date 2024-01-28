@@ -1,5 +1,5 @@
 import "./CurrentMeet.scss";
-import Chat from "./Chat/Chat";
+import Chat from "../../../components/Chat/Chat";
 import { Container } from "react-bootstrap";
 import CallActionsBar from "../../../components/CallActionsBar/CallActionsBar";
 

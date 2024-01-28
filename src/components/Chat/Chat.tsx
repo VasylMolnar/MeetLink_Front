@@ -1,5 +1,5 @@
 import "./Chat.scss";
-import meetings2 from "../../../../assets/meetings2.jpg";
+import meetings2 from "../../assets/meetings2.jpg";
 
 type ChatProps = {
   chatId: string;

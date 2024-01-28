@@ -1,19 +1,37 @@
 import { useState } from "react";
 import "./VideoMeet.scss";
 import miting1 from "../../assets/meetings1.jpg";
+import { useLocation } from "react-router-dom";
 
 const VideoMeet = () => {
+  {
+    /* in here we must to connect 2 or allot people   */
+  }
+
   const [control, setControl] = useState({
     video: false,
     voice: false,
     sound: true,
     screen: false,
-    settings: false,
+    setting: false,
+    chatParticipants: false,
   });
+
+  const { pathname } = useLocation();
 
   const toggleControl = (id: string) => {
     // @ts-expect-error: Unreachable code error
     setControl((prevControl) => ({ ...prevControl, [id]: !prevControl[id] }));
+  };
+
+  const toggleChatParticipants = () => {
+    toggleControl("chatParticipants");
+
+    const chatParticipants = document.querySelector(".chat-participants");
+
+    if (chatParticipants) {
+      chatParticipants.classList.toggle("active");
+    }
   };
 
   return (
@@ -111,44 +129,46 @@ const VideoMeet = () => {
             )}
           </li>
 
-          <li
-            className={control.sound ? "item sound active" : "item sound "}
-            onClick={() => toggleControl("sound")}
-          >
-            {control.sound ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="27"
-                height="20"
-                viewBox="0 0 27 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M0.335847 10.0001C0.332127 11.6397 0.258966 13.876 1.27329 14.7119C2.21942 15.4916 2.8853 15.2907 4.61264 15.4174C6.34121 15.5454 9.98931 20.6266 12.8017 19.0194C14.2525 17.8785 14.3603 15.4868 14.3603 10.0001C14.3603 4.5135 14.2525 2.12176 12.8017 0.980903C9.98931 -0.62754 6.34121 4.4549 4.61264 4.58286C2.8853 4.70962 2.21942 4.50871 1.27329 5.28842C0.258966 6.12433 0.332127 8.36061 0.335847 10.0001Z"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M22.5421 1.05045C22.9957 0.735363 23.6189 0.847641 23.9339 1.30123C27.5717 6.53805 27.5842 13.4498 23.9336 18.6982C23.6182 19.1516 22.995 19.2635 22.5416 18.9481C22.0882 18.6327 21.9764 18.0095 22.2917 17.5562C25.4636 12.996 25.4538 6.9948 22.2914 2.44225C21.9763 1.98866 22.0886 1.36553 22.5421 1.05045Z"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M19.2784 4.21795C19.7577 3.94357 20.3687 4.1097 20.6431 4.589C22.5674 7.95054 22.5682 12.0591 20.6424 15.4126C20.3674 15.8916 19.7562 16.0569 19.2773 15.7818C18.7983 15.5068 18.633 14.8956 18.9081 14.4167C20.4791 11.6808 20.4799 8.32958 18.9074 5.58262C18.633 5.10331 18.7991 4.49233 19.2784 4.21795Z"
-                />
-              </svg>
-            ) : (
-              <svg
-                focusable="false"
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                data-testid="VolumeMuteIcon"
-              >
-                <path d="M7 9v6h4l5 5V4l-5 5z"></path>
-              </svg>
-            )}
-          </li>
+          {pathname.split("/")[1] !== "calls" && (
+            <li
+              className={control.sound ? "item sound active" : "item sound "}
+              onClick={() => toggleControl("sound")}
+            >
+              {control.sound ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="27"
+                  height="20"
+                  viewBox="0 0 27 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M0.335847 10.0001C0.332127 11.6397 0.258966 13.876 1.27329 14.7119C2.21942 15.4916 2.8853 15.2907 4.61264 15.4174C6.34121 15.5454 9.98931 20.6266 12.8017 19.0194C14.2525 17.8785 14.3603 15.4868 14.3603 10.0001C14.3603 4.5135 14.2525 2.12176 12.8017 0.980903C9.98931 -0.62754 6.34121 4.4549 4.61264 4.58286C2.8853 4.70962 2.21942 4.50871 1.27329 5.28842C0.258966 6.12433 0.332127 8.36061 0.335847 10.0001Z"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M22.5421 1.05045C22.9957 0.735363 23.6189 0.847641 23.9339 1.30123C27.5717 6.53805 27.5842 13.4498 23.9336 18.6982C23.6182 19.1516 22.995 19.2635 22.5416 18.9481C22.0882 18.6327 21.9764 18.0095 22.2917 17.5562C25.4636 12.996 25.4538 6.9948 22.2914 2.44225C21.9763 1.98866 22.0886 1.36553 22.5421 1.05045Z"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M19.2784 4.21795C19.7577 3.94357 20.3687 4.1097 20.6431 4.589C22.5674 7.95054 22.5682 12.0591 20.6424 15.4126C20.3674 15.8916 19.7562 16.0569 19.2773 15.7818C18.7983 15.5068 18.633 14.8956 18.9081 14.4167C20.4791 11.6808 20.4799 8.32958 18.9074 5.58262C18.633 5.10331 18.7991 4.49233 19.2784 4.21795Z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  focusable="false"
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  data-testid="VolumeMuteIcon"
+                >
+                  <path d="M7 9v6h4l5 5V4l-5 5z"></path>
+                </svg>
+              )}
+            </li>
+          )}
 
           <li className="item closed">
             <svg
@@ -199,7 +219,10 @@ const VideoMeet = () => {
             )}
           </li>
 
-          <li className="item setting">
+          <li
+            className={control.setting ? "item setting active" : "item setting"}
+            onClick={() => toggleControl("setting")}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -213,6 +236,39 @@ const VideoMeet = () => {
               />
             </svg>
           </li>
+
+          {pathname.split("/")[1] !== "calls" && (
+            <li
+              className={
+                control.chatParticipants
+                  ? "item toggle-menu active"
+                  : "item toggle-menu"
+              }
+              onClick={() => toggleChatParticipants()}
+            >
+              <svg
+                stroke="currentColor"
+                strokeWidth="0"
+                viewBox="0 0 512 512"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeMiterlimit="10"
+                  strokeWidth="32"
+                  d="M431 320.6c-1-3.6 1.2-8.6 3.3-12.2a33.68 33.68 0 012.1-3.1A162 162 0 00464 215c.3-92.2-77.5-167-173.7-167-83.9 0-153.9 57.1-170.3 132.9a160.7 160.7 0 00-3.7 34.2c0 92.3 74.8 169.1 171 169.1 15.3 0 35.9-4.6 47.2-7.7s22.5-7.2 25.4-8.3a26.44 26.44 0 019.3-1.7 26 26 0 0110.1 2l56.7 20.1a13.52 13.52 0 003.9 1 8 8 0 008-8 12.85 12.85 0 00-.5-2.7z"
+                ></path>
+                <path
+                  strokeLinecap="round"
+                  strokeMiterlimit="10"
+                  strokeWidth="32"
+                  d="M66.46 232a146.23 146.23 0 006.39 152.67c2.31 3.49 3.61 6.19 3.21 8s-11.93 61.87-11.93 61.87a8 8 0 002.71 7.68A8.17 8.17 0 0072 464a7.26 7.26 0 002.91-.6l56.21-22a15.7 15.7 0 0112 .2c18.94 7.38 39.88 12 60.83 12A159.21 159.21 0 00284 432.11"
+                ></path>
+              </svg>
+            </li>
+          )}
         </ul>
       </div>
     </div>

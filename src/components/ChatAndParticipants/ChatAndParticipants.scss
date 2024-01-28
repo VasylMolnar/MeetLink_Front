@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.meet-bar {
+.chat-participants {
   width: 370px;
   height: 100%;
   padding: 15px;
@@ -10,16 +10,27 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   overflow: hidden;
 
+  transform: translateX(110%);
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    display: block;
+  }
+
   .control {
     display: flex;
-    padding: 8px;
     justify-content: center;
     align-items: center;
+    padding: 8px;
     gap: 3x;
     border-radius: 12px;
     background: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
     margin-bottom: 5px;
 
     .btn {
@@ -77,9 +88,14 @@
       border-radius: 12px 12px 12px 0px;
       font-size: 14px;
       background-color: $--color-light-gray;
-      box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+        rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
       .about-user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-weight: bold;
       }
 

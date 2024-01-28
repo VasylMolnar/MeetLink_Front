@@ -1,0 +1,18 @@
+@import "../../../styles/main.scss";
+
+.meet-link-current-chat {
+  height: 100vh;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50px 30px;
+  }
+
+  @media (min-width: $--sm) {
+    .container {
+      padding: 10px 50px 10px 0px;
+    }
+  }
+}

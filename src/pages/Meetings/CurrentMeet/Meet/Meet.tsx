@@ -1,5 +1,5 @@
 import "./Meet.scss";
-import MeetBar from "../../../../components/MeetBar/MeetBar";
+import ChatAndParticipants from "../../../../components/ChatAndParticipants/ChatAndParticipants";
 import VideoMeet from "../../../../components/VideoMeet/VideoMeet";
 import { useEffect } from "react";
 
@@ -27,11 +27,11 @@ const Meet = () => {
 
   return (
     <main className="meet-link-meet">
-      {/* Component with Slider and Video */}
+      {/* Component with Video */}
       <VideoMeet />
 
       {/*Bar with All users and Chat */}
-      <MeetBar />
+      <ChatAndParticipants />
     </main>
   );
 };
