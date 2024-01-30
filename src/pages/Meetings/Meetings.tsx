@@ -2,12 +2,18 @@ import "./Meetings.scss";
 import MeetCard from "../../components/MeetCard/MeetCard";
 import ActionsBar from "../../components/ActionsBar/ActionsBar";
 import { Container } from "react-bootstrap";
+import { Dialog } from "primereact/dialog";
+import { useState } from "react";
+import { InputText } from "primereact/inputtext";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
 };
 
 const Meetings = ({ isMenuOpen }: MeetingsProps) => {
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState("");
+
   const data = [
     {
       id: "1",
@@ -81,10 +87,16 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
     },
   ];
 
+  const handleSendRequest = (e: any) => {
+    //create api to sent request to admin
+    e.preventDefault();
+    console.log(e);
+  };
+
   return (
     <main className="meet-link-meetings">
       <Container>
-        <ActionsBar />
+        <ActionsBar setVisible={setVisible} />
 
         <div className="meetings">
           {data.map((item) => (
@@ -92,6 +104,27 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
           ))}
         </div>
       </Container>
+
+      {/*Modal for connect to meet  */}
+      <Dialog
+        header="Приєднатися до зустрічі"
+        visible={visible}
+        style={{ width: "50vw" }}
+        onHide={() => setVisible(false)}
+      >
+        <p className="m-0">
+          Введіть ідентифікатор зустрічі і адміністратор додасть вас до зустрічі
+        </p>
+
+        <form action="submit" onSubmit={(e) => handleSendRequest(e)}>
+          <InputText
+            value={value}
+            required
+            onChange={(e) => setValue(e.target.value)}
+            style={{ marginTop: "30px", width: "100%" }}
+          />
+        </form>
+      </Dialog>
     </main>
   );
 };

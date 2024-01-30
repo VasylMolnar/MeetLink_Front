@@ -10,6 +10,7 @@ import Chats from "../pages/Chats/Chats";
 import CurrentChat from "../pages/Chats/CurrentChat/CurrentChat";
 import Calls from "../pages/Calls/Calls";
 import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
+import CreateMeet from "../pages/CreateMeet/CreateMeet";
 
 const PrivateRoute = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -39,6 +40,9 @@ const PrivateRoute = () => {
               <Route path=":id" element={<Meet />} />
             </Route>
           </Route>
+
+          {/*CreateMeet */}
+          <Route path="create-meet" element={<CreateMeet />} />
 
           {/* chats */}
           <Route path="chats">
