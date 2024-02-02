@@ -1,30 +1,28 @@
 import "./CreateMeet.scss";
 import { Container } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import uploadImg from "../../assets/picture.png";
+import { useState } from "react";
 
 const CreateMeet = () => {
-  //   const handleCreate = async file => {
-  //     const title = window.prompt('Введіть назву до зображення.');
-  //     const formData = new FormData();
+  const [selectedName, setSelectedName] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
 
-  //     for (let item of file) {
-  //       formData.append('image', item);
-  //     }
-  //     formData.append('values', JSON.stringify({ userID, userName, title }));
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
 
-  //     Loading.dots('Створення Готелю');
-  //     //send data
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
 
-  //     await createImage({ formData, userID })
-  //       .then(response => {
-  //         Loading.remove();
-  //         Report.success('Фото було додано', '');
-  //       })
-  //       .catch(error => {
-  //         Loading.remove();
-  //         Report.failure(error, '');
-  //       });
-  //   };
+      setSelectedName(file.name);
+
+      // Create a preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewUrl(previewUrl);
+    }
+  };
+
   return (
     <div className="meet-link-create-meet">
       <Container>
@@ -35,7 +33,7 @@ const CreateMeet = () => {
             meetDescription: "",
             meetDate: "",
             meetTime: "",
-            meetImg: "",
+            meetListEmail: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -70,13 +68,8 @@ const CreateMeet = () => {
                 </label>
 
                 <label className="form-label">
-                  Дата проведення зустріч
-                  <Field
-                    type="date"
-                    name="meetDate"
-                    className="form-control"
-                    required
-                  />
+                  День проведення зустріч
+                  <Field type="date" name="meetDate" className="form-control" />
                   <ErrorMessage name="meetDate" component="div" />
                 </label>
 
@@ -91,22 +84,37 @@ const CreateMeet = () => {
                   <ErrorMessage name="meetTime" component="div" />
                 </label>
 
-                <button type="submit" className="create-btn">
-                  Створити
-                </button>
+                <label className="form-label">
+                  Електронні пошти користувачів
+                  <Field
+                    as="textarea"
+                    placeholder="test@gmail.com , test2@gmail.com"
+                    rows={5}
+                    cols={5}
+                    name="meetListEmail"
+                    className="form-control textarea-list-email"
+                    required
+                  />
+                </label>
               </div>
 
               <div className="img-content">
-                <label className="form-label-meetImg">
-                  Додайте зображення
-                  <Field
-                    type="file"
-                    name="meetImg"
-                    className="form-meetImg"
-                    required
-                  />
-                  <ErrorMessage name="meetImg" component="div" />
-                </label>
+                <div className="parent">
+                  <div className="file-upload">
+                    <img src={previewUrl || uploadImg} alt="upload" />
+                    <h3> {selectedName || "Додайте зображення"}</h3>
+                    <p>Мах розмір до 10mb</p>
+                    <Field
+                      type="file"
+                      name="meetImg"
+                      onChange={handleFileChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="create-btn">
+                  Створити
+                </button>
               </div>
             </Form>
           )}
