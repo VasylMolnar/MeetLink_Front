@@ -33,7 +33,6 @@ const CreateMeet = () => {
             meetDescription: "",
             meetDate: "",
             meetTime: "",
-            meetListEmail: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
@@ -83,26 +82,13 @@ const CreateMeet = () => {
                   />
                   <ErrorMessage name="meetTime" component="div" />
                 </label>
-
-                <label className="form-label">
-                  Електронні пошти користувачів
-                  <Field
-                    as="textarea"
-                    placeholder="test@gmail.com , test2@gmail.com"
-                    rows={5}
-                    cols={5}
-                    name="meetListEmail"
-                    className="form-control textarea-list-email"
-                    required
-                  />
-                </label>
               </div>
 
               <div className="img-content">
                 <div className="parent">
                   <div className="file-upload">
                     <img src={previewUrl || uploadImg} alt="upload" />
-                    <h3> {selectedName || "Додайте зображення"}</h3>
+                    <h5> {selectedName || "Додайте зображення"}</h5>
                     <p>Мах розмір до 10mb</p>
                     <Field
                       type="file"

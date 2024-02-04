@@ -61,14 +61,14 @@
     .parent {
       width: 450px;
       margin: auto;
-      padding: 2rem;
+      padding: 1rem;
       background: #ffffff;
       border-radius: 25px;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
       img {
-        width: 180px;
-        height: 180px;
+        width: 150px;
+        height: 150px;
         object-fit: contain;
       }
     }
@@ -76,7 +76,7 @@
     .file-upload {
       text-align: center;
       border: 3px dashed rgb(210, 227, 244);
-      padding: 1.5rem;
+      padding: 5px;
       position: relative;
       cursor: pointer;
     }
