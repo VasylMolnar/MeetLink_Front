@@ -7,9 +7,6 @@ import AboutChat from "./AboutChat/AboutChat";
 import AboutVideo from "./AboutVideo/AboutVideo";
 import ChooseUs from "./ChooseUs/ChooseUs";
 import sun from "../../assets/sun1.png";
-import balloon from "../../assets/balloon3.png";
-import balloon1 from "../../assets/balloon1.png";
-import balloon2 from "../../assets/balloon2.png";
 import earth from "../../assets/earth1.png";
 
 const Home = () => {
@@ -121,36 +118,6 @@ const Home = () => {
             src={sun}
             style={{ display: "block", width: "10%", marginLeft: "73%" }}
             className="sun"
-          />
-        </ParallaxLayer>
-
-        {/* balloon */}
-        <ParallaxLayer offset={3.5} speed={-0.1} style={{ opacity: 0.7 }}>
-          <img
-            src={balloon}
-            style={{ display: "block", width: "5%", marginLeft: "13%" }}
-            className="balloon"
-          />
-        </ParallaxLayer>
-
-        {/* balloon */}
-        <ParallaxLayer offset={2.2} speed={+0.3} style={{ opacity: 0.7 }}>
-          <img
-            src={balloon2}
-            style={{ display: "block", width: "7%", marginLeft: "10%" }}
-            className="balloon"
-          />
-
-          <img
-            src={balloon1}
-            style={{ display: "block", width: "5%", marginLeft: "25%" }}
-            className="balloon"
-          />
-
-          <img
-            src={balloon}
-            style={{ display: "block", width: "10%", marginLeft: "80%" }}
-            className="balloon"
           />
         </ParallaxLayer>
       </Parallax>

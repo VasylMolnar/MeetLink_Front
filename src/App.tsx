@@ -4,7 +4,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import PublicRoute from "./routes/PublicRoute";
 
 function App() {
-  const isAuth = true;
+  const isAuth = false;
 
   return <Router>{isAuth ? <PrivateRoute /> : <PublicRoute />}</Router>;
 }

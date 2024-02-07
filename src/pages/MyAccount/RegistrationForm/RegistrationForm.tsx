@@ -59,9 +59,19 @@ const RegistrationForm = () => {
               {() => (
                 <Form className="form">
                   <label className="form-label">
-                    Ім'я та Прізвище
-                    <Field type="text" name="email" className="form-control" />
-                    <ErrorMessage name="email" component="div" />
+                    Ім'я
+                    <Field type="text" name="name" className="form-control" />
+                    <ErrorMessage name="name" component="div" />
+                  </label>
+
+                  <label className="form-label">
+                    Прізвище
+                    <Field
+                      type="text"
+                      name="surname"
+                      className="form-control"
+                    />
+                    <ErrorMessage name="surname" component="div" />
                   </label>
 
                   <label className="form-label">
