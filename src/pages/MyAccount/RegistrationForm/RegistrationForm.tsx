@@ -1,9 +1,12 @@
 import "./RegistrationForm.scss";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useEffect, useState } from "react";
 import charity from "../../../assets/ charity.png";
 import { Row, Col } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useRegisterMutation } from "../../../features/auth/authApiSlice";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 
 const RegistrationForm = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 854); //1135
@@ -21,6 +24,37 @@ const RegistrationForm = () => {
     };
   }, []);
 
+  //fn Api
+  const [register] = useRegisterMutation();
+
+  const handleRegistration = async (values: any) => {
+    Loading.dots();
+
+    try {
+      const response = await register(values);
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
+      if (response.error) {
+        Report.failure(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          `Помилка реєстрації ${response.error.status.toString()}`,
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          response.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success("Користувача успішно додано", "", "");
+      }
+    } catch (error) {
+      console.error("Помилка реєстрації:", error);
+    } finally {
+      Loading.remove();
+    }
+  };
+
   return (
     <main className="meet-link-registration">
       <Row>
@@ -35,7 +69,12 @@ const RegistrationForm = () => {
           <div className="content">
             <h1 className="title">Створити аккаунт</h1>
             <Formik
-              initialValues={{ email: "", password: "" }}
+              initialValues={{
+                username: "",
+                surname: "",
+                email: "",
+                password: "",
+              }}
               validate={(values) => {
                 const errors = {};
                 if (!values.email) {
@@ -50,18 +89,21 @@ const RegistrationForm = () => {
                 return errors;
               }}
               onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+                handleRegistration(values);
+                setSubmitting(false);
               }}
             >
               {() => (
                 <Form className="form">
                   <label className="form-label">
                     Ім'я
-                    <Field type="text" name="name" className="form-control" />
-                    <ErrorMessage name="name" component="div" />
+                    <Field
+                      type="text"
+                      name="username"
+                      className="form-control"
+                      required
+                    />
+                    <ErrorMessage name="username" component="div" />
                   </label>
 
                   <label className="form-label">
@@ -70,13 +112,19 @@ const RegistrationForm = () => {
                       type="text"
                       name="surname"
                       className="form-control"
+                      required
                     />
                     <ErrorMessage name="surname" component="div" />
                   </label>
 
                   <label className="form-label">
                     Електрона пошта
-                    <Field type="email" name="email" className="form-control" />
+                    <Field
+                      type="email"
+                      name="email"
+                      className="form-control"
+                      required
+                    />
                     <ErrorMessage name="email" component="div" />
                   </label>
 
@@ -86,6 +134,7 @@ const RegistrationForm = () => {
                       type="password"
                       name="password"
                       className="form-control"
+                      required
                     />
                     <ErrorMessage name="password" component="div" />
                   </label>
