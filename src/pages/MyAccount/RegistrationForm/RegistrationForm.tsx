@@ -1,14 +1,16 @@
 import "./RegistrationForm.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect, useState } from "react";
 import charity from "../../../assets/ charity.png";
 import { Row, Col } from "react-bootstrap";
-import { useRegisterMutation } from "../../../features/auth/authApiSlice";
+import { useRegisterUserMutation } from "../../../features/auth/authApiSlice";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import { Loading } from "notiflix/build/notiflix-loading-aio";
+import { IErrorResponse, IUser } from "../../../types/authTypes";
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 854); //1135
 
   useEffect(() => {
@@ -25,28 +27,32 @@ const RegistrationForm = () => {
   }, []);
 
   //fn Api
-  const [register] = useRegisterMutation();
+  const [registerUser] = useRegisterUserMutation();
 
-  const handleRegistration = async (values: any) => {
+  const handleRegistration = async (values: IUser) => {
     Loading.dots();
 
     try {
-      const response = await register(values);
+      const response = await registerUser(values);
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-expect-error
-      if (response.error) {
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
         Report.failure(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          `Помилка реєстрації ${response.error.status.toString()}`,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          response.error.data.message,
+          `Помилка реєстрації ${errorResponse.error.status.toString()}`,
+          errorResponse.error.data.message,
           "OK"
         );
       } else {
-        Report.success("Користувача успішно додано", "", "");
+        Report.success(
+          "Реєстрація успішна.",
+          "Можете увійти до свого обл. запису",
+          "OK"
+        );
+
+        setTimeout(() => {
+          navigate("/auth-form");
+        }, 1000);
       }
     } catch (error) {
       console.error("Помилка реєстрації:", error);
@@ -135,6 +141,10 @@ const RegistrationForm = () => {
                       name="password"
                       className="form-control"
                       required
+                      minLength="10"
+                      maxLength="20"
+                      pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                      title="Додайте принаймні 1 символ у верхньому регістрі, 1 символ у нижньому регістрі та 1 цифру."
                     />
                     <ErrorMessage name="password" component="div" />
                   </label>

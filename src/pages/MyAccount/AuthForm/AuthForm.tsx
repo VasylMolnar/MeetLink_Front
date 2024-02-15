@@ -4,8 +4,21 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import charity from "../../../assets/ charity.png";
 import { Row, Col } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useLogInUserMutation } from "../../../features/auth/authApiSlice";
+import {
+  IErrorResponse,
+  IUserLogin,
+  ISuccessLogInResponse,
+  ITokenResponse,
+} from "../../../types/authTypes";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../../features/auth/authSlice";
 
 const AuthForm = () => {
+  const dispatch = useDispatch();
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 854); //1135
 
   useEffect(() => {
@@ -20,6 +33,45 @@ const AuthForm = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  //fn Api
+  const [logInUser] = useLogInUserMutation();
+
+  const handleLogIn = async (values: IUserLogin) => {
+    Loading.dots("Вхід у обліковий запис");
+
+    try {
+      const response = await logInUser(values);
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.failure(
+          `Помилка авторизації ${errorResponse.error.status.toString()}`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        const successResponse = response as ISuccessLogInResponse;
+        const decoded = jwtDecode(
+          successResponse.data.accessToken
+        ) as ITokenResponse;
+
+        dispatch(
+          setCredentials({
+            ...decoded.UserInfo,
+            ...successResponse.data,
+          })
+        );
+
+        Report.success(`Вітаємо ${decoded.UserInfo.username}`, "", "OK");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
 
   return (
     <main className="meet-link-auth">
@@ -68,17 +120,20 @@ const AuthForm = () => {
                 return errors;
               }}
               onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+                handleLogIn(values);
+                setSubmitting(false);
               }}
             >
               {() => (
                 <Form className="form">
                   <label className="form-label">
                     Електрона пошта
-                    <Field type="email" name="email" className="form-control" />
+                    <Field
+                      type="email"
+                      name="email"
+                      className="form-control"
+                      required
+                    />
                     <ErrorMessage name="email" component="div" />
                   </label>
 
@@ -88,6 +143,9 @@ const AuthForm = () => {
                       type="password"
                       name="password"
                       className="form-control"
+                      required
+                      minLength="10"
+                      maxLength="20"
                     />
                     <ErrorMessage name="password" component="div" />
                   </label>

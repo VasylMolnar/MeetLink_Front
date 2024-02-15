@@ -1,10 +1,7 @@
 @import "../../../styles/variables";
 
-.about_chat {
-  color: white;
-  background-color: $--purple;
-  margin: 150px 0 0 0;
-
+.joint-work {
+  background-color: $--color-white;
   .container {
     display: flex;
     align-items: center;
@@ -25,14 +22,14 @@
     }
   }
 
-  .about_chat_img {
+  .joint-work_img {
     .chat_img {
-      width: 100%;
-      height: 100%;
+      width: 90%;
+      height: 90%;
     }
   }
 
-  .about_chat_tex {
+  .joint-work_tex {
     max-width: 500px;
     text-align: center;
 

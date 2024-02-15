@@ -1,0 +1,198 @@
+{
+  "cities": [
+    {
+      "label": "Вінниця",
+      "value": "vinnytsia"
+    },
+    {
+      "label": "Дніпро",
+      "value": "dnipro"
+    },
+    {
+      "label": "Донецьк",
+      "value": "donetsk"
+    },
+    {
+      "label": "Житомир",
+      "value": "zhytomyr"
+    },
+    {
+      "label": "Запоріжжя",
+      "value": "zaporizhzhia"
+    },
+    {
+      "label": "Івано-Франківськ",
+      "value": "ivano-frankivsk"
+    },
+    {
+      "label": "Київ",
+      "value": "kyiv"
+    },
+    {
+      "label": "Кропивницький",
+      "value": "kropyvnytskyi"
+    },
+    {
+      "label": "Луганськ",
+      "value": "luhansk"
+    },
+    {
+      "label": "Луцьк",
+      "value": "lutsk"
+    },
+    {
+      "label": "Львів",
+      "value": "lviv"
+    },
+    {
+      "label": "Миколаїв",
+      "value": "mykolaiv"
+    },
+    {
+      "label": "Одеса",
+      "value": "odesa"
+    },
+    {
+      "label": "Полтава",
+      "value": "poltava"
+    },
+    {
+      "label": "Рівне",
+      "value": "rivne"
+    },
+    {
+      "label": "Суми",
+      "value": "sumy"
+    },
+    {
+      "label": "Тернопіль",
+      "value": "ternopil"
+    },
+    {
+      "label": "Ужгород",
+      "value": "uzhhorod"
+    },
+    {
+      "label": "Харків",
+      "value": "kharkiv"
+    },
+    {
+      "label": "Херсон",
+      "value": "kherson"
+    },
+    {
+      "label": "Хмельницький",
+      "value": "khmelnytskyi"
+    },
+    {
+      "label": "Черкаси",
+      "value": "cherkasy"
+    },
+    {
+      "label": "Чернівці",
+      "value": "chernivtsi"
+    },
+    {
+      "label": "Чернігів",
+      "value": "chernihiv"
+    }
+  ],
+  "regions": [
+    {
+      "label": "Вінницька область",
+      "value": "vinnytska"
+    },
+    {
+      "label": "Волинська область",
+      "value": "volynska"
+    },
+    {
+      "label": "Дніпропетровська область",
+      "value": "dnipropetrovska"
+    },
+    {
+      "label": "Донецька область",
+      "value": "donetska"
+    },
+    {
+      "label": "Житомирська область",
+      "value": "zhytomyrska"
+    },
+    {
+      "label": "Закарпатська область",
+      "value": "zakarpatska"
+    },
+    {
+      "label": "Запорізька область",
+      "value": "zaporizka"
+    },
+    {
+      "label": "Івано-Франківська область",
+      "value": "ivano-frankivska"
+    },
+    {
+      "label": "Київська область",
+      "value": "kyivska"
+    },
+    {
+      "label": "Кіровоградська область",
+      "value": "kirovogradska"
+    },
+    {
+      "label": "Луганська область",
+      "value": "luganska"
+    },
+    {
+      "label": "Львівська область",
+      "value": "lvivska"
+    },
+    {
+      "label": "Миколаївська область",
+      "value": "mykolaivska"
+    },
+    {
+      "label": "Одеська область",
+      "value": "odeska"
+    },
+    {
+      "label": "Полтавська область",
+      "value": "poltavska"
+    },
+    {
+      "label": "Рівненська область",
+      "value": "rivnenska"
+    },
+    {
+      "label": "Сумська область",
+      "value": "sumska"
+    },
+    {
+      "label": "Тернопільська область",
+      "value": "ternopilska"
+    },
+    {
+      "label": "Харківська область",
+      "value": "kharkivska"
+    },
+    {
+      "label": "Херсонська область",
+      "value": "khersonska"
+    },
+    {
+      "label": "Хмельницька область",
+      "value": "khmelnytska"
+    },
+    {
+      "label": "Черкаська область",
+      "value": "cherkaska"
+    },
+    {
+      "label": "Чернівецька область",
+      "value": "chernivetska"
+    },
+    {
+      "label": "Чернігівська область",
+      "value": "chernihivska"
+    }
+  ]
+}

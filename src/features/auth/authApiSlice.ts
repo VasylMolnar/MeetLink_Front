@@ -3,7 +3,7 @@ import { IUser, IUserLogin } from "../../types/authTypes";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
-    register: builder.mutation({
+    registerUser: builder.mutation({
       query: (credentials: IUser) => ({
         url: "auth/",
         method: "POST",
@@ -11,7 +11,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    logIn: builder.mutation({
+    logInUser: builder.mutation({
       query: (credentials: IUserLogin) => ({
         url: "auth/login",
         method: "POST",
@@ -19,7 +19,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    logOut: builder.mutation({
+    logOutUser: builder.mutation({
       query: () => ({
         url: "auth/logout",
         method: "POST",
@@ -29,5 +29,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLogInMutation, useRegisterMutation, useLogOutMutation } =
-  authApiSlice;
+export const {
+  useLogInUserMutation,
+  useRegisterUserMutation,
+  useLogOutUserMutation,
+} = authApiSlice;

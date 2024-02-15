@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import NotFound from "../pages/NotFound/NotFound";
 import PersonalInformation from "../pages/MyAccount/PersonalInformation/PersonalInformation";
 import Meetings from "../pages/Meetings/Meetings";
@@ -13,9 +13,11 @@ import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
 import CreateMeet from "../pages/CreateMeet/CreateMeet";
 
 const PrivateRoute = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   useEffect(() => {
+    navigate("/");
     window.document.body.style.backgroundColor = "#e8ebef";
 
     return () => {

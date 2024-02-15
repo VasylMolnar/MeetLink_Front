@@ -1,9 +1,17 @@
 import { useState } from "react";
 import "./Navigation.scss";
 import { NavLink, Outlet } from "react-router-dom";
+import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
+import { Loading } from "notiflix";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../features/auth/authSlice";
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const dispatch = useDispatch();
+
+  //fn Api
+  const [logOutUser] = useLogOutUserMutation();
 
   const toggleMenu = () => {
     const isMobile = window.innerWidth;
@@ -26,6 +34,19 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
         paddingInlineStart: "17rem",
         transition: "all 250ms linear",
       });
+    }
+  };
+
+  const handleLogOut = async () => {
+    Loading.dots("Вихід з облікового запису");
+
+    try {
+      await logOutUser({});
+      dispatch(logOut());
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
     }
   };
 
@@ -187,7 +208,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
             </svg>
 
             <span className={isMenuOpen ? "text-visible" : "text-hidden"}>
-              myAccount
+              Профіль
             </span>
           </NavLink>
         </div>
@@ -196,6 +217,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
           className={
             isMenuOpen ? "li logout-btn-visible" : "li logout-btn-hidden"
           }
+          onClick={handleLogOut}
         >
           Вихід
         </button>

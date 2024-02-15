@@ -5,6 +5,10 @@ import { Container } from "react-bootstrap";
 import { Dialog } from "primereact/dialog";
 import { useState } from "react";
 import { InputText } from "primereact/inputtext";
+import { useSelector } from "react-redux";
+import { useGetMyInfoQuery } from "../../features/user/userApiSlice";
+import { selectCurrentUserId } from "../../features/auth/authSlice";
+import { IMeetInfo, IMyInfo } from "../../types/authTypes";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
@@ -14,80 +18,11 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState("");
 
-  const data = [
-    {
-      id: "1",
-      name: "Sniff",
-      totalUser: 50,
-      logo: "",
-      description: "Test Description Hello World",
-    },
-    {
-      id: "2",
-      name: "Фізика",
-      totalUser: 50,
-      logo: "",
-      description: "Урок Фізики",
-    },
-    {
-      id: "3",
-      name: "Математика",
-      totalUser: 50,
-      logo: "",
-      description: "Урок Математики",
-    },
-    {
-      id: "4",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "Minim dolor in amet nulla laboris",
-    },
-    {
-      id: "5",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-    {
-      id: "6",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-    {
-      id: "7",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-    {
-      id: "8",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-    {
-      id: "9",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-    {
-      id: "10",
-      name: "meet name",
-      totalUser: 50,
-      logo: "",
-      description: "test description",
-    },
-  ];
+  const id = useSelector(selectCurrentUserId);
+  const { data, isSuccess } = useGetMyInfoQuery(id);
 
-  const handleSendRequest = (e: any) => {
+  // send Admin access to meet
+  const handleAccessMeet = (e: any) => {
     //create api to sent request to admin
     e.preventDefault();
     console.log(e);
@@ -98,11 +33,17 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
       <Container>
         <ActionsBar setVisible={setVisible} />
 
-        <div className="meetings">
-          {data.map((item) => (
-            <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
-          ))}
-        </div>
+        {isSuccess && (data as IMyInfo).meetList?.length ? (
+          <div className="meetings">
+            {(data as IMyInfo).meetList?.map((item: IMeetInfo) => (
+              <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
+            ))}
+          </div>
+        ) : (
+          <div className="meetings">
+            <p className="list-empty">Список порожній</p>
+          </div>
+        )}
       </Container>
 
       {/*Modal for connect to meet  */}
@@ -116,7 +57,7 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
           Введіть ідентифікатор зустрічі і адміністратор додасть вас до зустрічі
         </p>
 
-        <form action="submit" onSubmit={(e) => handleSendRequest(e)}>
+        <form action="submit" onSubmit={(e) => handleAccessMeet(e)}>
           <InputText
             value={value}
             required

@@ -4,7 +4,7 @@
   position: relative;
 
   @media (min-width: $--md) {
-    margin: 150px 0 50px 0;
+    margin: 310px 0 0 0;
   }
 
   .container {
@@ -29,7 +29,9 @@
       height: 210px;
 
       border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.563);
+      // background-color: rgba(255, 255, 255, 0.563);
+      background-color: $--color-white;
+
       box-shadow: 5px 5px 17px 5px rgba(0, 0, 0, 0.27);
       z-index: 0;
     }
@@ -67,7 +69,9 @@
       height: 210px;
 
       border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.472);
+      // background-color: rgba(255, 255, 255, 0.472);
+      background-color: $--color-white;
+
       box-shadow: 5px 5px 17px 5px rgba(0, 0, 0, 0.27);
     }
 
