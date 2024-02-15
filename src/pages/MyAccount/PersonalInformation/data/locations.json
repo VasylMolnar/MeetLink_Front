@@ -5,96 +5,616 @@
       "value": "vinnytsia"
     },
     {
-      "label": "Дніпро",
-      "value": "dnipro"
+      "label": "Хмільник",
+      "value": "khmilnyk"
     },
     {
-      "label": "Донецьк",
-      "value": "donetsk"
+      "label": "Жмеринка",
+      "value": "zhmerynka"
     },
     {
-      "label": "Житомир",
-      "value": "zhytomyr"
+      "label": "Козятин",
+      "value": "kozyatyn"
     },
     {
-      "label": "Запоріжжя",
-      "value": "zaporizhzhia"
+      "label": "Гайсин",
+      "value": "haysyn"
     },
     {
-      "label": "Івано-Франківськ",
-      "value": "ivano-frankivsk"
+      "label": "Могилів-Подільський",
+      "value": "mohyliv-podilskyi"
     },
     {
-      "label": "Київ",
-      "value": "kyiv"
-    },
-    {
-      "label": "Кропивницький",
-      "value": "kropyvnytskyi"
-    },
-    {
-      "label": "Луганськ",
-      "value": "luhansk"
+      "label": "Ладижин",
+      "value": "ladyzhyn"
     },
     {
       "label": "Луцьк",
       "value": "lutsk"
     },
     {
-      "label": "Львів",
-      "value": "lviv"
+      "label": "Ковель",
+      "value": "kovel"
     },
     {
-      "label": "Миколаїв",
-      "value": "mykolaiv"
+      "label": "Нововолинськ",
+      "value": "novovolynsk"
     },
     {
-      "label": "Одеса",
-      "value": "odesa"
+      "label": "Камінь-Каширський",
+      "value": "kamin-kashyrska"
     },
     {
-      "label": "Полтава",
-      "value": "poltava"
+      "label": "Рожище",
+      "value": "rozhysche"
     },
     {
-      "label": "Рівне",
-      "value": "rivne"
+      "label": "Любомль",
+      "value": "liuboml"
     },
     {
-      "label": "Суми",
-      "value": "sumy"
+      "label": "Володимир-Волинський",
+      "value": "volodymyr-volynskyi"
     },
     {
-      "label": "Тернопіль",
-      "value": "ternopil"
+      "label": "Дніпро",
+      "value": "dnipro"
+    },
+    {
+      "label": "Кривий Ріг",
+      "value": "kriviy-rig"
+    },
+    {
+      "label": "Кам'янське",
+      "value": "kamianske"
+    },
+    {
+      "label": "Нікополь",
+      "value": "nikopol"
+    },
+    {
+      "label": "Павлоград",
+      "value": "pavlohrad"
+    },
+    {
+      "label": "Жовті Води",
+      "value": "zhovti-vody"
+    },
+    {
+      "label": "Синельникове",
+      "value": "synelnykove"
+    },
+    {
+      "label": "Донецьк",
+      "value": "donetsk"
+    },
+    {
+      "label": "Маріуполь",
+      "value": "mariupol"
+    },
+    {
+      "label": "Краматорськ",
+      "value": "kramatorsk"
+    },
+    {
+      "label": "Слов'янськ",
+      "value": "slovyansk"
+    },
+    {
+      "label": "Харцизьк",
+      "value": "khartsyzk"
+    },
+    {
+      "label": "Бахмут",
+      "value": "bakhmut"
+    },
+    {
+      "label": "Волноваха",
+      "value": "volnovakha"
+    },
+    {
+      "label": "Житомир",
+      "value": "zhytomyr"
+    },
+    {
+      "label": "Бердичів",
+      "value": "berdychiv"
+    },
+    {
+      "label": "Новоград-Волинський",
+      "value": "novohrad-volynskyi"
+    },
+    {
+      "label": "Коростень",
+      "value": "korosten"
+    },
+    {
+      "label": "Малин",
+      "value": "malyn"
+    },
+    {
+      "label": "Овруч",
+      "value": "ovruch"
+    },
+    {
+      "label": "Чуднів",
+      "value": "chudniv"
     },
     {
       "label": "Ужгород",
       "value": "uzhhorod"
     },
     {
+      "label": "Мукачево",
+      "value": "mukacheve"
+    },
+    {
+      "label": "Хуст",
+      "value": "khust"
+    },
+    {
+      "label": "Берегове",
+      "value": "berehove"
+    },
+    {
+      "label": "Виноградів",
+      "value": "vynohradiv"
+    },
+    {
+      "label": "Свалява",
+      "value": "svalyava"
+    },
+    {
+      "label": "Тячів",
+      "value": "tyachiv"
+    },
+    {
+      "label": "Запоріжжя",
+      "value": "zaporizhzhia"
+    },
+    {
+      "label": "Мелітополь",
+      "value": "melitopol"
+    },
+    {
+      "label": "Бердянськ",
+      "value": "berdiansk"
+    },
+    {
+      "label": "Енергодар",
+      "value": "enerhodar"
+    },
+    {
+      "label": "Молочанськ",
+      "value": "molochna"
+    },
+    {
+      "label": "Пологи",
+      "value": "pologi"
+    },
+    {
+      "label": "Приморськ",
+      "value": "prymorsk"
+    },
+    {
+      "label": "Івано-Франківськ",
+      "value": "ivano-frankivsk"
+    },
+    {
+      "label": "Коломия",
+      "value": "kolomyia"
+    },
+    {
+      "label": "Яремче",
+      "value": "yaremche"
+    },
+    {
+      "label": "Богородчани",
+      "value": "bohorodchany"
+    },
+    {
+      "label": "Галич",
+      "value": "halych"
+    },
+    {
+      "label": "Долина",
+      "value": "dolina"
+    },
+    {
+      "label": "Надвірна",
+      "value": "nadwirna"
+    },
+    {
+      "label": "Київ",
+      "value": "kyiv"
+    },
+    {
+      "label": "Бровари",
+      "value": "brovary"
+    },
+    {
+      "label": "Біла Церква",
+      "value": "bila-tserkva"
+    },
+    {
+      "label": "Васильків",
+      "value": "vasylkiv"
+    },
+    {
+      "label": "Фастів",
+      "value": "fastiv"
+    },
+    {
+      "label": "Обухів",
+      "value": "obukhiv"
+    },
+    {
+      "label": "Ірпінь",
+      "value": "irpin"
+    },
+    {
+      "label": "Боярка",
+      "value": "boiarka"
+    },
+    {
+      "label": "Кропивницький",
+      "value": "kropyvnytskyi"
+    },
+    {
+      "label": "Олександрія",
+      "value": "oleksandriia"
+    },
+    {
+      "label": "Світловодськ",
+      "value": "svitlovodsk"
+    },
+    {
+      "label": "Знам'янка",
+      "value": "znamianka"
+    },
+    {
+      "label": "Новомиргород",
+      "value": "novomyrhorod"
+    },
+    {
+      "label": "Мала Виска",
+      "value": "mala-vyska"
+    },
+    {
+      "label": "Гайворон",
+      "value": "haivoron"
+    },
+    {
+      "label": "Луганськ",
+      "value": "luhansk"
+    },
+    {
+      "label": "Сєвєродонецьк",
+      "value": "severodonetsk"
+    },
+    {
+      "label": "Лисичанськ",
+      "value": "lysychansk"
+    },
+    {
+      "label": "Рубіжне",
+      "value": "rubezhne"
+    },
+    {
+      "label": "Сорокине",
+      "value": "sorokyne"
+    },
+    {
+      "label": "Кремінна",
+      "value": "kremenna"
+    },
+    {
+      "label": "Щастя",
+      "value": "schtastia"
+    },
+    {
+      "label": "Львів",
+      "value": "lviv"
+    },
+    {
+      "label": "Дрогобич",
+      "value": "drohobych"
+    },
+    {
+      "label": "Стрий",
+      "value": "stryi"
+    },
+    {
+      "label": "Жовква",
+      "value": "zhovkva"
+    },
+    {
+      "label": "Самбір",
+      "value": "sambir"
+    },
+    {
+      "label": "Трускавець",
+      "value": "truskavets"
+    },
+    {
+      "label": "Миколаїв",
+      "value": "mykolaiv"
+    },
+    {
+      "label": "Первомайськ",
+      "value": "perwomaisk"
+    },
+    {
+      "label": "Вознесенськ",
+      "value": "voznesensk"
+    },
+    {
+      "label": "Южноукраїнськ",
+      "value": "yuzhny"
+    },
+    {
+      "label": "Нова Одеса",
+      "value": "nova-odesa"
+    },
+    {
+      "label": "Снігурівка",
+      "value": "snihurivka"
+    },
+    {
+      "label": "Очаків",
+      "value": "ochakiv"
+    },
+    {
+      "label": "Одеса",
+      "value": "odesa"
+    },
+    {
+      "label": "Іллічівськ",
+      "value": "illyichivsk"
+    },
+    {
+      "label": "Теплодар",
+      "value": "teplohrad"
+    },
+    {
+      "label": "Роздільна",
+      "value": "rozivka"
+    },
+    {
+      "label": "Полтава",
+      "value": "poltava"
+    },
+    {
+      "label": "Кременчук",
+      "value": "kremenchuk"
+    },
+    {
+      "label": "Миргород",
+      "value": "myrgorod"
+    },
+    {
+      "label": "Лубни",
+      "value": "lubny"
+    },
+    {
+      "label": "Гадяч",
+      "value": "hadiach"
+    },
+    {
+      "label": "Карлівка",
+      "value": "karlivka"
+    },
+    {
+      "label": "Лохвиця",
+      "value": "lokhvitsia"
+    },
+    {
+      "label": "Рівне",
+      "value": "rivne"
+    },
+    {
+      "label": "Дубно",
+      "value": "dubno"
+    },
+    {
+      "label": "Костопіль",
+      "value": "kostopil"
+    },
+    {
+      "label": "Сарни",
+      "value": "sarny"
+    },
+    {
+      "label": "Здолбунів",
+      "value": "zdolbuniv"
+    },
+    {
+      "label": "Гоща",
+      "value": "hoshcha"
+    },
+    {
+      "label": "Вараш",
+      "value": "varash"
+    },
+    {
+      "label": "Суми",
+      "value": "sumy"
+    },
+    {
+      "label": "Конотоп",
+      "value": "konotop"
+    },
+    {
+      "label": "Шостка",
+      "value": "shostka"
+    },
+    {
+      "label": "Лебедин",
+      "value": "lebedyn"
+    },
+    {
+      "label": "Ромни",
+      "value": "romny"
+    },
+    {
+      "label": "Глухів",
+      "value": "hlukhiv"
+    },
+    {
+      "label": "Кролевець",
+      "value": "krolevec"
+    },
+    {
+      "label": "Тернопіль",
+      "value": "ternopil"
+    },
+    {
+      "label": "Чортків",
+      "value": "chortkiv"
+    },
+    {
+      "label": "Кременець",
+      "value": "kremenets"
+    },
+    {
+      "label": "Бережани",
+      "value": "berezhany"
+    },
+    {
+      "label": "Збараж",
+      "value": "zbarazh"
+    },
+    {
+      "label": "Бучач",
+      "value": "bucha"
+    },
+    {
+      "label": "Заліщики",
+      "value": "zalishchyky"
+    },
+    {
       "label": "Харків",
       "value": "kharkiv"
+    },
+    {
+      "label": "Ізюм",
+      "value": "izyum"
+    },
+    {
+      "label": "Лозова",
+      "value": "lozova"
+    },
+    {
+      "label": "Чугуїв",
+      "value": "chuhuiv"
+    },
+    {
+      "label": "Балаклія",
+      "value": "balakliia"
+    },
+    {
+      "label": "Первомайський",
+      "value": "pervomaiskyi"
+    },
+    {
+      "label": "Куп'янськ",
+      "value": "kupyansk"
     },
     {
       "label": "Херсон",
       "value": "kherson"
     },
     {
+      "label": "Нова Каховка",
+      "value": "nova-kakhovka"
+    },
+    {
+      "label": "Генічеськ",
+      "value": "henichesk"
+    },
+    {
+      "label": "Скадовськ",
+      "value": "skadovsk"
+    },
+    {
+      "label": "Велика Олександрівка",
+      "value": "velyka-oleksandrivka"
+    },
+    {
+      "label": "Каховка",
+      "value": "kakhovka"
+    },
+    {
+      "label": "Олешки",
+      "value": "oleshky"
+    },
+    {
       "label": "Хмельницький",
       "value": "khmelnytskyi"
+    },
+    {
+      "label": "Кам'янець-Подільський",
+      "value": "kamianets-podilskyi"
+    },
+    {
+      "label": "Шепетівка",
+      "value": "shepetivka"
+    },
+    {
+      "label": "Славута",
+      "value": "slavuta"
+    },
+    {
+      "label": "Яреськи",
+      "value": "iaresky"
+    },
+    {
+      "label": "Волочиськ",
+      "value": "volochysk"
+    },
+    {
+      "label": "Деражня",
+      "value": "derazhnia"
     },
     {
       "label": "Черкаси",
       "value": "cherkasy"
     },
     {
+      "label": "Умань",
+      "value": "uman"
+    },
+    {
+      "label": "Звенигородка",
+      "value": "zvenyhorodka"
+    },
+    {
+      "label": "Сміла",
+      "value": "smila"
+    },
+    {
+      "label": "Жашків",
+      "value": "zhashkiv"
+    },
+    {
+      "label": "Кам'янка",
+      "value": "kamianka"
+    },
+    {
+      "label": "Чигирин",
+      "value": "chyhyryn"
+    },
+    {
       "label": "Чернівці",
       "value": "chernivtsi"
     },
     {
-      "label": "Чернігів",
-      "value": "chernihiv"
+      "label": "Чернівці",
+      "value": "chernivtsi"
+    },
+    {
+      "label": "Новоселиця",
+      "value": "novoselytsia"
     }
   ],
   "regions": [
