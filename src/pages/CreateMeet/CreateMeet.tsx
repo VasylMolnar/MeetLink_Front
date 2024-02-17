@@ -3,23 +3,69 @@ import { Container } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import uploadImg from "../../assets/picture.png";
 import { useState } from "react";
+import { Loading } from "notiflix";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { IErrorResponse } from "../../types/authTypes";
+import { useCreateMeetMutation } from "../../features/meet/meetApiSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentUserId } from "../../features/auth/authSlice";
 
 const CreateMeet = () => {
   const [selectedName, setSelectedName] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
+  const [files, setFiles] = useState();
+  const userId = useSelector(selectCurrentUserId);
+
+  //fn API
+  const [createMeet] = useCreateMeetMutation();
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
+    setFiles(e.target.files);
 
     if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
       setSelectedName(file.name);
 
       // Create a preview URL
       const previewUrl = URL.createObjectURL(file);
       setPreviewUrl(previewUrl);
+    }
+  };
+
+  const handleCreateMeet = async (values: any) => {
+    const file = files;
+    const formData = new FormData();
+
+    // console.log(file);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
+    for (const item of file) {
+      formData.append("image", item);
+    }
+
+    formData.append("values", JSON.stringify({ ...values, adminID: userId }));
+
+    Loading.hourglass("Створюємо зустріч");
+
+    try {
+      const response = await createMeet({ formData });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.failure(
+          `Помилка створення зустрічі ${errorResponse.error.status.toString()}`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success(`Успішно створено`, "", "OK");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
     }
   };
 
@@ -30,15 +76,13 @@ const CreateMeet = () => {
         <Formik
           initialValues={{
             meetName: "",
-            meetDescription: "",
-            meetDate: "",
-            meetTime: "",
+            description: "",
+            date: "",
+            time: "",
           }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            handleCreateMeet(values);
+            setSubmitting(false);
           }}
         >
           {() => (
@@ -51,6 +95,7 @@ const CreateMeet = () => {
                     name="meetName"
                     className="form-control"
                     required
+                    maxLength="15"
                   />
                   <ErrorMessage name="meetName" component="div" />
                 </label>
@@ -59,28 +104,34 @@ const CreateMeet = () => {
                   Короткий опис
                   <Field
                     type="textarea"
-                    name="meetDescription"
+                    name="description"
                     className="form-control textarea"
                     required
+                    maxLength="60"
                   />
-                  <ErrorMessage name="meetDescription" component="div" />
+                  <ErrorMessage name="description" component="div" />
                 </label>
 
                 <label className="form-label">
                   День проведення зустріч
-                  <Field type="date" name="meetDate" className="form-control" />
-                  <ErrorMessage name="meetDate" component="div" />
+                  <Field
+                    type="date"
+                    name="date"
+                    className="form-control"
+                    required
+                  />
+                  <ErrorMessage name="date" component="div" />
                 </label>
 
                 <label className="form-label">
                   Час проведення зустріч
                   <Field
                     type="time"
-                    name="meetTime"
+                    name="time"
                     className="form-control"
                     required
                   />
-                  <ErrorMessage name="meetTime" component="div" />
+                  <ErrorMessage name="time" component="div" />
                 </label>
               </div>
 

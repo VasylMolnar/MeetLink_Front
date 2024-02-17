@@ -35,8 +35,8 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
 
         {isSuccess && (data as IMyInfo).meetList?.length ? (
           <div className="meetings">
-            {(data as IMyInfo).meetList?.map((item: IMeetInfo) => (
-              <MeetCard item={item} key={item.id} isMenuOpen={isMenuOpen} />
+            {(data as IMyInfo).meetList?.map((meet: IMeetInfo) => (
+              <MeetCard meet={meet} key={meet["_id"]} isMenuOpen={isMenuOpen} />
             ))}
           </div>
         ) : (

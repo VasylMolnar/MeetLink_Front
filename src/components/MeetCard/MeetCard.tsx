@@ -1,30 +1,38 @@
 import "./MeetCard.scss";
 import logo from "../../assets/ charity.png";
 import { Link } from "react-router-dom";
+import { IMeetInfo } from "../../types/authTypes";
 
-type MeetCardProps = {
-  item: any;
+interface MeetCardProps {
+  meet: IMeetInfo;
   isMenuOpen: boolean;
-};
+}
 
-const MeetCard = ({ item, isMenuOpen }: MeetCardProps) => {
+const MeetCard = ({ meet, isMenuOpen }: MeetCardProps) => {
+  const date = new Date(`${meet.date}`);
+  const formattedDate = `${date.getDate()}.${
+    date.getMonth() + 1
+  }.${date.getFullYear()}`;
+
   return (
     <div className={isMenuOpen ? `meetCard` : `meetCard menu-close`}>
-      <Link to={item.id}>
+      <Link to={meet["_id"] as string}>
         <div className="header">
-          <img src={logo} alt="" className="logo" />
+          <img src={meet.img || logo} alt="" className="logo" />
 
           <div className="info">
-            <span className="title">{item.name}</span>
-            <span className="total-user">Учасників: {item.totalUser}</span>
+            <span className="title">{meet.meetName}</span>
+            <span className="total-user">Час: {meet.time}</span>
+            <span className="total-user">Дата: {formattedDate}</span>
           </div>
         </div>
 
+        <div className="line"></div>
+
         <div className="content">
-          <span>{item.description}</span>
+          <span>{meet.description}</span>
         </div>
       </Link>
-
       <svg
         stroke="currentColor"
         fill="currentColor"

@@ -8,15 +8,42 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: (id: string) => `/user/${id}`,
 
       transformResponse: (response: IUser) => {
-        if (response?.avatar?.data) {
-          const base64String = uint8ArrayToBase64(response.avatar.data.data);
+        // if (response?.avatar?.data) {
+        //   const base64String = uint8ArrayToBase64(response.avatar.data.data);
 
-          // Return data URL
+        //   // Return data URL
+        //   return {
+        //     ...response,
+        //     avatar: `data:image/png;base64,${base64String}`,
+        //   };
+        // }
+
+        let avatar = "";
+        let meetList = [];
+
+        if (response?.avatar?.data) {
+          avatar = `data:image/png;base64,${uint8ArrayToBase64(
+            response.avatar.data.data
+          )}`;
+        }
+
+        if (response?.meetList?.length) {
+          meetList = response.meetList.map((item: any) => ({
+            ...item,
+            img: `data:image/png;base64,${uint8ArrayToBase64(
+              item.img.data.data
+            )}`,
+          }));
+        }
+
+        if (response?.avatar?.data || response?.meetList?.length) {
           return {
             ...response,
-            avatar: `data:image/png;base64,${base64String}`,
+            avatar,
+            meetList,
           };
         }
+
         return response;
       },
 
@@ -65,3 +92,28 @@ export const {
   useDeleteUserMutation,
   useUploadImgMutation,
 } = userApiSlice;
+
+// let avatar = null;
+//         let meetList = <any>[];
+
+//         if (response?.avatar?.data) {
+//           const base64String = uint8ArrayToBase64(response.avatar.data.data);
+
+//           console.log("base64String", base64String);
+//           avatar = `data:image/png;base64,${base64String}`;
+//         }
+
+//         if (response?.meetList?.length) {
+//           meetList = response.meetList.map((item: any) => ({
+//             ...item,
+//             img: `data:image/png;base64,${uint8ArrayToBase64(item)}`,
+//           }));
+//         }
+
+//         if (response?.avatar?.data || response?.meetList?.length) {
+//           return {
+//             ...response,
+//             avatar,
+//             meetList,
+//           };
+//         }

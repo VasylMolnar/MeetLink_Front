@@ -3,6 +3,13 @@
 .meet-link-create-meet {
   padding: 70px 10px 50px 10px;
 
+  .container {
+    padding: 50px 50px 100px 50px;
+    border-radius: 10px;
+    background-color: $--color-light-gray;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
   .title {
     font-size: 28px;
     font-style: normal;

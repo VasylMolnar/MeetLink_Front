@@ -3,7 +3,7 @@ export interface IUser {
   username: string;
   surname: string;
   email: string;
-  password: string;
+  password?: string;
   phoneNumber?: string;
   region?: string;
   city?: string;
@@ -45,14 +45,15 @@ export interface ITokenResponse {
 }
 
 export interface IMeetInfo {
-  id: string;
+  _id?: string;
+  id?: string;
   adminID: string;
   meetName: string;
   description: string;
-  time: string;
-  date: string;
+  time?: string;
+  date?: string;
   img?: string;
-  userList?: [];
+  userList?: IUser[];
 }
 
 export interface IMyInfo extends IUser {
