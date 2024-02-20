@@ -11,12 +11,19 @@ const CurrentChat = () => {
     deskription: "desk description",
     meetId: "21s.dsa231",
     chatId: "2s8afsl2k3",
+    date: "25.2.2024",
+    time: "12:00",
   };
 
   return (
     <main className="meet-link-current-chat">
       <Container>
-        <CallActionsBar meetName={data.name} meetId={data.meetId} />
+        <CallActionsBar
+          meetName={data.name}
+          meetId={data.meetId}
+          date={data.date}
+          time={data.time}
+        />
 
         <Chat chatId={data.chatId} />
       </Container>

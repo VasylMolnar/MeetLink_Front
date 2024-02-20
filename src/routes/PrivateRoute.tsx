@@ -11,6 +11,7 @@ import CurrentChat from "../pages/Chats/CurrentChat/CurrentChat";
 import Calls from "../pages/Calls/Calls";
 import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
 import CreateMeet from "../pages/CreateMeet/CreateMeet";
+import InfoMeet from "../pages/InfoMeet/InfoMeet";
 
 const PrivateRoute = () => {
   const navigate = useNavigate();
@@ -37,14 +38,16 @@ const PrivateRoute = () => {
           {/* meetings */}
           <Route path="/">
             <Route index element={<Meetings isMenuOpen={isMenuOpen} />} />
+
+            {/*CreateMeet */}
+            <Route path="create-meet" element={<CreateMeet />} />
+
             <Route path=":id">
               <Route index element={<CurrentMeet />} />
+              <Route path="info-meet" element={<InfoMeet />} />
               <Route path=":id" element={<Meet />} />
             </Route>
           </Route>
-
-          {/*CreateMeet */}
-          <Route path="create-meet" element={<CreateMeet />} />
 
           {/* chats */}
           <Route path="chats">

@@ -2,29 +2,45 @@ import "./CurrentMeet.scss";
 import Chat from "../../../components/Chat/Chat";
 import { Container } from "react-bootstrap";
 import CallActionsBar from "../../../components/CallActionsBar/CallActionsBar";
+import { useParams } from "react-router-dom";
+import { useGetCurrentMeetQuery } from "../../../features/meet/meetApiSlice";
+import { IMeetInfo } from "../../../types/authTypes";
+import { useEffect } from "react";
+import { Loading } from "notiflix";
 
 const CurrentMeet = () => {
-  //information about current meet
-  const data = {
-    name: "test meet name",
-    numberOfUsers: 20,
-    deskription: "desk description",
-    meetId: "21s.dsa231",
-    chatId: "2s8afsl2k3",
-  };
+  const { id } = useParams();
+
+  const { data, isSuccess, isLoading } = useGetCurrentMeetQuery(
+    id === "auth-form" ? "" : id
+  );
+  const meetInfo = data as IMeetInfo;
+
+  useEffect(() => {
+    if (!isSuccess && isLoading) {
+      Loading.hourglass();
+    } else {
+      Loading.remove();
+    }
+  }, [isLoading, isSuccess]);
 
   return (
     <main className="meet-link-current-meet">
       <Container>
-        <CallActionsBar meetName={data.name} meetId={data.meetId} />
-
-        <Chat chatId={data.chatId} />
+        {isSuccess && (
+          <>
+            <CallActionsBar
+              meetName={meetInfo.meetName}
+              meetId={meetInfo._id as string}
+              date={meetInfo.date}
+              time={meetInfo.time}
+            />
+            <Chat chatId={"123"} />
+          </>
+        )}
       </Container>
     </main>
   );
 };
 
 export default CurrentMeet;
-
-// in top must be a navigation with 2 buttons Call(if clicked link to
-//   Meet.tsx) and settings

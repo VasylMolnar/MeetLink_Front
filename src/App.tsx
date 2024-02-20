@@ -37,12 +37,13 @@ function App() {
             })
           );
         })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .catch((error: IErrorResponse) => {
-          console.log(error);
+          // console.log(error);
         })
         .finally(() => {
           setIsLoading(false);
-          Loading.remove();
+          // Loading.remove();
         });
     };
 

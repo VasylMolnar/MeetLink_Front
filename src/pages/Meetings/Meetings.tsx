@@ -3,12 +3,13 @@ import MeetCard from "../../components/MeetCard/MeetCard";
 import ActionsBar from "../../components/ActionsBar/ActionsBar";
 import { Container } from "react-bootstrap";
 import { Dialog } from "primereact/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
 import { useGetMyInfoQuery } from "../../features/user/userApiSlice";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
 import { IMeetInfo, IMyInfo } from "../../types/authTypes";
+import { Loading } from "notiflix";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
@@ -19,7 +20,7 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const [value, setValue] = useState("");
 
   const id = useSelector(selectCurrentUserId);
-  const { data, isSuccess } = useGetMyInfoQuery(id);
+  const { data, isSuccess, isLoading } = useGetMyInfoQuery(id);
 
   // send Admin access to meet
   const handleAccessMeet = (e: any) => {
@@ -27,6 +28,14 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
     e.preventDefault();
     console.log(e);
   };
+
+  useEffect(() => {
+    if (!isSuccess && isLoading) {
+      Loading.dots("Завантаження");
+    } else {
+      Loading.remove();
+    }
+  }, [isLoading, isSuccess]);
 
   return (
     <main className="meet-link-meetings">

@@ -9,12 +9,14 @@ import { IErrorResponse } from "../../types/authTypes";
 import { useCreateMeetMutation } from "../../features/meet/meetApiSlice";
 import { useSelector } from "react-redux";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateMeet = () => {
   const [selectedName, setSelectedName] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
   const [files, setFiles] = useState();
   const userId = useSelector(selectCurrentUserId);
+  const navigate = useNavigate();
 
   //fn API
   const [createMeet] = useCreateMeetMutation();
@@ -61,6 +63,7 @@ const CreateMeet = () => {
         );
       } else {
         Report.success(`Успішно створено`, "", "OK");
+        navigate("/");
       }
     } catch (err) {
       console.log(err);
@@ -107,19 +110,32 @@ const CreateMeet = () => {
                     name="description"
                     className="form-control textarea"
                     required
-                    maxLength="60"
+                    maxLength="30"
                   />
                   <ErrorMessage name="description" component="div" />
                 </label>
 
                 <label className="form-label">
                   День проведення зустріч
+                  <Field type="date" name="date" className="form-control" />
                   <Field
+                    as="select"
                     type="date"
                     name="date"
                     className="form-control"
-                    required
-                  />
+                  >
+                    <option value="">
+                      Оберіть день для щотижневої зустрічі
+                    </option>
+                    <option value="Щодня">Щодня</option>
+                    <option value="Понеділок">Понеділок</option>
+                    <option value="Вівторок">Вівторок</option>
+                    <option value="Середа">Середа</option>
+                    <option value="Четвер">Четвер</option>
+                    <option value="П'ятниця">П'ятниця</option>
+                    <option value="Субота">Субота</option>
+                    <option value="Неділя">Неділя</option>
+                  </Field>
                   <ErrorMessage name="date" component="div" />
                 </label>
 

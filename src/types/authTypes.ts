@@ -47,12 +47,16 @@ export interface ITokenResponse {
 export interface IMeetInfo {
   _id?: string;
   id?: string;
-  adminID: string;
+  adminID?: string;
   meetName: string;
   description: string;
   time?: string;
   date?: string;
-  img?: string;
+  img?: {
+    name: string;
+    data: { data: any };
+    contentType: string;
+  };
   userList?: IUser[];
 }
 

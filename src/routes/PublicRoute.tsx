@@ -4,12 +4,14 @@ import Home from "../pages/Home/Home";
 import NotFound from "../pages/NotFound/NotFound";
 import RegistrationForm from "../pages/MyAccount/RegistrationForm/RegistrationForm";
 import AuthForm from "../pages/MyAccount/AuthForm/AuthForm";
+import { Loading } from "notiflix";
 
 const PublicRoute = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     navigate("/");
+    Loading.remove();
   }, []);
 
   return (

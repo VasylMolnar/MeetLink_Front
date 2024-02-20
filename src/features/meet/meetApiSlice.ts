@@ -1,5 +1,6 @@
 import { apiSlice } from "../../app/api/apiSlice";
 import { IMeetInfo } from "../../types/authTypes";
+import { uint8ArrayToBase64 } from "../../utils/uint8ArrayToBase64";
 
 export const meetApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
@@ -10,9 +11,32 @@ export const meetApiSlice = apiSlice.injectEndpoints({
         body: formData,
       }),
 
-      invalidatesTags: (_result: any, _error: any, arg: any) => {
-        console.log(_result, arg);
-        return [{ type: "Meets", id: arg.id }];
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      invalidatesTags: (_result: any, _error: any, _arg: any) => {
+        // console.log(_result, arg);
+        return [{ type: "User" }];
+      },
+    }),
+
+    getCurrentMeet: builder.query({
+      query: (id: string) => `/meet/${id}`,
+
+      transformResponse: (response: IMeetInfo) => {
+        if (response?.img?.data) {
+          const base64String = uint8ArrayToBase64(response.img.data.data);
+
+          // Return data URL
+          return {
+            ...response,
+            img: `data:image/png;base64,${base64String}`,
+          };
+        }
+
+        return response;
+      },
+
+      providesTags: (_result: any, _error: any, arg: any) => {
+        return [{ type: "Meet", id: arg }];
       },
     }),
 
@@ -24,7 +48,7 @@ export const meetApiSlice = apiSlice.injectEndpoints({
       }),
 
       invalidatesTags: (_result: any, _error: any, arg: any) => {
-        return [{ type: "Meets", id: arg.id }];
+        return [{ type: "Meet", id: arg.id }, { type: "User" }];
       },
     }),
 
@@ -35,28 +59,44 @@ export const meetApiSlice = apiSlice.injectEndpoints({
         body: {},
       }),
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      invalidatesTags: (_result: any, _error: any, _arg: any) => [
+        { type: "User" },
+      ],
+    }),
+
+    leaveMeet: builder.mutation({
+      query: ({ meetId, userId }: any) => ({
+        url: `/meet/${meetId}/${userId}`,
+        method: "DELETE",
+        body: {},
+      }),
+
       invalidatesTags: (_result: any, _error: any, arg: any) => {
-        return [{ type: "Meets", id: arg.id }];
+        return [{ type: "Meet", id: arg.id }, { type: "User" }];
       },
     }),
 
-    uploadImg: builder.mutation({
+    uploadMeetImg: builder.mutation({
       query: ({ formData, id }: any) => ({
         url: `/meet/${id}/uploads`,
         method: "POST",
         body: formData,
       }),
 
-      invalidatesTags: (_result: any, _error: any, arg: any) => [
-        { type: "Meets", id: arg.id },
-      ],
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      invalidatesTags: (_result: any, _error: any, arg: any) => {
+        return [{ type: "Meet", id: arg.id }, { type: "User" }];
+      },
     }),
   }),
 });
 
 export const {
+  useGetCurrentMeetQuery,
   useCreateMeetMutation,
   useUpdateMeetInfoMutation,
   useDeleteMeetMutation,
-  useUploadImgMutation,
+  useUploadMeetImgMutation,
+  useLeaveMeetMutation,
 } = meetApiSlice;
