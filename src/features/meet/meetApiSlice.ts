@@ -21,14 +21,44 @@ export const meetApiSlice = apiSlice.injectEndpoints({
     getCurrentMeet: builder.query({
       query: (id: string) => `/meet/${id}`,
 
-      transformResponse: (response: IMeetInfo) => {
-        if (response?.img?.data) {
-          const base64String = uint8ArrayToBase64(response.img.data.data);
+      // transformResponse: (response: IMeetInfo) => {
+      //   if (response?.img?.data) {
+      //     const base64String = uint8ArrayToBase64(response.img.data.data);
 
-          // Return data URL
+      //     // Return data URL
+      //     return {
+      //       ...response,
+      //       img: `data:image/png;base64,${base64String}`,
+      //     };
+      //   }
+
+      //   return response;
+      // },
+
+      transformResponse: (response: IMeetInfo) => {
+        let img = "";
+        let userList = [];
+
+        if (response?.img?.data) {
+          img = `data:image/png;base64,${uint8ArrayToBase64(
+            response.img.data.data
+          )}`;
+        }
+
+        if (response?.userList?.length) {
+          userList = response.userList.map((item: any) => ({
+            ...item,
+            avatar: `data:image/png;base64,${uint8ArrayToBase64(
+              item.avatar.data.data
+            )}`,
+          }));
+        }
+
+        if (response?.img?.data || response?.userList?.length) {
           return {
             ...response,
-            img: `data:image/png;base64,${base64String}`,
+            img,
+            userList,
           };
         }
 

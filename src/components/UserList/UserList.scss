@@ -1,0 +1,28 @@
+@import "../../styles/variables";
+
+.user-list {
+  width: 100%;
+  padding: 20px;
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-radius: 15px;
+    background-color: $--body-bg;
+    gap: 20px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    .img {
+      width: 80px;
+      height: 80px;
+      padding: 7px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+}

@@ -17,6 +17,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
+import UserList from "../../components/UserList/UserList";
 
 const PersonalInformation = () => {
   const navigate = useNavigate();
@@ -135,14 +136,14 @@ const PersonalInformation = () => {
     }
   };
 
-  const handlerLeaveMeet = async () => {
+  const handlerLeaveMeet = async (userID: any) => {
     const confirm = window.confirm("Ви дійсно бажаєте покинути дану зустріч ?");
 
     if (confirm) {
       Loading.hourglass("Виходимо із зустріч");
 
       try {
-        const response = await leaveMeet({ id, userId });
+        const response = await leaveMeet({ id, userID });
 
         if ("error" in response) {
           const errorResponse = response as IErrorResponse;
@@ -166,8 +167,6 @@ const PersonalInformation = () => {
       Report.info("Cкасовано", "", "OK");
     }
   };
-
-  console.log(data);
 
   return (
     <main className="section infoMeet">
@@ -193,13 +192,15 @@ const PersonalInformation = () => {
                   {meetInfo.meetName}
                 </p>
 
-                <input
-                  className="custom-file-input"
-                  type="file"
-                  name="image"
-                  style={{ marginBottom: "10px" }}
-                  onChange={(e) => changeImage(e)}
-                />
+                {userId === meetInfo.adminID && (
+                  <input
+                    className="custom-file-input"
+                    type="file"
+                    name="image"
+                    style={{ marginBottom: "10px" }}
+                    onChange={(e) => changeImage(e)}
+                  />
+                )}
               </div>
 
               <div className="infoMeetEdit">
@@ -235,7 +236,7 @@ const PersonalInformation = () => {
                           <div>
                             <Button
                               className="btn btn-warning"
-                              onClick={handlerLeaveMeet}
+                              onClick={() => handlerLeaveMeet(userId)}
                             >
                               Покинути зустріч
                             </Button>
@@ -314,11 +315,17 @@ const PersonalInformation = () => {
                     </form>
                   )}
                 </Formik>
-
-                <div className="infoMeet-userList">
-                  <h3 className="title">Список учасників</h3>
-                </div>
               </div>
+            </div>
+
+            <div className="infoMeet-userList">
+              <h3 className="title">Список учасників</h3>
+
+              <UserList
+                userList={meetInfo.userList}
+                adminId={meetInfo.adminID}
+                handlerDeleteUser={handlerLeaveMeet}
+              />
             </div>
           </div>
         )}
