@@ -49,7 +49,7 @@ const UserList = ({ userList, adminId, handlerDeleteUser }: any) => {
           {userId === adminId && userId !== user._id && (
             <Button
               className="btn btn-danger"
-              onClick={() => handlerDeleteUser(userId)}
+              onClick={() => handlerDeleteUser(user._id)}
             >
               Видалити
             </Button>
@@ -61,3 +61,5 @@ const UserList = ({ userList, adminId, handlerDeleteUser }: any) => {
 };
 
 export default UserList;
+
+//add table change style

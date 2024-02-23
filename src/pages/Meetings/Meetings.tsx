@@ -8,8 +8,10 @@ import { InputText } from "primereact/inputtext";
 import { useSelector } from "react-redux";
 import { useGetMyInfoQuery } from "../../features/user/userApiSlice";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
-import { IMeetInfo, IMyInfo } from "../../types/authTypes";
+import { IErrorResponse, IMeetInfo, IMyInfo } from "../../types/authTypes";
 import { Loading } from "notiflix";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { useReqAccessMutation } from "../../features/meetAccess/meetAccessApiSlice";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
@@ -17,16 +19,42 @@ type MeetingsProps = {
 
 const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const [visible, setVisible] = useState(false);
-  const [value, setValue] = useState("");
 
   const id = useSelector(selectCurrentUserId);
   const { data, isSuccess, isLoading } = useGetMyInfoQuery(id);
 
+  //fn Api
+  const [sendReqAccess] = useReqAccessMutation();
+
   // send Admin access to meet
-  const handleAccessMeet = (e: any) => {
-    //create api to sent request to admin
+  const handleAccessMeet = async (e: any) => {
     e.preventDefault();
-    console.log(e);
+    const meetId = e.currentTarget.elements.access.value;
+    Loading.hourglass("Надсилаємо запит");
+
+    try {
+      const response = await sendReqAccess({ meetId, userId: id });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.warning(
+          `Помилка надсилання запиту`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success(
+          `Запит успішно надіслано `,
+          "Зустріч з'явиться після того як адміністратор додасть вас до зустрічі",
+          "OK"
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
   };
 
   useEffect(() => {
@@ -68,9 +96,8 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
 
         <form action="submit" onSubmit={(e) => handleAccessMeet(e)}>
           <InputText
-            value={value}
+            name="access"
             required
-            onChange={(e) => setValue(e.target.value)}
             style={{ marginTop: "30px", width: "100%" }}
           />
         </form>

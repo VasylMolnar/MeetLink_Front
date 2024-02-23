@@ -9,7 +9,7 @@ import {
 } from "../../../features/user/userApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, selectCurrentUserId } from "../../../features/auth/authSlice";
-import { IErrorResponse, IMyInfo, IUser } from "../../../types/authTypes";
+import { IErrorResponse, IUser } from "../../../types/authTypes";
 import { Button, Container } from "react-bootstrap";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
@@ -20,7 +20,7 @@ const PersonalInformation = () => {
   const dispatch = useDispatch();
   const id = useSelector(selectCurrentUserId);
   const { data, isSuccess } = useGetMyInfoQuery(id);
-  const myInfo = data as IMyInfo;
+  const myInfo = data as IUser;
 
   //fn Api
   const [deleteUser] = useDeleteUserMutation();

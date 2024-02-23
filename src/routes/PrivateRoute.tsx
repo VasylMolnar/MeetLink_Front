@@ -12,6 +12,8 @@ import Calls from "../pages/Calls/Calls";
 import CurrentCall from "../pages/Calls/CurrentCall/CurrentCall";
 import CreateMeet from "../pages/CreateMeet/CreateMeet";
 import InfoMeet from "../pages/InfoMeet/InfoMeet";
+import AccessMessage from "../pages/AccessMessage/AccessMessage";
+import InfoUser from "../pages/InfoUser/InfoUser";
 
 const PrivateRoute = () => {
   const navigate = useNavigate();
@@ -42,6 +44,9 @@ const PrivateRoute = () => {
             {/*CreateMeet */}
             <Route path="create-meet" element={<CreateMeet />} />
 
+            {/*Access Message */}
+            <Route path="access-message" element={<AccessMessage />} />
+
             <Route path=":id">
               <Route index element={<CurrentMeet />} />
               <Route path="info-meet" element={<InfoMeet />} />
@@ -60,6 +65,9 @@ const PrivateRoute = () => {
             <Route index element={<Calls />} />
             <Route path=":id" element={<CurrentCall />} />
           </Route>
+
+          {/* user info */}
+          <Route path="info-user/:id" element={<InfoUser />} />
 
           {/* myAccount */}
           <Route path="myAccount" element={<PersonalInformation />} />

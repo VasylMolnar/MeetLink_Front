@@ -24,7 +24,7 @@ const PersonalInformation = () => {
   const userId = useSelector(selectCurrentUserId);
   const { id } = useParams();
 
-  const { data, isSuccess, isLoading } = useGetCurrentMeetQuery(
+  const { data, isSuccess, isLoading, error } = useGetCurrentMeetQuery(
     id === "auth-form" ? "" : id
   );
   const meetInfo = data as IMeetInfo;
@@ -35,7 +35,11 @@ const PersonalInformation = () => {
     } else {
       Loading.remove();
     }
-  }, [isLoading, isSuccess]);
+
+    if (error) {
+      Report.failure(`${error}`, "", "OK");
+    }
+  }, [isLoading, isSuccess, error]);
 
   //fn Api
   const [leaveMeet] = useLeaveMeetMutation();
@@ -136,14 +140,14 @@ const PersonalInformation = () => {
     }
   };
 
-  const handlerLeaveMeet = async (userID: any) => {
+  const handlerLeaveMeet = async (userId: any) => {
     const confirm = window.confirm("Ви дійсно бажаєте покинути дану зустріч ?");
 
     if (confirm) {
       Loading.hourglass("Виходимо із зустріч");
 
       try {
-        const response = await leaveMeet({ id, userID });
+        const response = await leaveMeet({ meetId: id, userId });
 
         if ("error" in response) {
           const errorResponse = response as IErrorResponse;
@@ -242,6 +246,18 @@ const PersonalInformation = () => {
                             </Button>
                           </div>
                         )}
+                      </div>
+
+                      <div className="form-label">
+                        <p style={{ marginBottom: 0 }}>
+                          Ідентифікатор зустрічі
+                        </p>
+                        <p
+                          className="form-control"
+                          style={{ display: "flex", alignItems: "center" }}
+                        >
+                          {meetInfo._id}
+                        </p>
                       </div>
 
                       <label className="form-label">

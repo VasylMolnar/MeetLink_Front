@@ -62,7 +62,18 @@ export interface IMeetInfo {
 }
 
 export interface IMyInfo extends IUser {
-  userList: IMeetInfo[];
+  messages: (
+    | {
+        _id: string;
+        userId: string;
+        meetId: string;
+        username: string;
+        surname: string;
+        email: string;
+        password?: string;
+      }
+    | []
+  )[];
 }
 
 export interface IUseGetMyInfoQuery {

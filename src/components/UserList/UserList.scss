@@ -14,6 +14,11 @@
     gap: 20px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
+    @media (max-width: $--sm) {
+      flex-wrap: wrap;
+      gap: 0px;
+    }
+
     .img {
       width: 80px;
       height: 80px;
