@@ -43,6 +43,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
     try {
       await logOutUser({});
       dispatch(logOut());
+      location.reload();
     } catch (err) {
       console.log(err);
     } finally {

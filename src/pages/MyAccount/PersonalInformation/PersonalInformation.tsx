@@ -78,7 +78,7 @@ const PersonalInformation = () => {
             "OK"
           );
         } else {
-          Report.success(`Успішно оновлення`, "", "OK");
+          Report.success(`Успішнe оновлення`, "", "OK");
         }
       } catch (err) {
         console.log(err);
