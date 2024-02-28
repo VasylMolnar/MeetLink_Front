@@ -62,7 +62,7 @@ const AccessMessage = () => {
                 value={myInfo.messages}
                 header={"Запити доступу до зустрічей"}
                 stripedRows
-                tableStyle={{ minWidth: "50rem" }}
+                tableStyle={{ minWidth: "50rem", border: "1px solid #f3e8ff" }}
               >
                 <Column
                   field="meetId"
@@ -70,17 +70,31 @@ const AccessMessage = () => {
                   body={(rowData) => (
                     <Link to={`/${rowData.meetId}`}>Посилання</Link>
                   )}
-                ></Column>
+                  style={{ border: "1px solid #f3e8ff" }}
+                />
                 <Column
                   field="userId"
                   header="Профіль"
                   body={(rowData) => (
                     <Link to={`/info-user/${rowData.userId}`}>Посилання</Link>
                   )}
+                  style={{ border: "1px solid #f3e8ff" }}
                 ></Column>
-                <Column field="username" header="Ім'я"></Column>
-                <Column field="surname" header="Прізвище"></Column>
-                <Column field="email" header="Електрона пошта"></Column>
+                <Column
+                  field="username"
+                  header="Ім'я"
+                  style={{ border: "1px solid #f3e8ff" }}
+                ></Column>
+                <Column
+                  field="surname"
+                  header="Прізвище"
+                  style={{ border: "1px solid #f3e8ff" }}
+                ></Column>
+                <Column
+                  field="email"
+                  header="Електрона пошта"
+                  style={{ border: "1px solid #f3e8ff" }}
+                ></Column>
 
                 <Column
                   body={(rowData) => (
@@ -114,6 +128,7 @@ const AccessMessage = () => {
                     </div>
                   )}
                   headerClassName="w-10rem"
+                  style={{ border: "1px solid #f3e8ff" }}
                 />
               </DataTable>
             </div>

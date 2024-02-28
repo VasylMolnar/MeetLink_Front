@@ -34,11 +34,43 @@ const UserList = ({ userList, adminId, handlerDeleteUser }: any) => {
           body={(rowData) => (
             <Link to={`/info-user/${rowData._id}`}>Профіль</Link>
           )}
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
         ></Column>
-        <Column header="Аватарка" body={imageBodyTemplate}></Column>
-        <Column field="username" header="Ім'я"></Column>
-        <Column field="surname" header="Прізвище"></Column>
-        <Column field="email" header="Електрона пошта"></Column>
+        <Column
+          header="Аватарка"
+          body={imageBodyTemplate}
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
+        ></Column>
+        <Column
+          field="username"
+          header="Ім'я"
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
+        ></Column>
+        <Column
+          field="surname"
+          header="Прізвище"
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
+        ></Column>
+        <Column
+          field="email"
+          header="Електрона пошта"
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
+        ></Column>
 
         <Column
           body={(rowData) => (
@@ -54,6 +86,10 @@ const UserList = ({ userList, adminId, handlerDeleteUser }: any) => {
             </div>
           )}
           headerClassName="w-10rem"
+          style={{
+            borderBottom: "1px solid #f3e8ff",
+            borderTop: "1px solid #f3e8ff",
+          }}
         />
       </DataTable>
     </div>

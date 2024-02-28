@@ -3,12 +3,19 @@ import "./Navigation.scss";
 import { NavLink, Outlet } from "react-router-dom";
 import { useLogOutUserMutation } from "../../features/auth/authApiSlice";
 import { Loading } from "notiflix";
-import { useDispatch } from "react-redux";
-import { logOut } from "../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, selectCurrentUserId } from "../../features/auth/authSlice";
+import { useGetMyInfoQuery } from "../../features/user/userApiSlice";
+import { IMyInfo } from "../../types/authTypes";
 
 const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const dispatch = useDispatch();
+
+  //fetch user info
+  const id = useSelector(selectCurrentUserId);
+  const { data, isSuccess } = useGetMyInfoQuery(id);
+  const myInfo = data as IMyInfo;
 
   //fn Api
   const [logOutUser] = useLogOutUserMutation();
@@ -211,9 +218,15 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
               ></path>
             </svg>
 
-            <span className={isMenuOpen ? "text-visible" : "text-hidden"}>
-              Доступ
-            </span>
+            <div
+              className={
+                isSuccess && myInfo.messages.length ? "status active" : ""
+              }
+            >
+              <span className={isMenuOpen ? "text-visible" : "text-hidden"}>
+                Доступ
+              </span>
+            </div>
           </NavLink>
 
           <NavLink
