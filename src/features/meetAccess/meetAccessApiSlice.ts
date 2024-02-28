@@ -18,11 +18,31 @@ export const meetAccessApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: { meetId, userId, messageId, access },
       }),
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      invalidatesTags: (_result: any, _error: any, _arg: any) => {
+        return [{ type: "User" }];
+      },
+    }),
+
+    //delete  message
+    deleteAccessMessage: builder.mutation({
+      query: ({ userId, messageId }: any) => ({
+        url: "/meet-access/access-delete",
+        method: "DELETE",
+        body: { userId, messageId },
+      }),
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      invalidatesTags: (_result: any, _error: any, _arg: any) => {
+        return [{ type: "User" }];
+      },
     }),
   }),
 });
 
-export const { useReqAccessMutation, useResAccessMutation } =
-  meetAccessApiSlice;
-
-//add api to delete message
+export const {
+  useReqAccessMutation,
+  useResAccessMutation,
+  useDeleteAccessMessageMutation,
+} = meetAccessApiSlice;
