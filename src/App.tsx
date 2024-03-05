@@ -38,7 +38,7 @@ function App() {
           );
         })
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .catch((error: IErrorResponse) => {
+        .catch((_error: IErrorResponse) => {
           // console.log(error);
         })
         .finally(() => {
