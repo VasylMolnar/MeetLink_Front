@@ -46,12 +46,18 @@ export const meetApiSlice = apiSlice.injectEndpoints({
         }
 
         if (response?.userList?.length) {
-          userList = response.userList.map((item: any) => ({
-            ...item,
-            avatar: `data:image/png;base64,${uint8ArrayToBase64(
-              item.avatar.data.data
-            )}`,
-          }));
+          userList = response.userList.map((item: any) =>
+            item.avatar
+              ? {
+                  ...item,
+                  avatar: `data:image/png;base64,${uint8ArrayToBase64(
+                    item.avatar.data.data
+                  )}`,
+                }
+              : {
+                  ...item,
+                }
+          );
         }
 
         if (response?.img?.data || response?.userList?.length) {

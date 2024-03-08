@@ -35,7 +35,10 @@ const CurrentMeet = () => {
               date={meetInfo.date}
               time={meetInfo.time}
             />
-            <Chat chatId={"123"} />
+            <Chat
+              roomId={meetInfo.roomId as string}
+              meetId={meetInfo._id as string}
+            />
           </>
         )}
       </Container>

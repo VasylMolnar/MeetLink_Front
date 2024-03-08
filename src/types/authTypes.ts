@@ -59,6 +59,17 @@ export interface IMeetInfo {
     contentType: string;
   };
   userList?: IUser[];
+  roomId?: string;
+  messages?:
+    | {
+        senderId: string;
+        username: string;
+        surname: string;
+        message: string;
+        createdAt: any;
+        avatar?: string;
+      }
+    | [];
 }
 
 export interface IMyInfo extends IUser {
@@ -79,4 +90,13 @@ export interface IMyInfo extends IUser {
 export interface IUseGetMyInfoQuery {
   data: IMyInfo;
   isSuccess: any;
+}
+
+export interface IMessage {
+  senderId: string;
+  username: string;
+  surname: string;
+  message: string;
+  createdAt: any;
+  avatar?: string;
 }
