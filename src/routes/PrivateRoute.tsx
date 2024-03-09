@@ -41,18 +41,24 @@ const PrivateRoute = () => {
           <Route path="/">
             <Route index element={<Meetings isMenuOpen={isMenuOpen} />} />
 
-            {/*CreateMeet */}
-            <Route path="create-meet" element={<CreateMeet />} />
-
-            {/*Access Message */}
-            <Route path="access-message" element={<AccessMessage />} />
-
             <Route path=":id">
               <Route index element={<CurrentMeet />} />
               <Route path="info-meet" element={<InfoMeet />} />
               <Route path=":id" element={<Meet />} />
             </Route>
           </Route>
+
+          {/*CreateMeet */}
+          <Route path="create-meet" element={<CreateMeet />} />
+
+          {/*Access Message */}
+          <Route path="access-message" element={<AccessMessage />} />
+
+          {/* user info */}
+          <Route path="info-user/:id" element={<InfoUser />} />
+
+          {/* myAccount */}
+          <Route path="myAccount" element={<PersonalInformation />} />
 
           {/* chats */}
           <Route path="chats">
@@ -65,12 +71,6 @@ const PrivateRoute = () => {
             <Route index element={<Calls />} />
             <Route path=":id" element={<CurrentCall />} />
           </Route>
-
-          {/* user info */}
-          <Route path="info-user/:id" element={<InfoUser />} />
-
-          {/* myAccount */}
-          <Route path="myAccount" element={<PersonalInformation />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

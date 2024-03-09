@@ -12,6 +12,7 @@ import { IErrorResponse, IMeetInfo, IMyInfo } from "../../types/authTypes";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import { useReqAccessMutation } from "../../features/meetAccess/meetAccessApiSlice";
+import useSort from "../../hooks/useSort";
 
 type MeetingsProps = {
   isMenuOpen: boolean;
@@ -19,9 +20,11 @@ type MeetingsProps = {
 
 const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const [visible, setVisible] = useState(false);
-
+  const [searchValue, setSearchValue] = useState("");
   const id = useSelector(selectCurrentUserId);
   const { data, isSuccess, isLoading } = useGetMyInfoQuery(id);
+
+  const myInfo = data as IMyInfo;
 
   //fn Api
   const [sendReqAccess] = useReqAccessMutation();
@@ -65,14 +68,20 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
     }
   }, [isLoading, isSuccess]);
 
+  const sortData = useSort(searchValue, isSuccess ? myInfo.meetList : []);
+
   return (
     <main className="meet-link-meetings">
       <Container>
-        <ActionsBar setVisible={setVisible} />
+        <ActionsBar
+          setVisible={setVisible}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
 
         {isSuccess && (data as IMyInfo).meetList?.length ? (
           <div className="meetings">
-            {(data as IMyInfo).meetList?.map((meet: IMeetInfo) => (
+            {sortData.map((meet: IMeetInfo) => (
               <MeetCard meet={meet} key={meet["_id"]} isMenuOpen={isMenuOpen} />
             ))}
           </div>

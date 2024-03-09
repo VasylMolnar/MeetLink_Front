@@ -56,8 +56,6 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
-    console.log(myInfo.avatar);
-
     if (socket) {
       socket.emit("sendNewMessage", {
         meetId,
@@ -82,8 +80,6 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
     scrollToBottom();
   }, [messages]);
 
-  console.log(messages);
-
   return (
     <div className="meet-link-chat">
       <div className="chats">
@@ -107,9 +103,9 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
               <img
                 className="user-avatar"
                 src={
-                  typeof message.avatar === "string"
-                    ? message.avatar
-                    : defaultIMG
+                  message.avatar === "" || null || undefined
+                    ? defaultIMG
+                    : message.avatar
                 }
                 alt="user-avatar"
               />

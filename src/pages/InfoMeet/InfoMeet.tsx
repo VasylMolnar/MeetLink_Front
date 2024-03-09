@@ -268,6 +268,7 @@ const PersonalInformation = () => {
                           className="form-control"
                           required
                           maxLength="15"
+                          disabled={userId === meetInfo.adminID ? false : true}
                         />
                       </label>
 
@@ -279,6 +280,7 @@ const PersonalInformation = () => {
                           className="form-control textarea"
                           required
                           maxLength="30"
+                          disabled={userId === meetInfo.adminID ? false : true}
                         />
                       </label>
 
@@ -288,12 +290,14 @@ const PersonalInformation = () => {
                           type="date"
                           name="date"
                           className="form-control"
+                          disabled={userId === meetInfo.adminID ? false : true}
                         />
                         <Field
                           as="select"
                           type="date"
                           name="date"
                           className="form-control"
+                          disabled={userId === meetInfo.adminID ? false : true}
                         >
                           <option value="">
                             Оберіть день для щотижневої зустрічі
@@ -316,6 +320,7 @@ const PersonalInformation = () => {
                           name="time"
                           className="form-control"
                           required
+                          disabled={userId === meetInfo.adminID ? false : true}
                         />
                       </label>
 
