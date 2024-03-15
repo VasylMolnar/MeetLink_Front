@@ -3,7 +3,7 @@ import "./CallActionsBar.scss";
 
 type CallActionsBarProps = {
   meetName: string;
-  meetId: string;
+  conferenceId: string;
   date: string | undefined;
   time: string | undefined;
 };
@@ -12,7 +12,7 @@ const CallActionsBar = ({
   meetName,
   date,
   time,
-  meetId,
+  conferenceId,
 }: CallActionsBarProps) => {
   return (
     <div className="meet-link-call-action-bar">
@@ -21,7 +21,7 @@ const CallActionsBar = ({
       <h1 className="meet-name">Час: {time}</h1>
 
       <div className="btn-list">
-        <Link to={meetId}>
+        <Link to={conferenceId}>
           <button className="start-meet">
             <svg
               stroke="currentColor"

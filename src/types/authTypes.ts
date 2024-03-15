@@ -60,6 +60,7 @@ export interface IMeetInfo {
   };
   userList?: IUser[];
   roomId?: string;
+  conferenceId?: string;
   messages?:
     | {
         senderId: string;

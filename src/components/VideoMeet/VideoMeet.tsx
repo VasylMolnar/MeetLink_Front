@@ -4,10 +4,6 @@ import miting1 from "../../assets/meetings1.jpg";
 import { useLocation } from "react-router-dom";
 
 const VideoMeet = () => {
-  {
-    /* in here we must to connect 2 or allot people   */
-  }
-
   const [control, setControl] = useState({
     video: false,
     voice: false,
@@ -40,34 +36,7 @@ const VideoMeet = () => {
         <div className="video-screen me">
           <img src={miting1} alt="meet" />
         </div>
-
         <div className="video-screen me">
-          <img src={miting1} alt="meet" />
-        </div>
-
-        <div className="video-screen">
-          <img src={miting1} alt="meet" />
-        </div>
-        <div className="video-screen">
-          <img src={miting1} alt="meet" />
-        </div>
-
-        <div className="video-screen me">
-          <img src={miting1} alt="meet" />
-        </div>
-
-        <div className="video-screen me">
-          <img src={miting1} alt="meet" />
-        </div>
-
-        <div className="video-screen">
-          <img src={miting1} alt="meet" />
-        </div>
-        <div className="video-screen">
-          <img src={miting1} alt="meet" />
-        </div>
-
-        <div className="video-screen">
           <img src={miting1} alt="meet" />
         </div>
       </div>

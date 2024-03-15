@@ -31,7 +31,7 @@ const CurrentMeet = () => {
           <>
             <CallActionsBar
               meetName={meetInfo.meetName}
-              meetId={meetInfo._id as string}
+              conferenceId={meetInfo.conferenceId as string}
               date={meetInfo.date}
               time={meetInfo.time}
             />
