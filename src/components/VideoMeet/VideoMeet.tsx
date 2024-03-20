@@ -1,9 +1,9 @@
-import { useState } from "react";
 import "./VideoMeet.scss";
-import miting1 from "../../assets/meetings1.jpg";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import VideoPlayer from "../Video/Video";
 
-const VideoMeet = () => {
+const VideoMeet = ({ myStream, remoteStream }: any) => {
   const [control, setControl] = useState({
     video: false,
     voice: false,
@@ -34,10 +34,14 @@ const VideoMeet = () => {
     <div className="video-meet">
       <div className="meet-container">
         <div className="video-screen me">
-          <img src={miting1} alt="meet" />
+          <VideoPlayer stream={myStream} />
         </div>
+
         <div className="video-screen me">
-          <img src={miting1} alt="meet" />
+          {remoteStream &&
+            Object.entries(remoteStream).map(([userId, stream]) => (
+              <VideoPlayer stream={stream as MediaStream} key={userId} />
+            ))}
         </div>
       </div>
       <div className="video-control">
