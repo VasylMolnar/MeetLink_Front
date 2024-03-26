@@ -7,6 +7,7 @@ import Peer from "peerjs";
 import ChatAndParticipants from "../../../../components/ChatAndParticipants/ChatAndParticipants";
 import VideoMeet from "../../../../components/VideoMeet/VideoMeet";
 import { selectCurrentUserId } from "../../../../features/auth/authSlice";
+import { Loading } from "notiflix";
 
 const Meet = () => {
   const { pathname } = useLocation();
@@ -16,10 +17,24 @@ const Meet = () => {
 
   const [socket, setSocket] = useState<Socket<any, any> | null>(null);
   const [isConferenceJoined, setIsConferenceJoined] = useState(false);
-
   const [peer, setPeer] = useState<Peer | null>(null);
   const [myStream, setMyStream] = useState<MediaStream | null>(null);
   const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+
+  const [isCameraOn, setIsCameraOn] = useState(true);
+  const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
+
+  const toggleCamera = () => {
+    if (!myStream) return;
+    myStream.getVideoTracks()[0].enabled = !isCameraOn;
+    setIsCameraOn(!isCameraOn);
+  };
+
+  const toggleMicrophone = () => {
+    if (!myStream) return;
+    myStream.getAudioTracks()[0].enabled = !isMicrophoneOn;
+    setIsMicrophoneOn(!isMicrophoneOn);
+  };
 
   useEffect(() => {
     const newSocket = io("http://localhost:3500");
@@ -125,10 +140,26 @@ const Meet = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!myStream) {
+      Loading.pulse();
+    } else {
+      Loading.remove();
+    }
+  }, [myStream]);
+
   return (
     <main className="meet-link-meet">
       {/* Component with Video */}
-      <VideoMeet myStream={myStream} remoteStream={remoteStream} />
+
+      {myStream && (
+        <VideoMeet
+          myStream={myStream}
+          remoteStream={remoteStream}
+          toggleCamera={toggleCamera}
+          toggleMicrophone={toggleMicrophone}
+        />
+      )}
 
       {/*Bar with All users and Chat */}
       <ChatAndParticipants />

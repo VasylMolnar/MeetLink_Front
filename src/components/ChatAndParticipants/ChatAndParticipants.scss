@@ -1,10 +1,13 @@
 @import "../../styles/variables";
 
 .chat-participants {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
   width: 370px;
   height: 100%;
   padding: 15px;
-  border-radius: 12px;
   // background: #f5f5fd;
   background-color: $--color-white;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
