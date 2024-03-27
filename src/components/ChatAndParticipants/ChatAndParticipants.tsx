@@ -1,13 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ChatAndParticipants.scss";
 import mitings1 from "../../assets/meetings2.jpg";
+import { Button } from "react-bootstrap";
 
 const ChatAndParticipants = () => {
   // const [openBar, setOpenBar] = useState(false);
   const [chatView, setChatView] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const toggleChatParticipants = () => {
+    const chatParticipants = document.querySelector(".chat-participants");
+
+    if (chatParticipants) {
+      chatParticipants.classList.toggle("active");
+    }
+  };
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIsMobile();
+
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIsMobile); // Видалення слухача після видалення компонента
+    };
+  }, []);
 
   return (
     <div className="chat-participants">
+      {isMobile ? (
+        <Button
+          className={chatView ? "btn btn-primary" : "btn"}
+          onClick={() => toggleChatParticipants()}
+          style={{ marginBottom: "10px" }}
+        >
+          X
+        </Button>
+      ) : null}
+
       <div className="control">
         <button
           className={chatView ? "btn choose" : "btn"}

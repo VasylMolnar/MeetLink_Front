@@ -151,7 +151,6 @@ const Meet = () => {
   return (
     <main className="meet-link-meet">
       {/* Component with Video */}
-
       {myStream && (
         <VideoMeet
           myStream={myStream}

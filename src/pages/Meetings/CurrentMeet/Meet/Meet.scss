@@ -3,11 +3,9 @@
 .meet-link-meet {
   width: 100%;
   height: 100vh;
-  position: relative;
 
   display: flex;
   flex-direction: row;
-  gap: 10px;
   transition: all 250ms linear;
 
   // padding: 15px;
@@ -16,4 +14,14 @@
   //     padding: 10px 0 0 0;
   //   }
   // }
+
+  @media (min-width: $--sm) {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  @media (max-width: $--md) {
+    position: relative;
+  }
 }

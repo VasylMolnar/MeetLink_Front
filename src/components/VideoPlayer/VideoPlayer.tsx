@@ -12,8 +12,8 @@ const VideoPlayer: React.FC<{ stream?: MediaStream | null }> = ({ stream }) => {
       ref={videoRef}
       autoPlay
       className="video"
-      width="100%"
-      height="100%"
+      // width="100%"
+      // height="100%"
     />
   );
 };
