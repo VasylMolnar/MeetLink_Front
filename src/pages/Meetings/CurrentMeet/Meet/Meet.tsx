@@ -25,15 +25,26 @@ const Meet = () => {
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
 
   const toggleCamera = () => {
-    if (!myStream) return;
+    if (!myStream || !socket) return;
     myStream.getVideoTracks()[0].enabled = !isCameraOn;
+
     setIsCameraOn(!isCameraOn);
+    socket.emit("toggleCamera", meetId, conferenceId.id, userId, !isCameraOn);
   };
 
   const toggleMicrophone = () => {
-    if (!myStream) return;
+    if (!myStream || !socket) return;
     myStream.getAudioTracks()[0].enabled = !isMicrophoneOn;
+
     setIsMicrophoneOn(!isMicrophoneOn);
+
+    socket.emit(
+      "toggleMicrophone",
+      meetId,
+      conferenceId.id,
+      userId,
+      !isMicrophoneOn
+    );
   };
 
   useEffect(() => {
@@ -45,7 +56,7 @@ const Meet = () => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
+        .getUserMedia({ video: true, audio: true })
         .then((stream) => {
           setMyStream(stream);
         });
@@ -107,6 +118,26 @@ const Meet = () => {
       });
     });
 
+    socket.on("userToggleCamera", (userId: any, isCameraOn: boolean) => {
+      if (!remoteStream) return;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      const userStream = remoteStream[userId];
+
+      if (!userStream) return;
+      userStream.getVideoTracks()[0].enabled = isCameraOn;
+    });
+
+    socket.on("userToggleMicro", (userId: any, isMicrophoneOn: boolean) => {
+      if (!remoteStream) return;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      const userStream = remoteStream[userId];
+
+      if (!userStream) return;
+      userStream.getAudioTracks()[0].enabled = isMicrophoneOn;
+    });
+
     socket.on("error", (error: any) => {
       console.error("Socket error:", error.message);
     });
@@ -117,7 +148,7 @@ const Meet = () => {
       socket.off("joinConference");
       socket.off("error");
     };
-  }, [socket, peer, myStream]);
+  }, [socket, peer, myStream, remoteStream]);
 
   useEffect(() => {
     const navigation = document.querySelector(".meet-link-nav");
@@ -155,7 +186,9 @@ const Meet = () => {
         <VideoMeet
           myStream={myStream}
           remoteStream={remoteStream}
+          isCameraOn={isCameraOn}
           toggleCamera={toggleCamera}
+          isMicrophoneOn={isMicrophoneOn}
           toggleMicrophone={toggleMicrophone}
         />
       )}

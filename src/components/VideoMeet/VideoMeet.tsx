@@ -7,12 +7,12 @@ import VideoList from "./VideoList";
 const VideoMeet = ({
   myStream,
   remoteStream,
+  isMicrophoneOn,
   toggleMicrophone,
+  isCameraOn,
   toggleCamera,
 }: any) => {
   const [control, setControl] = useState({
-    video: false,
-    voice: false,
     sound: true,
     screen: false,
     setting: false,
@@ -50,10 +50,10 @@ const VideoMeet = ({
         <div className="video-control">
           <ul className="list">
             <li
-              className={control.video ? "item video active" : "item video"}
+              className={isCameraOn ? "item video active" : "item video"}
               onClick={() => toggleCamera()}
             >
-              {control.video ? (
+              {isCameraOn ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="33"
@@ -78,10 +78,10 @@ const VideoMeet = ({
             </li>
 
             <li
-              className={control.voice ? "item voice active" : "item voice "}
+              className={isMicrophoneOn ? "item voice active" : "item voice "}
               onClick={() => toggleMicrophone()}
             >
-              {control.voice ? (
+              {isMicrophoneOn ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
