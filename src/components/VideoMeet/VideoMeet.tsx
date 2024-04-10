@@ -42,8 +42,8 @@ const VideoMeet = ({
         <VideoList
           streams={
             myStream && remoteStream
-              ? [myStream, ...Object.values(remoteStream)]
-              : [myStream]
+              ? [...Object.values(myStream), ...Object.values(remoteStream)]
+              : [...Object.values(myStream)]
           }
         />
 

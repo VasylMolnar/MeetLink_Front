@@ -8,12 +8,16 @@ import ChatAndParticipants from "../../../../components/ChatAndParticipants/Chat
 import VideoMeet from "../../../../components/VideoMeet/VideoMeet";
 import { selectCurrentUserId } from "../../../../features/auth/authSlice";
 import { Loading } from "notiflix";
+import { IUser } from "../../../../types/authTypes";
+import { useGetMyInfoQuery } from "../../../../features/user/userApiSlice";
 
 const Meet = () => {
   const { pathname } = useLocation();
   const meetId = pathname.split("/")[1];
   const conferenceId = useParams();
   const userId = useSelector(selectCurrentUserId);
+  const { data, isSuccess } = useGetMyInfoQuery(userId);
+  const myInfo = data as IUser;
 
   const [socket, setSocket] = useState<Socket<any, any> | null>(null);
   const [isConferenceJoined, setIsConferenceJoined] = useState(false);
@@ -26,7 +30,13 @@ const Meet = () => {
 
   const toggleCamera = () => {
     if (!myStream || !socket) return;
-    myStream.getVideoTracks()[0].enabled = !isCameraOn;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    myStream[userId].stream.getVideoTracks()[0].enabled = !isCameraOn;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    myStream[userId].metadata.isCameraOn = !isCameraOn;
 
     setIsCameraOn(!isCameraOn);
     socket.emit("toggleCamera", meetId, conferenceId.id, userId, !isCameraOn);
@@ -34,7 +44,13 @@ const Meet = () => {
 
   const toggleMicrophone = () => {
     if (!myStream || !socket) return;
-    myStream.getAudioTracks()[0].enabled = !isMicrophoneOn;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    myStream[userId].stream.getAudioTracks()[0].enabled = !isMicrophoneOn;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    myStream[userId].metadata.isMicrophoneOn = !isMicrophoneOn;
 
     setIsMicrophoneOn(!isMicrophoneOn);
 
@@ -58,7 +74,21 @@ const Meet = () => {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: true })
         .then((stream) => {
-          setMyStream(stream);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          setMyStream({
+            [userId]: {
+              stream,
+              metadata: {
+                userId: userId,
+                username: myInfo.username,
+                surname: myInfo.surname,
+                avatar: myInfo.avatar || null,
+                isCameraOn,
+                isMicrophoneOn,
+              },
+            },
+          });
         });
     } catch (e) {
       console.log(e);
@@ -76,36 +106,61 @@ const Meet = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (!socket || !peer || !myStream) return;
+    if (!socket || !peer || !myStream || !isSuccess) return;
 
     if (!isConferenceJoined) {
-      socket.emit("joinConference", meetId, conferenceId.id, userId);
+      socket.emit("joinConference", meetId, conferenceId.id, userId, {
+        username: myInfo.username,
+        surname: myInfo.surname,
+        avatar: myInfo.avatar,
+        isCameraOn,
+        isMicrophoneOn,
+      });
       setIsConferenceJoined(true);
     }
 
     //I listen when new user connected to conference. And send my Stream and call them
-    socket.on("user connected", (peerId: any) => {
-      const call = peer.call(peerId, myStream);
+    socket.on("user connected", (peerId: any, metadataUser: any) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      const call = peer.call(peerId, myStream[userId].stream, {
+        metadata: {
+          username: myInfo.username,
+          surname: myInfo.surname,
+          avatar: myInfo.avatar,
+          isCameraOn,
+          isMicrophoneOn,
+        },
+      });
 
-      call.on("stream", (remoteStream) => {
+      call.on("stream", (remoteStream: any) => {
         setRemoteStream((prevUsers: any) => ({
           ...prevUsers,
-          [peerId]: remoteStream,
+
+          [peerId]: {
+            stream: remoteStream,
+            metadata: metadataUser,
+          },
         }));
       });
     });
 
     //I listen call to me
-    peer.on("call", (call) => {
-      call.answer(myStream);
+    peer.on("call", (call: any) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      call.answer(myStream[userId].stream);
 
       //I listen answer from user
-      call.on("stream", (remoteStream) => {
+      call.on("stream", (remoteStream: any) => {
         const peerId = call.peer;
 
         setRemoteStream((prevUsers: any) => ({
           ...prevUsers,
-          [peerId]: remoteStream,
+          [peerId]: {
+            stream: remoteStream,
+            metadata: call.metadata,
+          },
         }));
       });
     });
@@ -120,12 +175,22 @@ const Meet = () => {
 
     socket.on("userToggleCamera", (userId: any, isCameraOn: boolean) => {
       if (!remoteStream) return;
+
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       const userStream = remoteStream[userId];
 
       if (!userStream) return;
-      userStream.getVideoTracks()[0].enabled = isCameraOn;
+      userStream.stream.getVideoTracks()[0].enabled = isCameraOn;
+      // userStream.metadata.isCameraOn = isCameraOn;
+
+      setRemoteStream((prevUsers: any) => ({
+        ...prevUsers,
+        [userId]: {
+          ...prevUsers[userId],
+          metadata: { ...prevUsers[userId].metadata, isCameraOn: isCameraOn },
+        },
+      }));
     });
 
     socket.on("userToggleMicro", (userId: any, isMicrophoneOn: boolean) => {
@@ -135,7 +200,19 @@ const Meet = () => {
       const userStream = remoteStream[userId];
 
       if (!userStream) return;
-      userStream.getAudioTracks()[0].enabled = isMicrophoneOn;
+      userStream.stream.getAudioTracks()[0].enabled = isMicrophoneOn;
+      // userStream.metadata.isMicrophoneOn = isMicrophoneOn;
+
+      setRemoteStream((prevUsers: any) => ({
+        ...prevUsers,
+        [userId]: {
+          ...prevUsers[userId],
+          metadata: {
+            ...prevUsers[userId].metadata,
+            isMicrophoneOn: isMicrophoneOn,
+          },
+        },
+      }));
     });
 
     socket.on("error", (error: any) => {
