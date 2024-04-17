@@ -16,9 +16,11 @@ import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../../features/auth/authSlice";
+import Cookies from "js-cookie";
 
 const AuthForm = () => {
   const dispatch = useDispatch();
+  const [saveLogInData, setSaveLogInData] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 854); //1135
 
   useEffect(() => {
@@ -39,6 +41,11 @@ const AuthForm = () => {
 
   const handleLogIn = async (values: IUserLogin) => {
     Loading.dots("Вхід у обліковий запис");
+
+    if (saveLogInData) {
+      Cookies.set("email", values.email, { expires: 7 });
+      Cookies.set("password", values.password, { expires: 7 });
+    }
 
     try {
       const response = await logInUser(values);
@@ -105,7 +112,10 @@ const AuthForm = () => {
           <div className="content">
             <h1 className="title">Приєднуйтеся сьогодні</h1>
             <Formik
-              initialValues={{ email: "", password: "" }}
+              initialValues={{
+                email: Cookies.get("email") || "",
+                password: Cookies.get("password") || "",
+              }}
               validate={(values) => {
                 const errors = {};
                 if (!values.email) {
@@ -124,7 +134,7 @@ const AuthForm = () => {
                 setSubmitting(false);
               }}
             >
-              {() => (
+              {({ values }) => (
                 <Form className="form">
                   <label className="form-label">
                     Електрона пошта
@@ -132,6 +142,7 @@ const AuthForm = () => {
                       type="email"
                       name="email"
                       className="form-control"
+                      value={values.email}
                       required
                     />
                     <ErrorMessage name="email" component="div" />
@@ -143,6 +154,7 @@ const AuthForm = () => {
                       type="password"
                       name="password"
                       className="form-control"
+                      value={values.password}
                       required
                       minLength="10"
                       maxLength="20"
@@ -151,7 +163,11 @@ const AuthForm = () => {
                   </label>
 
                   <label className="form-label-checkbox">
-                    <input className="remember-me-btn" type="checkbox" />
+                    <input
+                      className="remember-me-btn"
+                      type="checkbox"
+                      onClick={() => setSaveLogInData((prev) => !prev)}
+                    />
                     Зберегти дані для наступного входу
                   </label>
 
