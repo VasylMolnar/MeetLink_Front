@@ -1,9 +1,9 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
 const VideoList = ({ streams }: any) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     const videoList = document.querySelector(".video-list");
     const videoScreens = document.querySelectorAll(".video-screen");
 

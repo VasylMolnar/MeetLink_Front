@@ -23,6 +23,14 @@ const CreateMeet = () => {
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
+    const fileSize = file.size / 1024;
+
+    if (fileSize > 300) {
+      Report.failure("Помилка", "Фото повинно бути менше 300 КБ", "OK");
+      Loading.remove();
+      return;
+    }
+
     setFiles(e.target.files);
 
     if (file) {

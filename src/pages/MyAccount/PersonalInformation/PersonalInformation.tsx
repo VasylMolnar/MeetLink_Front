@@ -31,6 +31,14 @@ const PersonalInformation = () => {
     Loading.hourglass("Додаємо аватару");
 
     const file = e.target.files[0];
+    const fileSize = file.size / 1024;
+
+    if (fileSize > 300) {
+      Report.failure("Помилка", "Фото повинно бути менше 300 КБ", "OK");
+      Loading.remove();
+      return;
+    }
+
     const formData = new FormData();
     formData.append("image", file);
     formData.append("folder", "Avatar");

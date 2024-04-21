@@ -72,7 +72,7 @@ const Meet = () => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
+        .getUserMedia({ video: true, audio: false })
         .then((stream) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
@@ -215,6 +215,24 @@ const Meet = () => {
       }));
     });
 
+    socket.on("userChangeMetaData", (userId: any, newMetaData: any) => {
+      if (!remoteStream) return;
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      const userStream = remoteStream[userId];
+
+      if (!userStream) return;
+
+      setRemoteStream((prevUsers: any) => ({
+        ...prevUsers,
+        [userId]: {
+          ...prevUsers[userId],
+          metadata: { ...prevUsers[userId].metadata, ...newMetaData },
+        },
+      }));
+    });
+
     socket.on("error", (error: any) => {
       console.error("Socket error:", error.message);
     });
@@ -223,6 +241,9 @@ const Meet = () => {
       socket.off("user connected");
       socket.off("user disconnected");
       socket.off("joinConference");
+      socket.off("userToggleCamera");
+      socket.off("userToggleMicro");
+      socket.off("userChangeMetaData");
       socket.off("error");
     };
   }, [socket, peer, myStream, remoteStream]);
@@ -261,12 +282,18 @@ const Meet = () => {
       {/* Component with Video */}
       {myStream && (
         <VideoMeet
+          setMyStream={setMyStream}
           myStream={myStream}
           remoteStream={remoteStream}
           isCameraOn={isCameraOn}
           toggleCamera={toggleCamera}
           isMicrophoneOn={isMicrophoneOn}
           toggleMicrophone={toggleMicrophone}
+          socket={socket}
+          userId={userId}
+          meetId={meetId}
+          conferenceId={conferenceId.id}
+          myInfo={myInfo}
         />
       )}
 

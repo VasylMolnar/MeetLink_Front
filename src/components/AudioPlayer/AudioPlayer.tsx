@@ -16,7 +16,7 @@ const AudioPlayer = ({ stream, userId }: any) => {
     }
   }, [stream, userId, id]);
 
-  return <audio ref={audioRef} autoPlay />;
+  return <audio ref={audioRef} autoPlay className="audio" />;
 };
 
 export default AudioPlayer;

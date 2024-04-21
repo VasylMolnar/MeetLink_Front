@@ -1,17 +1,37 @@
 import "./VideoMeet.scss";
+import VideoList from "./VideoList";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import VideoList from "./VideoList";
+import { Container, Col, Row, Form } from "react-bootstrap";
+import { Dialog } from "primereact/dialog";
+import { Formik, Field } from "formik";
+import { SwatchesPicker } from "react-color";
+import { Loading } from "notiflix";
+import { Report } from "notiflix/build/notiflix-report-aio";
+import { IErrorResponse } from "../../types/authTypes";
+import {
+  useUpdateUserInfoMutation,
+  useUploadImgMutation,
+} from "../../features/user/userApiSlice";
+import { uint8ArrayToBase64 } from "../../utils/uint8ArrayToBase64";
 
 const VideoMeet = ({
+  setMyStream,
   myStream,
   remoteStream,
   isMicrophoneOn,
   toggleMicrophone,
   isCameraOn,
   toggleCamera,
+  socket,
+  userId,
+  meetId,
+  conferenceId,
+  myInfo,
 }: any) => {
+  const { pathname } = useLocation();
+  const [visible, setVisible] = useState(false);
+  const [background, setBackground] = useState("#202124");
   const [control, setControl] = useState({
     sound: true,
     screen: false,
@@ -19,11 +39,30 @@ const VideoMeet = ({
     chatParticipants: false,
   });
 
-  const { pathname } = useLocation();
+  //fn Api
+  const [updateUser] = useUpdateUserInfoMutation();
+  const [imgUpload] = useUploadImgMutation();
 
   const toggleControl = (id: string) => {
     // @ts-expect-error: Unreachable code error
     setControl((prevControl) => ({ ...prevControl, [id]: !prevControl[id] }));
+
+    if (id === "sound") {
+      const audioElements = document.querySelectorAll("audio");
+      const videoElements = document.querySelectorAll("video");
+
+      audioElements.forEach(function (audio) {
+        audio.muted = control[id];
+      });
+
+      videoElements.forEach(function (video) {
+        video.muted = control[id];
+      });
+    }
+
+    if (id === "setting") {
+      setVisible(true);
+    }
   };
 
   const toggleChatParticipants = () => {
@@ -33,6 +72,156 @@ const VideoMeet = ({
 
     if (chatParticipants) {
       chatParticipants.classList.toggle("active");
+    }
+  };
+
+  const changeImage = async (e: any) => {
+    Loading.dots("Оновлення  обл. запису");
+
+    const file = e.target.files[0];
+    const fileSize = file.size / 1024;
+
+    if (fileSize > 300) {
+      Report.failure("Помилка", "Фото повинно бути менше 300 КБ", "OK");
+      Loading.remove();
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("folder", "Avatar");
+
+    try {
+      const response: any = await imgUpload({ formData, id: userId });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.failure(
+          `Помилка оновлення ${errorResponse.error.status.toString()}`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success(`Успішно оновлено`, "", "OK");
+
+        if (response.data.avatar.data) {
+          const base64String = uint8ArrayToBase64(
+            response.data.avatar.data.data
+          );
+
+          socket.emit("userChangeMetaData", meetId, conferenceId, userId, {
+            avatar: `data:image/png;base64,${base64String}` || null,
+          });
+
+          setMyStream((prev: any) => {
+            return {
+              [userId]: {
+                stream: prev[userId].stream,
+                metadata: {
+                  ...prev[userId].metadata,
+                  avatar: `data:image/png;base64,${base64String}` || null,
+                },
+              },
+            };
+          });
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
+  const handleChangeUser = async (values: any) => {
+    Loading.dots("Оновлення  обл. запису");
+
+    const confirm = window.confirm("Підтвердити оновлення.");
+
+    if (confirm) {
+      try {
+        const response = await updateUser({ id: userId, ...values });
+
+        if ("error" in response) {
+          const errorResponse = response as IErrorResponse;
+
+          Report.failure(
+            `Помилка оновлення ${errorResponse.error.status.toString()}`,
+            errorResponse.error.data.message,
+            "OK"
+          );
+        } else {
+          Report.success(`Успішно оновлено`, "", "OK");
+
+          const newMetaData = {
+            userId: userId,
+            username: values.username,
+            surname: values.surname,
+            avatar: myInfo.avatar || null,
+            isCameraOn,
+            isMicrophoneOn,
+          };
+
+          socket.emit(
+            "userChangeMetaData",
+            meetId,
+            conferenceId,
+            userId,
+            newMetaData
+          );
+
+          setMyStream((prev: any) => {
+            return {
+              [userId]: {
+                stream: prev[userId].stream,
+                metadata: newMetaData,
+              },
+            };
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      } finally {
+        Loading.remove();
+      }
+    } else {
+      Loading.remove();
+      Report.info("Оновлення скасовано", "", "OK");
+    }
+  };
+
+  const handleChangeComplete = (color: any) => {
+    const background = document.querySelector("#root .video-meet");
+
+    if (background && color.hex) {
+      setBackground(color.hex);
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      background.style.background = color.hex;
+    } else {
+      const file = color.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        if (e.target && e.target.result) {
+          const imageUrl = e.target.result.toString();
+
+          if (background) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            background.style.backgroundImage = `url(${imageUrl})`;
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            background.style.backgroundSize = "cover";
+          }
+        }
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
   };
 
@@ -146,22 +335,24 @@ const VideoMeet = ({
               </li>
             )}
 
-            <li className="item closed">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M19.9948 19.0476C11.9254 19.0488 15.677 24.6312 10.5403 24.633C5.58709 24.6337 3.66734 25.5612 3.66821 19.2855C3.7454 18.5765 2.44228 12.2782 19.9946 12.2758C37.5492 12.2733 36.2508 18.572 36.3278 19.281C36.328 25.5729 34.4085 24.6286 29.4553 24.6293C24.3175 24.63 28.0641 19.0465 19.9948 19.0476Z"
-                  fill="white"
-                />
-              </svg>
-            </li>
+            <a href="/">
+              <li className="item closed">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M19.9948 19.0476C11.9254 19.0488 15.677 24.6312 10.5403 24.633C5.58709 24.6337 3.66734 25.5612 3.66821 19.2855C3.7454 18.5765 2.44228 12.2782 19.9946 12.2758C37.5492 12.2733 36.2508 18.572 36.3278 19.281C36.328 25.5729 34.4085 24.6286 29.4553 24.6293C24.3175 24.63 28.0641 19.0465 19.9948 19.0476Z"
+                    fill="white"
+                  />
+                </svg>
+              </li>
+            </a>
 
             <li
               className={control.screen ? "item screen active" : "item screen"}
@@ -250,13 +441,95 @@ const VideoMeet = ({
           </ul>
         </div>
       </Container>
+
+      <Dialog
+        header="Налаштування"
+        visible={visible}
+        style={{ width: "50vw" }}
+        breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+        onHide={() => {
+          setVisible(false);
+          setControl((prev) => {
+            return { ...prev, setting: false };
+          });
+        }}
+      >
+        <Row>
+          <Col style={{ marginTop: "10px" }}>
+            <p>Змінити тему</p>
+            <SwatchesPicker
+              color={background}
+              onChangeComplete={(color) => handleChangeComplete(color)}
+            />
+
+            <br />
+
+            <Form.Control
+              type="file"
+              name="image"
+              onChange={(color) => handleChangeComplete(color)}
+            />
+          </Col>
+          <Col style={{ marginTop: "10px" }}>
+            <Formik
+              initialValues={{
+                username: myInfo.username,
+                surname: myInfo.surname,
+                email: myInfo.email,
+                phoneNumber: myInfo.phoneNumber || "",
+                region: myInfo.region || "",
+                city: myInfo.city || "",
+                password: "",
+              }}
+              onSubmit={handleChangeUser}
+            >
+              {({ handleSubmit }) => (
+                <form onSubmit={handleSubmit}>
+                  <p>Твій профіль</p>
+
+                  <label style={{ width: "100%" }}>
+                    Ім'я
+                    <Field
+                      type="text"
+                      name="username"
+                      className="form-control"
+                      required
+                    />
+                  </label>
+
+                  <label style={{ width: "100%", marginTop: "20px" }}>
+                    Прізвище
+                    <Field
+                      type="text"
+                      name="surname"
+                      className="form-control"
+                      required
+                    />
+                  </label>
+
+                  <label style={{ width: "100%", marginTop: "20px" }}>
+                    Зображення
+                    <Form.Control
+                      type="file"
+                      name="image"
+                      onChange={(e) => changeImage(e)}
+                    />
+                  </label>
+                  <button
+                    className="btn btn-outline-primary"
+                    type="submit"
+                    style={{ width: "100%", marginTop: "37px" }}
+                  >
+                    Змінити
+                  </button>
+                </form>
+              )}
+            </Formik>
+          </Col>
+        </Row>
+      </Dialog>
     </div>
   );
 };
 
 export default VideoMeet;
-
-// {remoteStream &&
-//   Object.entries(remoteStream).map(([userId, stream]) => (
-//     <VideoPlayer stream={stream as MediaStream} key={userId} />
-//   ))}
