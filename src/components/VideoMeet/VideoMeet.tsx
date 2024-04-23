@@ -28,6 +28,8 @@ const VideoMeet = ({
   meetId,
   conferenceId,
   myInfo,
+  chatParticipants,
+  setChatParticipants,
 }: any) => {
   const { pathname } = useLocation();
   const [visible, setVisible] = useState(false);
@@ -36,7 +38,6 @@ const VideoMeet = ({
     sound: true,
     screen: false,
     setting: false,
-    chatParticipants: false,
   });
 
   //fn Api
@@ -66,12 +67,11 @@ const VideoMeet = ({
   };
 
   const toggleChatParticipants = () => {
-    toggleControl("chatParticipants");
-
     const chatParticipants = document.querySelector(".chat-participants");
 
     if (chatParticipants) {
       chatParticipants.classList.toggle("active");
+      setChatParticipants((prev: any) => !prev);
     }
   };
 
@@ -409,7 +409,7 @@ const VideoMeet = ({
             {pathname.split("/")[1] !== "calls" && (
               <li
                 className={
-                  control.chatParticipants
+                  chatParticipants
                     ? "item toggle-menu active"
                     : "item toggle-menu"
                 }
@@ -533,3 +533,5 @@ const VideoMeet = ({
 };
 
 export default VideoMeet;
+
+//add sharing screen

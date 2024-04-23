@@ -108,9 +108,13 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      gap: 23px;
+      gap: 17px;
       margin: 0;
       flex-wrap: wrap;
+
+      @media (min-width: $--sm) {
+        gap: 23px;
+      }
     }
 
     .item {

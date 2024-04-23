@@ -99,7 +99,7 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
           }
 
           return message.senderId !== userId ? (
-            <div className="user-message" key={index}>
+            <div className="user-message" key={message.senderId + index}>
               <img
                 className="user-avatar"
                 src={
@@ -119,7 +119,7 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
               </div>
             </div>
           ) : (
-            <div className="your-message" key={index}>
+            <div className="your-message" key={message.senderId + index}>
               <div className="content you">
                 <div className="about-user">
                   <span>{message.username + " " + message.surname}</span>

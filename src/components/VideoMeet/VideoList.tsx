@@ -100,3 +100,4 @@ const VideoList = ({ streams }: any) => {
 };
 
 export default VideoList;
+// fix grid layout

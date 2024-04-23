@@ -27,6 +27,7 @@ const Meet = () => {
 
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
+  const [chatParticipants, setChatParticipants] = useState(false);
 
   const toggleCamera = () => {
     if (!myStream || !socket) return;
@@ -294,11 +295,27 @@ const Meet = () => {
           meetId={meetId}
           conferenceId={conferenceId.id}
           myInfo={myInfo}
+          chatParticipants={chatParticipants}
+          setChatParticipants={setChatParticipants}
         />
       )}
 
       {/*Bar with All users and Chat */}
-      <ChatAndParticipants />
+      <ChatAndParticipants
+        userId={userId}
+        meetId={meetId}
+        conferenceId={conferenceId.id}
+        myInfo={myInfo}
+        socket={socket}
+        setChatParticipants={setChatParticipants}
+        userList={
+          myStream && remoteStream
+            ? [...Object.values(myStream), ...Object.values(remoteStream)]
+            : myStream
+            ? [...Object.values(myStream)]
+            : []
+        }
+      />
     </main>
   );
 };
