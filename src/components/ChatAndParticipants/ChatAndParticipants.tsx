@@ -190,7 +190,10 @@ const ChatAndParticipants = ({
           </div>
 
           {userList.map((user: any) => (
-            <div className="user" key={user.metadata.userId}>
+            <div
+              className="user"
+              key={user.metadata.userId + "-" + user.metadata.username}
+            >
               <div className="about-user">
                 <img
                   className="user-img"
