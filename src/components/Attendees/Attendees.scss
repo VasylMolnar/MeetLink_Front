@@ -1,0 +1,44 @@
+@import "../../styles/variables";
+
+.attendees {
+  width: 100%;
+  padding: 20px;
+  background-color: $--body-bg;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  margin-top: 30px;
+
+  .fieldset {
+    margin-top: 10px;
+  }
+
+  .p-fieldset-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .p-fieldset-legend {
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 24px;
+    border: none;
+    background: none;
+
+    .p-fieldset-legend-text {
+      width: 100%;
+
+      .btn-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    span {
+      color: $--color-black;
+    }
+  }
+}
