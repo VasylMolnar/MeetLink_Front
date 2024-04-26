@@ -41,7 +41,7 @@ const Attendees = ({ attendees }: any) => {
 
   return (
     <div className="attendees">
-      {attendees.map((attendees: any) => (
+      {[...attendees].reverse().map((attendees: any) => (
         <Fieldset
           legend={attendees.date}
           toggleable

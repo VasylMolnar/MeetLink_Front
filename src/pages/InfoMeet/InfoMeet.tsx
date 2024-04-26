@@ -363,7 +363,9 @@ const InfoMeet = () => {
             <div className="infoMeet-userList">
               <h3 className="title">Список активності</h3>
 
-              <Attendees attendees={meetInfo.attendees} />
+              {meetInfo.attendees && (
+                <Attendees attendees={meetInfo.attendees} />
+              )}
             </div>
           </div>
         )}
