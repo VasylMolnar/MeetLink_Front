@@ -71,6 +71,8 @@ export interface IMeetInfo {
         avatar?: string;
       }
     | [];
+
+  attendees: any;
 }
 
 export interface IMyInfo extends IUser {
