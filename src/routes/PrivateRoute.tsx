@@ -14,6 +14,7 @@ import CreateMeet from "../pages/CreateMeet/CreateMeet";
 import InfoMeet from "../pages/InfoMeet/InfoMeet";
 import AccessMessage from "../pages/AccessMessage/AccessMessage";
 import InfoUser from "../pages/InfoUser/InfoUser";
+import MyFriends from "../pages/MyFriends/MyFriends";
 
 const PrivateRoute = () => {
   const navigate = useNavigate();
@@ -59,6 +60,9 @@ const PrivateRoute = () => {
 
           {/* myAccount */}
           <Route path="myAccount" element={<PersonalInformation />} />
+
+          {/* myFriends */}
+          <Route path="myFriends" element={<MyFriends />} />
 
           {/* chats */}
           <Route path="chats">
