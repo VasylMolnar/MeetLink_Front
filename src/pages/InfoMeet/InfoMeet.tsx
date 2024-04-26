@@ -18,8 +18,9 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
 import UserList from "../../components/UserList/UserList";
+import Attendees from "../../components/Attendees/Attendees";
 
-const PersonalInformation = () => {
+const InfoMeet = () => {
   const navigate = useNavigate();
   const userId = useSelector(selectCurrentUserId);
   const { id } = useParams();
@@ -217,6 +218,8 @@ const PersonalInformation = () => {
 
               <div className="infoMeetEdit">
                 <Formik
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  //@ts-ignore
                   initialValues={{
                     meetName: meetInfo.meetName,
                     description: meetInfo.description,
@@ -356,6 +359,12 @@ const PersonalInformation = () => {
                 handlerDeleteUser={handlerLeaveMeet}
               />
             </div>
+
+            <div className="infoMeet-userList">
+              <h3 className="title">Список активності</h3>
+
+              <Attendees attendees={meetInfo.attendees} />
+            </div>
           </div>
         )}
       </Container>
@@ -363,4 +372,4 @@ const PersonalInformation = () => {
   );
 };
 
-export default PersonalInformation;
+export default InfoMeet;
