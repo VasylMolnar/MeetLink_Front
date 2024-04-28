@@ -5,7 +5,7 @@ export const meetAccessApiSlice = apiSlice.injectEndpoints({
     //send req to Admin
     reqAccess: builder.mutation({
       query: ({ meetId, userId }: any) => ({
-        url: "/meet-access/access-req",
+        url: "/access/access-req",
         method: "POST",
         body: { meetId, userId },
       }),
@@ -14,7 +14,7 @@ export const meetAccessApiSlice = apiSlice.injectEndpoints({
     //send res from Admin
     resAccess: builder.mutation({
       query: ({ meetId, userId, messageId, access }: any) => ({
-        url: "/meet-access/access-res",
+        url: "/access/access-res",
         method: "POST",
         body: { meetId, userId, messageId, access },
       }),
@@ -28,7 +28,7 @@ export const meetAccessApiSlice = apiSlice.injectEndpoints({
     //delete  message
     deleteAccessMessage: builder.mutation({
       query: ({ userId, messageId }: any) => ({
-        url: "/meet-access/access-delete",
+        url: "/access/access-delete",
         method: "DELETE",
         body: { userId, messageId },
       }),
