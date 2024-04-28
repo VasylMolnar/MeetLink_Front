@@ -14,6 +14,7 @@ export interface IUser {
     contentType: string;
   };
   meetList?: [];
+  friendsList?: [];
 }
 
 export interface IUserLogin {
