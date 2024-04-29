@@ -1,19 +1,33 @@
 import "./InfoUser.scss";
 import Avatar from "@mui/material/Avatar";
-import { useGetMyInfoQuery } from "../../features/user/userApiSlice";
-import { IUser } from "../../types/authTypes";
-import { Container } from "react-bootstrap";
+import { useGetUserInfoQuery } from "../../features/user/userApiSlice";
+import { IErrorResponse, IUser } from "../../types/authTypes";
+import { Button, Container } from "react-bootstrap";
 import defaultIMG from "../../assets/defaultIMG.png";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import locations from "./data/locations.json";
+import {
+  useDeleteFollowMutation,
+  useReqAccessFollowMutation,
+} from "../../features/followAccess/followAccessApiSlice";
+import { selectCurrentUserId } from "../../features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 const InfoUser = () => {
+  //current user info
   const { id } = useParams();
-  const { data, isSuccess, isLoading, error } = useGetMyInfoQuery(id);
-  const myInfo = data as IUser;
+  const { data, isSuccess, isLoading, error } = useGetUserInfoQuery(id);
+  const userInfo = data as IUser;
+
+  // my Info
+  const myId = useSelector(selectCurrentUserId);
+
+  //fn Api
+  const [sendReqAccessFollow] = useReqAccessFollowMutation();
+  const [deleteFollow] = useDeleteFollowMutation();
 
   useEffect(() => {
     if (!isSuccess && isLoading) {
@@ -27,18 +41,76 @@ const InfoUser = () => {
     }
   }, [error, isLoading, isSuccess]);
 
+  const handleFollowUser = async (followUserId: any) => {
+    Loading.hourglass("Надсилаємо запит");
+
+    try {
+      const response = await sendReqAccessFollow({
+        followUserId,
+        userId: myId,
+      });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.warning(
+          `Помилка надсилання запиту`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success(
+          `Запит успішно надіслано `,
+          "Користувач з'явиться після того як він підтвердить запит!",
+          "OK"
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
+  const handleDeleteFollow = async (followUserId: any) => {
+    Loading.hourglass("Працюємо над цим");
+
+    try {
+      const response = await deleteFollow({
+        followUserId,
+        userId: myId,
+      });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+
+        Report.warning(
+          `Помилка видалення`,
+          errorResponse.error.data.message,
+          "OK"
+        );
+      } else {
+        Report.success(`Успішно видалено `, "", "OK");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
   return (
     <main className="section userPage">
       <Container>
-        {isSuccess && (
+        {isSuccess && userInfo && (
           <div className="container">
             <div className="user_content">
               <div className="user">
                 <Avatar
                   className="img"
                   src={
-                    typeof myInfo.avatar === "string"
-                      ? myInfo.avatar
+                    typeof userInfo.avatar === "string"
+                      ? userInfo.avatar
                       : defaultIMG
                   }
                   sx={{ width: 200, height: 200 }}
@@ -50,7 +122,7 @@ const InfoUser = () => {
                     marginBottom: "30px",
                   }}
                 >
-                  {myInfo.username + " " + myInfo.surname}
+                  {userInfo.username + " " + userInfo.surname}
                 </p>
               </div>
               <div className="userEdit">
@@ -62,6 +134,30 @@ const InfoUser = () => {
                     }}
                   >
                     <h3 className="title">Профіль</h3>
+
+                    {myId !== id && (
+                      <div>
+                        {userInfo.friendsList?.some((friend) => {
+                          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                          //@ts-ignore
+                          return friend.userId === myId;
+                        }) ? (
+                          <Button
+                            variant="outline-danger"
+                            onClick={() => handleDeleteFollow(userInfo._id)}
+                          >
+                            Не стежити
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="outline-success"
+                            onClick={() => handleFollowUser(userInfo._id)}
+                          >
+                            Стежити
+                          </Button>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="form-label">
@@ -70,7 +166,7 @@ const InfoUser = () => {
                       className="form-control"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      {myInfo.username}
+                      {userInfo.username}
                     </p>
                   </div>
 
@@ -80,7 +176,7 @@ const InfoUser = () => {
                       className="form-control"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      {myInfo.surname}
+                      {userInfo.surname}
                     </p>
                   </div>
 
@@ -90,7 +186,7 @@ const InfoUser = () => {
                       className="form-control"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      {myInfo.email}
+                      {userInfo.email}
                     </p>
                   </div>
 
@@ -100,7 +196,7 @@ const InfoUser = () => {
                       className="form-control"
                       style={{ display: "flex", alignItems: "center" }}
                     >
-                      {myInfo.phoneNumber}
+                      {userInfo.phoneNumber}
                     </p>
                   </div>
 
@@ -112,7 +208,7 @@ const InfoUser = () => {
                     >
                       {
                         locations.regions.find(
-                          (item) => item.value === myInfo.region
+                          (item) => item.value === userInfo.region
                         )?.label
                       }
                     </p>
@@ -126,7 +222,7 @@ const InfoUser = () => {
                     >
                       {
                         locations.cities.find(
-                          (item) => item.value === myInfo.city
+                          (item) => item.value === userInfo.city
                         )?.label
                       }
                     </p>
