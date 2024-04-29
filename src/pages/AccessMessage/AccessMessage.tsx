@@ -15,6 +15,7 @@ import {
 } from "../../features/meetAccess/meetAccessApiSlice";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
+import { useResAccessFollowMutation } from "../../features/followAccess/followAccessApiSlice";
 
 const AccessMessage = () => {
   const id = useSelector(selectCurrentUserId);
@@ -24,7 +25,9 @@ const AccessMessage = () => {
   //fn Api
   const [resAccess] = useResAccessMutation();
   const [deleteAccessMessage] = useDeleteAccessMessageMutation();
+  const [resAccessFollow] = useResAccessFollowMutation();
 
+  // meet
   const handlerResAccess = async (
     meetId: string,
     userId: string,
@@ -78,6 +81,42 @@ const AccessMessage = () => {
     }
   };
 
+  //follow
+  const handlerResAccessFollow = async (
+    userId: string,
+    messageId: string,
+    access: boolean
+  ) => {
+    Loading.hourglass("Працюємо над цим");
+
+    try {
+      const response = await resAccessFollow({
+        userId: id,
+        followUserId: userId,
+        messageId,
+        access,
+      });
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+        Report.warning(`Помилка`, errorResponse.error.data.message, "OK");
+      } else {
+        Report.success(
+          `${
+            access
+              ? "Запит на стеження підтверджено"
+              : "Користувачеві відмовлено"
+          }`,
+          "",
+          "OK"
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
   return (
     <main className="meet-link-access-message">
       <Container>
@@ -108,7 +147,11 @@ const AccessMessage = () => {
                     </svg>
                   }
                   body={(rowData) =>
-                    rowData.type === "Request"
+                    !rowData.meetId
+                      ? rowData.type === "Request"
+                        ? "Запит стеження"
+                        : "Доступ надано"
+                      : rowData.type === "Request"
                       ? "Запит доступу"
                       : "Доступ надано"
                   }
@@ -118,9 +161,13 @@ const AccessMessage = () => {
                 <Column
                   field="meetId"
                   header="Зустріч"
-                  body={(rowData) => (
-                    <Link to={`/${rowData.meetId}`}>Посилання</Link>
-                  )}
+                  body={(rowData) =>
+                    !rowData.meetId ? (
+                      ""
+                    ) : (
+                      <Link to={`/${rowData.meetId}`}>Посилання</Link>
+                    )
+                  }
                   style={{ border: "1px solid #f3e8ff" }}
                 />
                 <Column
@@ -149,7 +196,47 @@ const AccessMessage = () => {
 
                 <Column
                   body={(rowData) =>
-                    rowData.type === "Request" ? (
+                    !rowData.meetId ? (
+                      rowData.type === "Request" ? (
+                        <div className="btn-control">
+                          <button
+                            className="btn btn-success"
+                            onClick={() =>
+                              handlerResAccessFollow(
+                                rowData.userId,
+                                rowData._id,
+                                true
+                              )
+                            }
+                          >
+                            Дозволити
+                          </button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              handlerResAccessFollow(
+                                rowData.userId,
+                                rowData._id,
+                                false
+                              )
+                            }
+                          >
+                            Відхилити
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="btn-control">
+                          <button
+                            className="btn btn-danger"
+                            onClick={() =>
+                              handlerDeleteAccessMessage(rowData._id)
+                            }
+                          >
+                            Зрозуміло
+                          </button>
+                        </div>
+                      )
+                    ) : rowData.type === "Request" ? (
                       <div className="btn-control">
                         <button
                           className="btn btn-success"
