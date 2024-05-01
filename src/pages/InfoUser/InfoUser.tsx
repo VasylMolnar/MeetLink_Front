@@ -137,25 +137,25 @@ const InfoUser = () => {
 
                     {myId !== id && (
                       <div>
-                        {userInfo.friendsList?.some((friend) => {
+                        {
                           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                           //@ts-ignore
-                          return friend.userId === myId;
-                        }) ? (
-                          <Button
-                            variant="outline-danger"
-                            onClick={() => handleDeleteFollow(userInfo._id)}
-                          >
-                            Не стежити
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="outline-success"
-                            onClick={() => handleFollowUser(userInfo._id)}
-                          >
-                            Стежити
-                          </Button>
-                        )}
+                          userInfo.friendsList?.includes(myId) ? (
+                            <Button
+                              variant="outline-danger"
+                              onClick={() => handleDeleteFollow(userInfo._id)}
+                            >
+                              Не стежити
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="outline-success"
+                              onClick={() => handleFollowUser(userInfo._id)}
+                            >
+                              Стежити
+                            </Button>
+                          )
+                        }
                       </div>
                     )}
                   </div>
