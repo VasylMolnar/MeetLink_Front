@@ -4,6 +4,26 @@ import { uint8ArrayToBase64 } from "../../utils/uint8ArrayToBase64";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder: any) => ({
+    getUserInfo: builder.query({
+      query: (id: string) => `/user/info/${id}`,
+
+      transformResponse: (response: IUser) => {
+        if (response?.avatar?.data) {
+          const base64String = uint8ArrayToBase64(response.avatar.data.data);
+
+          // Return data URL
+          return {
+            ...response,
+            avatar: `data:image/png;base64,${base64String}`,
+          };
+        }
+      },
+
+      providesTags: (_result: any, _error: any, arg: any) => {
+        return [{ type: "User", id: arg }];
+      },
+    }),
+
     getMyInfo: builder.query({
       query: (id: string) => `/user/${id}`,
 
@@ -87,6 +107,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 });
 
 export const {
+  useGetUserInfoQuery,
   useGetMyInfoQuery,
   useUpdateUserInfoMutation,
   useDeleteUserMutation,
