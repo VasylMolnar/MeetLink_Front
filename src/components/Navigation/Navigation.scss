@@ -170,9 +170,9 @@
       text-decoration: none;
 
       &:hover {
-        color: $--color-white;
+        // color: $--color-white;
         // background-color: $--purple;
-        background-color: $--registration-wrapper;
+        background-color: #e8e8e8;
 
         border-radius: 100vw 0 0 100vw;
         transition: all 350ms linear;

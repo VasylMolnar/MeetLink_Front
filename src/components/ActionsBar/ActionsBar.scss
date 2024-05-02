@@ -29,7 +29,8 @@
     height: 50px;
     border-radius: 13px;
     border: 1px solid $--color-white;
-    background-color: $--registration-wrapper;
+    // background-color: $--registration-wrapper;
+    background-color: #e5e5e5;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     transition: all 250ms linear;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -37,7 +38,7 @@
 
     &:hover {
       color: $--color-white;
-      background-color: $--purple;
+      background-color: #cdcdcd;
       transition: all 250ms linear;
     }
   }
