@@ -16,6 +16,7 @@ export interface IUser {
   };
   meetList?: [];
   friendsList?: [];
+  individualMessages?: [];
 }
 
 export interface IUserLogin {
