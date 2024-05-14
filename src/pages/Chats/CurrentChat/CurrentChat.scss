@@ -1,6 +1,6 @@
-@import "../../../styles/main.scss";
+@import "../../../styles/variables";
 
-.meet-link-current-chat {
+.current-chat {
   height: 100vh;
 
   .container {
@@ -13,6 +13,198 @@
   @media (min-width: $--sm) {
     .container {
       padding: 10px 50px 10px 0px;
+      height: 100%;
+    }
+  }
+
+  .meet-link-chat {
+    width: 100%;
+    height: 85vh;
+    margin-top: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    .message-form {
+      width: 100%;
+    }
+
+    .chats {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-behavior: auto;
+    }
+
+    .chats::-webkit-scrollbar {
+      width: 0.5em;
+    }
+
+    .chats::-webkit-scrollbar-thumb {
+      background-color: $--body-bg;
+      outline: none;
+    }
+
+    .user-message {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      height: 100%;
+    }
+
+    .your-message {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 100%;
+      height: 100%;
+    }
+
+    .user-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 1px solid $--color-white;
+
+      padding: 2px;
+      background-color: $--color-light-gray;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+    .content {
+      max-width: 60%;
+      width: auto;
+      height: auto;
+      padding: 14px;
+      border-radius: 12px 12px 12px 0px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      background-color: $--color-light-gray;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+      .about-user {
+        font-weight: bold;
+
+        span {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .content.you {
+      border-radius: 12px 12px 0px 12px;
+      align-items: flex-end;
+      background-color: $--call-bar;
+      box-shadow: rgba(255, 255, 255, 0.532) 0px 2px 8px 0px;
+    }
+
+    .custom_input {
+      display: flex;
+      align-items: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .input {
+      font-size: 14px;
+      font-weight: bold;
+      padding: 10px 10px;
+      width: 100%;
+      padding-left: 35px;
+      outline: none;
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #c4d1eb;
+      border-radius: 15px;
+      box-shadow: 3px 3px 2px 0px #e2e2e2;
+      transition: 0.3s ease;
+    }
+
+    .input:focus {
+      background: #ffffff;
+      border: 1px solid #5a7ec7;
+      border-radius: 17px;
+    }
+
+    .input::placeholder {
+      color: #dddddd;
+    }
+
+    .svg_icon {
+      position: absolute;
+      left: 13px;
+      fill: #060e20;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .meet-link-info-user {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #b6b6f9;
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 3px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+
+      span {
+        color: #17171fd1;
+        font-size: 17px;
+        font-style: bold;
+        font-weight: 400;
+        line-height: normal;
+      }
+
+      .last-message {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #17171f9f;
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @media (max-width: $--sm) {
+      flex-direction: column;
     }
   }
 }
