@@ -1,11 +1,14 @@
 import "./InfoUser.scss";
 import Avatar from "@mui/material/Avatar";
-import { useGetUserInfoQuery } from "../../features/user/userApiSlice";
-import { IErrorResponse, IUser } from "../../types/authTypes";
+import {
+  useGetMyInfoQuery,
+  useGetUserInfoQuery,
+} from "../../features/user/userApiSlice";
+import { IErrorResponse, IMyInfo, IUser } from "../../types/authTypes";
 import { Button, Container } from "react-bootstrap";
 import defaultIMG from "../../assets/defaultIMG.png";
-import { Link, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import locations from "./data/locations.json";
@@ -15,8 +18,11 @@ import {
 } from "../../features/followAccess/followAccessApiSlice";
 import { selectCurrentUserId } from "../../features/auth/authSlice";
 import { useSelector } from "react-redux";
+import { useCreateMessageMutation } from "../../features/chat/chatApiSlice";
 
 const InfoUser = () => {
+  const navigate = useNavigate();
+  const [messageId, setMessageId] = useState(null);
   //current user info
   const { id } = useParams();
   const { data, isSuccess, isLoading, error } = useGetUserInfoQuery(id);
@@ -24,10 +30,13 @@ const InfoUser = () => {
 
   // my Info
   const myId = useSelector(selectCurrentUserId);
+  const { data: myData } = useGetMyInfoQuery(myId);
+  const myInfo = myData as IMyInfo;
 
   //fn Api
   const [sendReqAccessFollow] = useReqAccessFollowMutation();
   const [deleteFollow] = useDeleteFollowMutation();
+  const [createMessage] = useCreateMessageMutation();
 
   useEffect(() => {
     if (!isSuccess && isLoading) {
@@ -40,6 +49,24 @@ const InfoUser = () => {
       Report.failure(`${error}`, "", "OK");
     }
   }, [error, isLoading, isSuccess]);
+
+  useEffect(() => {
+    if (
+      myInfo &&
+      myInfo.individualMessages?.length !== 0 &&
+      myInfo.individualMessages !== undefined
+    ) {
+      for (const message of myInfo.individualMessages) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        if (message.messageInfo.userList.includes(id)) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          setMessageId(message.messageInfo._id);
+        }
+      }
+    }
+  }, [id, myInfo]);
 
   const handleFollowUser = async (followUserId: any) => {
     Loading.hourglass("Надсилаємо запит");
@@ -66,7 +93,7 @@ const InfoUser = () => {
         );
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -93,7 +120,31 @@ const InfoUser = () => {
         Report.success(`Успішно видалено `, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
+  const handlerCreateMessage = async (userId: any) => {
+    Loading.dots();
+
+    try {
+      const response = await createMessage({
+        myId,
+        userId: userId,
+      });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+        Report.warning(`Error`, errorResponse.error.data.message, "OK");
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        navigate(`/chats/${response.data.id}`);
+      }
+    } catch (err) {
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -155,14 +206,39 @@ const InfoUser = () => {
                         </Button>
                       </Link>
 
-                      <Link to={`/chats/${userInfo._id}`}>
+                      {messageId !== null ? (
+                        <Link to={`/chats/${messageId}`}>
+                          <Button
+                            variant="outline-primary"
+                            style={{
+                              marginRight: "10px",
+                              maxWidth: "70px",
+                              width: "70px",
+                            }}
+                          >
+                            <svg
+                              stroke="currentColor"
+                              fill="currentColor"
+                              strokeWidth="0"
+                              viewBox="0 0 24 24"
+                              height="1em"
+                              width="1em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"></path>
+                              <path d="M7 9h10v2H7zm0 4h7v2H7z"></path>
+                            </svg>
+                          </Button>
+                        </Link>
+                      ) : (
                         <Button
-                          variant="outline-success"
+                          variant="outline-primary"
                           style={{
                             marginRight: "10px",
                             maxWidth: "70px",
                             width: "70px",
                           }}
+                          onClick={() => handlerCreateMessage(id)}
                         >
                           <svg
                             stroke="currentColor"
@@ -177,7 +253,7 @@ const InfoUser = () => {
                             <path d="M7 9h10v2H7zm0 4h7v2H7z"></path>
                           </svg>
                         </Button>
-                      </Link>
+                      )}
                     </div>
                   )}
               </div>
