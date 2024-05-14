@@ -52,7 +52,7 @@ const Navigation = ({ isMenuOpen, setIsMenuOpen }: any) => {
       dispatch(logOut());
       location.reload();
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }

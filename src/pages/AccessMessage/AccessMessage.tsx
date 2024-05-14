@@ -53,7 +53,7 @@ const AccessMessage = () => {
         );
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -75,7 +75,7 @@ const AccessMessage = () => {
         Report.success(`Успішно видалено`, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -111,7 +111,7 @@ const AccessMessage = () => {
         );
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }

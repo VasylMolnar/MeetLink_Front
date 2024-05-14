@@ -78,7 +78,7 @@ const InfoMeet = () => {
         Report.success(`Успішно оновлено`, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -105,7 +105,7 @@ const InfoMeet = () => {
           Report.success(`Успішне оновлення`, "", "OK");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }
@@ -139,7 +139,7 @@ const InfoMeet = () => {
           navigate("/");
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       } finally {
         Loading.remove();
       }
@@ -171,7 +171,7 @@ const InfoMeet = () => {
           navigate("/");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }

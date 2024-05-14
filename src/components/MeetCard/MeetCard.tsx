@@ -45,7 +45,7 @@ const MeetCard = ({ meet, isMenuOpen }: MeetCardProps) => {
           Report.success(`Зустріч успішно покинуто`, "", "OK");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }
@@ -79,7 +79,7 @@ const MeetCard = ({ meet, isMenuOpen }: MeetCardProps) => {
           Report.success(`Успішно видалено`, "", "OK");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }

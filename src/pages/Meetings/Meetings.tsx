@@ -22,7 +22,7 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
   const [visible, setVisible] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const id = useSelector(selectCurrentUserId);
-  const { data, isSuccess, isLoading } = useGetMyInfoQuery(id);
+  const { data, isSuccess, isLoading, refetch } = useGetMyInfoQuery(id);
 
   const myInfo = data as IMyInfo;
 
@@ -54,7 +54,7 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
         );
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     } finally {
       Loading.remove();
     }
@@ -67,6 +67,10 @@ const Meetings = ({ isMenuOpen }: MeetingsProps) => {
       Loading.remove();
     }
   }, [isLoading, isSuccess]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   const sortData = useSort(searchValue, isSuccess ? myInfo.meetList : []);
 

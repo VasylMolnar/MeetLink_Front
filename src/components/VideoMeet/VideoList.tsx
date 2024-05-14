@@ -36,7 +36,7 @@ const VideoList = ({ streams }: any) => {
   return (
     <div className="video-list">
       {streams.map((stream: any) => {
-        console.log("stream", stream);
+        //console.log("stream", stream);
 
         return (
           <div className="video-screen" key={stream.stream.id}>

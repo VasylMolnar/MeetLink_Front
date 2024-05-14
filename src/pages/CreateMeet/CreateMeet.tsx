@@ -74,7 +74,7 @@ const CreateMeet = () => {
         navigate("/");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     } finally {
       Loading.remove();
     }

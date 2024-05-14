@@ -62,7 +62,7 @@ const PersonalInformation = () => {
         Report.success(`Успішно оновлено`, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -89,7 +89,7 @@ const PersonalInformation = () => {
           Report.success(`Успішнe оновлення`, "", "OK");
         }
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       } finally {
         Loading.remove();
       }
@@ -121,7 +121,7 @@ const PersonalInformation = () => {
           Report.success(`Успішно видаленно`, "", "OK");
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }

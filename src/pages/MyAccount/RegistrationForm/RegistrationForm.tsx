@@ -55,7 +55,7 @@ const RegistrationForm = () => {
         }, 1000);
       }
     } catch (error) {
-      console.error("Помилка реєстрації:", error);
+      //console.error("Помилка реєстрації:", error);
     } finally {
       Loading.remove();
     }

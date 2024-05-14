@@ -128,7 +128,7 @@ const VideoMeet = ({
         }
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }
@@ -181,7 +181,7 @@ const VideoMeet = ({
           });
         }
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       } finally {
         Loading.remove();
       }
