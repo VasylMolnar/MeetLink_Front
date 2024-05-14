@@ -33,12 +33,31 @@
       width: 100%;
       padding: 15px;
 
-      span {
-        color: #17171f9f;
-        font-size: 17px;
-        font-style: bold;
-        font-weight: 300;
-        line-height: normal;
+      .content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .info {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          flex-direction: column;
+
+          span {
+            color: #17171fd1;
+            font-size: 17px;
+            font-style: bold;
+            font-weight: 400;
+            line-height: normal;
+          }
+
+          .email {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #17171f9f;
+          }
+        }
       }
 
       transition: all 250ms linear;
@@ -62,8 +81,8 @@
   }
 
   .user-avatar {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 20px;

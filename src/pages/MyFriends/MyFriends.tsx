@@ -18,13 +18,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Container } from "react-bootstrap";
 import defaultIMG from "../../assets/defaultIMG.png";
 import { uint8ArrayToBase64 } from "../../utils/uint8ArrayToBase64";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDeleteFollowMutation } from "../../features/followAccess/followAccessApiSlice";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import axios from "axios";
+import { useCreateMessageMutation } from "../../features/chat/chatApiSlice";
+import React from "react";
 
-const MyFriends = () => {
+let MyFriends = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const currentToken = useSelector(selectCurrentToken);
   const [searchValue, setSearchValue] = useState("");
   const [userList, setUserList] = useState([]);
@@ -35,6 +38,7 @@ const MyFriends = () => {
 
   //fn Api
   const [deleteFollow] = useDeleteFollowMutation();
+  const [createMessage] = useCreateMessageMutation();
 
   useEffect(() => {
     if (!isSuccess && isLoading) {
@@ -61,7 +65,7 @@ const MyFriends = () => {
 
       setUserList(response.data);
     } catch (err: any) {
-      console.log(err);
+      //console.log(err);
 
       if (err.response.status === 403) {
         const refreshToken = await axios.get("http://localhost:3500/refresh", {
@@ -94,7 +98,7 @@ const MyFriends = () => {
     }
   };
 
-  const handleDeleteFollow = async (followUserId: any) => {
+  const handlerDeleteFollow = async (followUserId: any) => {
     Loading.hourglass("Працюємо над цим");
 
     try {
@@ -115,7 +119,31 @@ const MyFriends = () => {
         Report.success(`Успішно видалено `, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
+  const handlerCreateMessage = async (userId: any) => {
+    Loading.dots();
+
+    try {
+      const response = await createMessage({
+        myId: id,
+        userId: userId,
+      });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+        Report.warning(`Error`, errorResponse.error.data.message, "OK");
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        navigate(`/chats/${response.data.id}`);
+      }
+    } catch (err) {
+      // console.log(err);
     } finally {
       Loading.remove();
     }
@@ -158,15 +186,15 @@ const MyFriends = () => {
                         }
                         alt="user-avatar"
                       />
-
-                      <span>{user.username + " " + user.surname}</span>
+                      <div className="info">
+                        <span>{user.username + " " + user.surname}</span>
+                        <span className="email">{user.email}</span>
+                      </div>{" "}
                     </div>
                   </Link>
                 </div>
               );
             })}
-
-            {/* <div className="line"></div> */}
           </div>
         )}
 
@@ -176,9 +204,25 @@ const MyFriends = () => {
 
             {myInfo.friendsList.map((user: IUser) => {
               let avatar = "";
+              let messageId = null;
 
               if (user.avatar) {
                 avatar = uint8ArrayToBase64(user.avatar.data.data);
+              }
+
+              if (
+                myInfo.individualMessages?.length !== 0 &&
+                myInfo.individualMessages !== undefined
+              ) {
+                for (const message of myInfo.individualMessages) {
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  //@ts-ignore
+                  if (message.messageInfo.userList.includes(user._id)) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    //@ts-ignore
+                    messageId = message.messageInfo._id;
+                  }
+                }
               }
 
               return (
@@ -194,8 +238,10 @@ const MyFriends = () => {
                         }
                         alt="user-avatar"
                       />
-
-                      <span>{user.username + " " + user.surname}</span>
+                      <div className="info">
+                        <span>{user.username + " " + user.surname}</span>
+                        <span className="email">{user.email}</span>
+                      </div>
                     </div>
                   </Link>
 
@@ -220,10 +266,31 @@ const MyFriends = () => {
                       </Button>
                     </Link>
 
-                    <Link to={`/chats/${user._id}`}>
+                    {messageId !== null ? (
+                      <Link to={`/chats/${messageId}`}>
+                        <Button
+                          variant="outline-primary"
+                          style={{ marginRight: "10px" }}
+                        >
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            strokeWidth="0"
+                            viewBox="0 0 24 24"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4 4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"></path>
+                            <path d="M7 9h10v2H7zm0 4h7v2H7z"></path>
+                          </svg>
+                        </Button>
+                      </Link>
+                    ) : (
                       <Button
-                        variant="outline-success"
+                        variant="outline-primary"
                         style={{ marginRight: "10px" }}
+                        onClick={() => handlerCreateMessage(user._id)}
                       >
                         <svg
                           stroke="currentColor"
@@ -238,11 +305,11 @@ const MyFriends = () => {
                           <path d="M7 9h10v2H7zm0 4h7v2H7z"></path>
                         </svg>
                       </Button>
-                    </Link>
+                    )}
 
                     <Button
                       variant="outline-danger"
-                      onClick={() => handleDeleteFollow(user._id)}
+                      onClick={() => handlerDeleteFollow(user._id)}
                     >
                       Не стежити
                     </Button>
@@ -261,4 +328,7 @@ const MyFriends = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+MyFriends = React.memo(MyFriends);
 export default MyFriends;
