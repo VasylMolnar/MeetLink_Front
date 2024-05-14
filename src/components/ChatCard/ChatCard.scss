@@ -3,9 +3,10 @@
 .chatCard {
   width: 100%;
   padding: 10px 24px;
-  border-radius: 12px;
-  background-color: $--color-white;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: #f6f6f6;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   margin-top: 10px;
   transition: all 250ms linear;
 
@@ -14,7 +15,9 @@
   justify-content: space-between;
 
   &:hover {
-    transform: scale(1.01);
+    transition: all 250ms linear;
+    border-radius: 10px;
+    background-color: white;
     transition: all 250ms linear;
   }
 
@@ -34,29 +37,28 @@
       padding: 3px;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
       object-fit: cover;
-      margin-right: 14px;
+      margin-right: 20px;
+      margin-left: 20px;
     }
 
     .info {
       display: flex;
+      align-items: flex-start;
+      justify-content: center;
       flex-direction: column;
 
-      .user-name {
-        color: #000;
-
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 22px; /* 129.412% */
-        letter-spacing: -0.4px;
+      span {
+        color: #17171fd1;
+        font-size: 17px;
+        font-style: bold;
+        font-weight: 400;
+        line-height: normal;
       }
 
-      span {
-        color: var(--Neuturals-Grey-3, #808080);
+      .last-message {
+        margin-top: 5px;
         font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 32px;
+        color: #17171f9f;
       }
     }
   }
