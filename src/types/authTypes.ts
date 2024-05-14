@@ -16,7 +16,12 @@ export interface IUser {
   };
   meetList?: [];
   friendsList?: [];
-  individualMessages?: [];
+  // individualMessages?: [{ userList: []; chatRoomId: ""; messages: [] }];
+  individualMessages?: {
+    userList: any[];
+    chatRoomId: string;
+    messages: any[];
+  }[];
 }
 
 export interface IUserLogin {
