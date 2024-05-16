@@ -15,10 +15,28 @@ import InfoMeet from "../pages/InfoMeet/InfoMeet";
 import AccessMessage from "../pages/AccessMessage/AccessMessage";
 import InfoUser from "../pages/InfoUser/InfoUser";
 import MyFriends from "../pages/MyFriends/MyFriends";
+import io, { Socket } from "socket.io-client";
+import { useSelector } from "react-redux";
+import {
+  selectCurrentPublicRoomId,
+  selectCurrentUserId,
+} from "../features/auth/authSlice";
+import { useGetMyInfoQuery } from "../features/user/userApiSlice";
+import toast, { Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const PrivateRoute = () => {
   const navigate = useNavigate();
+  const userId = useSelector(selectCurrentUserId);
+  const publicRoomId = useSelector(selectCurrentPublicRoomId);
+
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [publicSocket, setPublicSocket] = useState<Socket<any, any> | null>(
+    null
+  );
+  const [isRoomJoined, setIsRoomJoined] = useState(false);
+
+  const { refetch } = useGetMyInfoQuery(userId);
 
   useEffect(() => {
     navigate("/");
@@ -28,6 +46,49 @@ const PrivateRoute = () => {
       window.document.body.style.backgroundColor = "";
     };
   }, []);
+
+  useEffect(() => {
+    const newSocket = io("http://localhost:3500");
+    setPublicSocket(newSocket);
+
+    return () => {
+      if (newSocket) {
+        newSocket.disconnect();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!publicSocket || !userId || !publicRoomId) return;
+
+    if (!isRoomJoined) {
+      publicSocket.emit("joinPublicRoom", publicRoomId, userId);
+      setIsRoomJoined(true);
+    }
+
+    publicSocket.on("reloadState", async (data: any) => {
+      await refetch();
+
+      if (data.state === "message") {
+        toast.success(
+          `Нове повідомлення від ${data.username} ${data.surname}.`,
+          { duration: 4000 }
+        );
+
+        Cookies.set("state", "message");
+      }
+    });
+
+    publicSocket.on("error", () => {
+      //console.error("Socket error:", error.message);
+    });
+
+    return () => {
+      publicSocket.off("joinPublicRoom");
+      publicSocket.off("reloadState");
+      publicSocket.off("error");
+    };
+  }, [publicSocket, userId, publicRoomId, isRoomJoined]);
 
   return (
     <div className="privateRoute">
@@ -79,6 +140,8 @@ const PrivateRoute = () => {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      <Toaster />
     </div>
   );
 };
