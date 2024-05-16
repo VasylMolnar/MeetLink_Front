@@ -25,7 +25,7 @@ const Chats = () => {
   const [userList, setUserList] = useState([]);
 
   const id = useSelector(selectCurrentUserId);
-  const { data, isSuccess, isLoading, error, refetch } = useGetMyInfoQuery(id);
+  const { data, isSuccess, isLoading, error } = useGetMyInfoQuery(id);
   const myInfo = data as IUser;
 
   useEffect(() => {
@@ -78,9 +78,9 @@ const Chats = () => {
     }
   };
 
-  useEffect(() => {
-    refetch();
-  }, []);
+  // useEffect(() => {
+  //   refetch();
+  // }, []);
 
   return (
     <main className="meet-link-chats">
