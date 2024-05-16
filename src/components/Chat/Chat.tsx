@@ -41,8 +41,8 @@ const Chat = ({ roomId, meetId }: { roomId: string; meetId: string }) => {
       setMessages(messageHistory);
     });
 
-    socket.on("error", (error: any) => {
-      console.error("Socket error:", error.message);
+    socket.on("error", () => {
+      //console.error("Socket error:", error.message);
     });
 
     return () => {

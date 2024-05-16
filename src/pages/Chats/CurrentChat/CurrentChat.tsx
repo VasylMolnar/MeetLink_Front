@@ -11,7 +11,6 @@ import io, { Socket } from "socket.io-client";
 import defaultIMG from "../../../assets/defaultIMG.png";
 import { Button, Container } from "react-bootstrap";
 import { uint8ArrayToBase64 } from "../../../utils/uint8ArrayToBase64";
-import Cookies from "js-cookie";
 
 const CurrentChat = () => {
   //message info
@@ -72,17 +71,17 @@ const CurrentChat = () => {
     }
 
     socket.on("loadMessage", (messageHistory: any) => {
-      const details = {
-        messageId,
-        newMessage: true,
-      };
+      // const details = {
+      //   messageId,
+      //   newMessage: true,
+      // };
 
-      Cookies.set("messageStatus", JSON.stringify(details));
+      // Cookies.set("messageStatus", JSON.stringify(details));
       setMessages(messageHistory);
     });
 
-    socket.on("error", (error: any) => {
-      console.error("Socket error:", error.message);
+    socket.on("error", () => {
+      //console.error("Socket error:", error.message);
     });
 
     return () => {

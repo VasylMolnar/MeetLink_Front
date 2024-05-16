@@ -41,8 +41,8 @@ const ChatAndParticipants = ({
       });
     });
 
-    socket.on("error", (error: any) => {
-      console.error("Socket error:", error.message);
+    socket.on("error", () => {
+      //console.error("Socket error:", error.message);
     });
 
     return () => {
