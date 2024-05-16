@@ -4,6 +4,7 @@ const initialState = {
   id: null,
   username: null,
   accessToken: null,
+  publicRoomId: null,
 };
 
 const authSlice = createSlice({
@@ -18,6 +19,7 @@ const authSlice = createSlice({
       state.id = null;
       state.username = null;
       state.accessToken = null;
+      state.publicRoomId = null;
     },
   },
 });
@@ -30,3 +32,5 @@ export default authSlice.reducer;
 export const selectCurrentUserId = (state: any) => state.auth.id;
 export const selectCurrentUserName = (state: any) => state.auth.userName;
 export const selectCurrentToken = (state: any) => state.auth.accessToken;
+export const selectCurrentPublicRoomId = (state: any) =>
+  state.auth.publicRoomId;
