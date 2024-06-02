@@ -73,7 +73,7 @@ const Meet = () => {
 
     try {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: false })
+        .getUserMedia({ video: true, audio: true })
         .then((stream) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore

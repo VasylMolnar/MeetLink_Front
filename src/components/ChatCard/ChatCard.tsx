@@ -10,8 +10,9 @@ import { useDeleteUserMessageMutation } from "../../features/chat/chatApiSlice";
 import { Loading } from "notiflix";
 import { Report } from "notiflix/build/notiflix-report-aio";
 import { IErrorResponse } from "../../types/authTypes";
+import React from "react";
 
-const ChatCard = ({ messageInfo }: any) => {
+let ChatCard = ({ messageInfo }: any) => {
   const [userInfo, setUserInfo] = useState<any>(null);
   const myId = useSelector(selectCurrentUserId);
 
@@ -120,5 +121,5 @@ const ChatCard = ({ messageInfo }: any) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-// ChatCard = React.memo(ChatCard);
+ChatCard = React.memo(ChatCard);
 export default ChatCard;

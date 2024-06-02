@@ -43,8 +43,8 @@ const AuthForm = () => {
     Loading.dots("Вхід у обліковий запис");
 
     if (saveLogInData) {
-      Cookies.set("email", values.email, { expires: 7 });
-      Cookies.set("password", values.password, { expires: 7 });
+      Cookies.set("email", values.email, { expires: 1 });
+      Cookies.set("password", values.password, { expires: 1 });
     }
 
     try {
@@ -74,7 +74,7 @@ const AuthForm = () => {
         Report.success(`Вітаємо ${decoded.UserInfo.username}`, "", "OK");
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     } finally {
       Loading.remove();
     }

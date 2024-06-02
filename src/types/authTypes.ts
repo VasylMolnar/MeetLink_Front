@@ -22,6 +22,7 @@ export interface IUser {
     chatRoomId: string;
     messages: any[];
   }[];
+  individualCall?: any;
 }
 
 export interface IUserLogin {

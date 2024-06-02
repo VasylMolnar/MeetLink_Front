@@ -24,6 +24,7 @@ import { Report } from "notiflix/build/notiflix-report-aio";
 import axios from "axios";
 import { useCreateMessageMutation } from "../../features/chat/chatApiSlice";
 import React from "react";
+import { useCreateCallMutation } from "../../features/call/callApiSlice";
 
 let MyFriends = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ let MyFriends = () => {
   //fn Api
   const [deleteFollow] = useDeleteFollowMutation();
   const [createMessage] = useCreateMessageMutation();
+  const [createCall] = useCreateCallMutation();
 
   useEffect(() => {
     if (!isSuccess && isLoading) {
@@ -149,6 +151,30 @@ let MyFriends = () => {
     }
   };
 
+  const handlerCreateCall = async (userId: any) => {
+    Loading.dots();
+
+    try {
+      const response = await createCall({
+        myId: id,
+        userId: userId,
+      });
+
+      if ("error" in response) {
+        const errorResponse = response as IErrorResponse;
+        Report.warning(`Error`, errorResponse.error.data.message, "OK");
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        navigate(`/calls/${response.data.id}`);
+      }
+    } catch (err) {
+      // console.log(err);
+    } finally {
+      Loading.remove();
+    }
+  };
+
   return (
     <main className="meet-link-friends">
       <Container>
@@ -205,11 +231,13 @@ let MyFriends = () => {
             {myInfo.friendsList.map((user: IUser) => {
               let avatar = "";
               let messageId = null;
+              let callId = null;
 
               if (user.avatar) {
                 avatar = uint8ArrayToBase64(user.avatar.data.data);
               }
 
+              //messages
               if (
                 myInfo.individualMessages?.length !== 0 &&
                 myInfo.individualMessages !== undefined
@@ -221,6 +249,26 @@ let MyFriends = () => {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     //@ts-ignore
                     messageId = message.messageInfo._id;
+
+                    break;
+                  }
+                }
+              }
+
+              //calls
+              if (
+                myInfo.individualCall?.length !== 0 &&
+                myInfo.individualCall !== undefined
+              ) {
+                for (const call of myInfo.individualCall) {
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  //@ts-ignore
+                  if (call.userInfo[0]._id === user._id) {
+                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                    //@ts-ignore
+                    callId = call.callRoomId;
+
+                    break;
                   }
                 }
               }
@@ -246,10 +294,31 @@ let MyFriends = () => {
                   </Link>
 
                   <div>
-                    <Link to={`/calls/${user._id}`}>
+                    {callId !== null ? (
+                      <Link to={`/calls/${callId}`}>
+                        <Button
+                          variant="outline-primary"
+                          style={{ marginRight: "10px" }}
+                        >
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            strokeWidth="0"
+                            viewBox="0 0 24 24"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M16.57 22a2 2 0 0 0 1.43-.59l2.71-2.71a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0l-1.6 1.59a7.55 7.55 0 0 1-3-1.59 7.62 7.62 0 0 1-1.59-3l1.59-1.6a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0L2.59 6A2 2 0 0 0 2 7.43 15.28 15.28 0 0 0 6.3 17.7 15.28 15.28 0 0 0 16.57 22zM6 5.41 8.59 8 7.3 9.29a1 1 0 0 0-.3.91 10.12 10.12 0 0 0 2.3 4.5 10.08 10.08 0 0 0 4.5 2.3 1 1 0 0 0 .91-.27L16 15.41 18.59 18l-2 2a13.28 13.28 0 0 1-8.87-3.71A13.28 13.28 0 0 1 4 7.41zM20 11h2a8.81 8.81 0 0 0-9-9v2a6.77 6.77 0 0 1 7 7z"></path>
+                            <path d="M13 8c2.1 0 3 .9 3 3h2c0-3.22-1.78-5-5-5z"></path>
+                          </svg>
+                        </Button>
+                      </Link>
+                    ) : (
                       <Button
                         variant="outline-primary"
                         style={{ marginRight: "10px" }}
+                        onClick={() => handlerCreateCall(user._id)}
                       >
                         <svg
                           stroke="currentColor"
@@ -264,7 +333,7 @@ let MyFriends = () => {
                           <path d="M13 8c2.1 0 3 .9 3 3h2c0-3.22-1.78-5-5-5z"></path>
                         </svg>
                       </Button>
-                    </Link>
+                    )}
 
                     {messageId !== null ? (
                       <Link to={`/chats/${messageId}`}>
